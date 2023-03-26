@@ -1,1 +1,5 @@
-<h1>Hello, world!</h1>
+<script lang="ts">
+  import MenuBar from '../components/MenuBar.svelte'
+</script>
+
+<MenuBar />
