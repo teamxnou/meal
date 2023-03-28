@@ -3,6 +3,7 @@
 
   export let title: string,
     buttons: any[] = [],
+    buttonLinks: (string | undefined)[] = [],
     primary: boolean = false,
     back: boolean = false
 </script>
@@ -21,10 +22,14 @@
   <h1 class="text-[20px] font-semibold">{title}</h1>
   {#if buttons.length}
     <div class="flex h-full grow items-center justify-end">
-      {#each buttons as Button}
-        <button class="rounded p-1 hover:bg-black/5 active:bg-black/10">
+      {#each buttons as Button, i}
+        <a
+          href={buttonLinks[i]}
+          class="rounded p-1 hover:bg-black/5 active:bg-black/10"
+          role="button"
+        >
           <Button class="h-7 w-7" />
-        </button>
+        </a>
       {/each}
     </div>
   {/if}
