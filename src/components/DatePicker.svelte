@@ -1,7 +1,7 @@
 <script lang="ts">
   import { ChevronLeft, ChevronRight } from 'lucide-svelte'
 
-  export let date: string
+  export let date: string, updateDate: (date: string) => void
 
   $: formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     month: 'long',
@@ -13,6 +13,7 @@
     const newDate = new Date(date)
     newDate.setDate(newDate.getDate() + offset)
     date = newDate.toISOString().slice(0, 10)
+    updateDate(date)
   }
 </script>
 

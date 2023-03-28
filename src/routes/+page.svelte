@@ -16,4 +16,4 @@
 
 <MenuBar />
 <MealList {meal} />
-<DatePicker {date} />
+<DatePicker {date} updateDate={(newDate) => {date = newDate}} />
