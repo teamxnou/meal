@@ -53,9 +53,3 @@
     />
   </div>
 {/if}
-
-<style>
-  button {
-    -webkit-tap-highlight-color: transparent;
-  }
-</style>
