@@ -8,7 +8,7 @@
     day: 'numeric',
     weekday: 'short'
   })
-  
+
   function changeDate(offset: number) {
     const newDate = new Date(date)
     newDate.setDate(newDate.getDate() + offset)
@@ -20,7 +20,7 @@
   <button on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
-  <label for="datepicker" class="relative rounded-lg bg-neutral-50 px-3 py-1 text-center gap-0">
+  <label for="datepicker" class="relative gap-0 rounded-lg bg-neutral-50 px-3 py-1 text-center">
     <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
     <span>{formattedDate}</span>
   </label>
