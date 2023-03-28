@@ -1,16 +1,38 @@
-<script>
-  import { GraduationCap } from 'lucide-svelte'
+<script lang="ts">
+  import { ChevronLeft } from 'lucide-svelte'
+
+  export let title: string,
+    buttons: any[] = [],
+    buttonLinks: (string | undefined)[] = [],
+    primary: boolean = false,
+    back: boolean = false
 </script>
 
 <header
-  class="flex items-center justify-between rounded-b-lg bg-green-500 py-3 px-5 text-white shadow-lg"
+  class="flex items-center rounded-b-lg py-3 px-5 shadow-lg"
+  class:bg-neutral-100={!primary}
+  class:bg-green-500={primary}
+  class:text-white={primary}
 >
-  <h1 class="text-[20px] font-semibold">오늘뭐먹지</h1>
-  <div class="flex h-full items-center">
-    <button class="rounded p-1 hover:bg-black/5 active:bg-black/10">
-      <GraduationCap class="h-7 w-7" />
+  {#if back}
+    <button on:click={() => history.back()} class="mr-3">
+      <ChevronLeft class="h-7 w-7" />
     </button>
-  </div>
+  {/if}
+  <h1 class="text-[20px] font-semibold">{title}</h1>
+  {#if buttons.length}
+    <div class="flex h-full grow items-center justify-end">
+      {#each buttons as Button, i}
+        <a
+          href={buttonLinks[i]}
+          class="rounded p-1 hover:bg-black/5 active:bg-black/10"
+          role="button"
+        >
+          <Button class="h-7 w-7" />
+        </a>
+      {/each}
+    </div>
+  {/if}
 </header>
 
 <style>
