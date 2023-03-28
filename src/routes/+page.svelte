@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { GraduationCap } from 'lucide-svelte'
+
   import MenuBar from '../components/MenuBar.svelte'
   import MealList from '../components/MealList.svelte'
   import DatePicker from '../components/DatePicker.svelte'
@@ -7,7 +9,7 @@
   let date = new Date().toISOString().slice(0, 10)
 </script>
 
-<MenuBar />
+<MenuBar title="오늘뭐먹지" buttons={[GraduationCap]} />
 <MealList {meal} />
 <DatePicker
   {date}
