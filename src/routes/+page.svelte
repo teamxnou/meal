@@ -9,7 +9,12 @@
   let date = new Date().toISOString().slice(0, 10)
 </script>
 
-<MenuBar title="오늘뭐먹지" buttons={[GraduationCap]} primary={true} />
+<MenuBar
+  title="오늘뭐먹지"
+  buttons={[GraduationCap]}
+  buttonLinks={['/school-selection']}
+  primary={true}
+/>
 <MealList {meal} />
 <DatePicker
   {date}
