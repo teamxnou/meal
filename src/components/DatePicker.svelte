@@ -21,7 +21,7 @@
   <button on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
-  <label for="datepicker" class="relative gap-0 rounded-lg bg-neutral-50 px-3 py-1 text-center">
+  <label for="datepicker" class="relative gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center">
     <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
     <span>{formattedDate}</span>
   </label>
@@ -44,6 +44,6 @@
     width: auto;
   }
   button {
-    @apply rounded hover:bg-black/5 active:bg-black/10 h-full;
+    @apply h-full rounded hover:bg-neutral-50 active:bg-neutral-100;
   }
 </style>
