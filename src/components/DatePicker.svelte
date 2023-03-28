@@ -2,6 +2,11 @@
   import { ChevronLeft, ChevronRight } from 'lucide-svelte'
 
   export let date: string
+
+  $: formattedDate = new Date(date).toLocaleDateString('ko-KR', {
+    month: 'long',
+    day: 'numeric',
+    weekday: 'short'
   })
 </script>
 
@@ -9,7 +14,10 @@
   <button>
     <ChevronLeft class="h-7 w-7" />
   </button>
-  <input type="date" bind:value={date} class="rounded-lg bg-neutral-50 px-2 py-1 text-center relative" />
+  <div class="relative rounded-lg bg-neutral-50 px-3 py-1 text-center gap-0">
+    <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
+    <label for="datepicker">{formattedDate}</label>
+  </div>
   <button>
     <ChevronRight class="h-7 w-7" />
   </button>
