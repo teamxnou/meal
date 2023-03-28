@@ -18,14 +18,14 @@
 </script>
 
 <div class="mb-16 flex items-center justify-center gap-1">
-  <button on:click={() => changeDate(-1)}>
+  <button class="rounded hover:bg-black/5 active:bg-black/10 h-full" on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
   <label for="datepicker" class="relative gap-0 rounded-lg bg-neutral-50 px-3 py-1 text-center">
     <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
     <span>{formattedDate}</span>
   </label>
-  <button on:click={() => changeDate(1)}>
+  <button class="rounded hover:bg-black/5 active:bg-black/10 h-full" on:click={() => changeDate(1)}>
     <ChevronRight class="h-7 w-7" />
   </button>
 </div>
