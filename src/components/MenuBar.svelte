@@ -23,7 +23,7 @@
   class:shadow-lg={!search}
 >
   {#if back}
-    <button on:click={() => history.back()} class="mr-3">
+    <button on:click={() => history.back()} class="mr-3 hover:bg-black/5 active:bg-black/10 rounded">
       <ChevronLeft class="h-7 w-7" />
     </button>
   {/if}
