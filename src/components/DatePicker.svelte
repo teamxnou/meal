@@ -20,10 +20,10 @@
   <button on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
-  <div class="relative rounded-lg bg-neutral-50 px-3 py-1 text-center gap-0">
+  <label for="datepicker" class="relative rounded-lg bg-neutral-50 px-3 py-1 text-center gap-0">
     <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
-    <label for="datepicker">{formattedDate}</label>
-  </div>
+    <span>{formattedDate}</span>
+  </label>
   <button on:click={() => changeDate(1)}>
     <ChevronRight class="h-7 w-7" />
   </button>
