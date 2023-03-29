@@ -22,7 +22,7 @@
     <ChevronLeft class="h-7 w-7" />
   </button>
   <button
-    class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center"
+    class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center active:bg-neutral-200"
   >
     {formattedDate}
   </button>
