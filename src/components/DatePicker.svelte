@@ -32,16 +32,16 @@
 
 <style lang="postcss">
   input[type='date']::-webkit-calendar-picker-indicator {
-    background: transparent;
-    bottom: 0;
-    color: transparent;
-    cursor: pointer;
-    height: auto;
-    left: 0;
     position: absolute;
+    bottom: 0;
+    left: 0;
     right: 0;
     top: 0;
+    height: auto;
     width: auto;
+    cursor: pointer;
+    background: transparent;
+    color: transparent;
   }
   button {
     @apply h-full rounded hover:bg-neutral-50 active:bg-neutral-100;
