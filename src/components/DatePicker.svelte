@@ -21,7 +21,10 @@
   <button on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
-  <label for="datepicker" class="relative gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center">
+  <label
+    for="datepicker"
+    class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center"
+  >
     <input type="date" bind:value={date} id="datepicker" class="h-0 w-0" />
     <span>{formattedDate}</span>
   </label>
