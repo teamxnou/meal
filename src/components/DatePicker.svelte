@@ -80,7 +80,7 @@
       {#each ['월', '화', '수', '목', '금'] as day}
         <li class="day-indicator">{day}</li>
       {/each}
-      {#each Array(placeholderDays).fill(0) as _}
+      {#each Array(placeholderDays == 5 ? 0 : placeholderDays).fill(0) as _}
         <li class="placeholder" />
       {/each}
       {#each weekDaysInMonth as day}
