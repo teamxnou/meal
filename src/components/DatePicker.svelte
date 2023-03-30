@@ -36,7 +36,7 @@
 </div>
 {#if openDatepicker}
   <div
-    class="absolute top-0 left-0 h-screen w-screen bg-black/20"
+    class="absolute top-0 left-0 h-screen w-screen bg-black/30"
     transition:fade={{ duration: 200 }}
     on:click={() => (openDatepicker = false)}
     on:keypress={(e) => {
