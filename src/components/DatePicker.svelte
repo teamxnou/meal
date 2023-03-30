@@ -30,6 +30,7 @@
     )
 
   $: placeholderDays = new Date(year, month - 1, 1).getDay() - 1
+  $: if (placeholderDays === -1) placeholderDays = 0
 </script>
 
 <div class="mb-16 flex items-center justify-center gap-1">
