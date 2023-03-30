@@ -100,10 +100,10 @@
     @apply h-full rounded hover:bg-neutral-50 active:bg-neutral-100;
   }
   .month-arrow-button {
-    @apply flex h-10 w-10 items-center justify-center rounded-full hover:bg-neutral-50 active:bg-neutral-100 text-green-700;
+    @apply flex h-10 w-10 items-center justify-center rounded-full text-green-700 hover:bg-neutral-50 active:bg-neutral-100;
   }
   .day-indicator {
-    @apply cursor-default bg-transparent hover:bg-transparent text-sm text-neutral-400 h-3;
+    @apply h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent;
   }
   ul li button {
     @apply flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-[1.25rem] hover:bg-green-50 active:bg-green-100;
