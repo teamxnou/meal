@@ -29,7 +29,7 @@
         new Date(year, month - 1, day).getDay() !== 6
     )
 
-  $: placeholderDays = new Date(year, month - 1, 1).getDay() - 2
+  $: placeholderDays = new Date(year, month - 1, 1).getDay() - 1
 </script>
 
 <div class="mb-16 flex items-center justify-center gap-1">
