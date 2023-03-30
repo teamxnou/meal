@@ -31,6 +31,13 @@
 
   $: placeholderDays = new Date(year, month - 1, 1).getDay() - 1
   $: if (placeholderDays === -1) placeholderDays = 0
+  $: if (month > 12) {
+    month = 1
+    year += 1
+  } else if (month < 1) {
+    month = 12
+    year -= 1
+  }
 </script>
 
 <div class="mb-16 flex items-center justify-center gap-1">
@@ -61,11 +68,11 @@
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center">
-      <button class="month-arrow-button">
+      <button class="month-arrow-button" on:click={() => (month -= 1)}>
         <ChevronLeft class="h-7 w-7" />
       </button>
       <div class="flex-grow text-center text-lg font-semibold">{year}년 {month}월</div>
-      <button class="month-arrow-button">
+      <button class="month-arrow-button" on:click={() => (month += 1)}>
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
