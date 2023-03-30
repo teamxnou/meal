@@ -30,7 +30,6 @@
     )
 
   $: placeholderDays = new Date(year, month - 1, 1).getDay() - 2
-  $: weekDayStart = placeholderDays < 0 ? 6 : placeholderDays
 </script>
 
 <div class="mb-16 flex items-center justify-center gap-1">
