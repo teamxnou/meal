@@ -64,7 +64,7 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white p-4"
+    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white p-4 h-[356px]"
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center">
