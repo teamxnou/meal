@@ -76,7 +76,7 @@
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
-    <ul class="grid grid-cols-5 gap-3 px-4 text-center">
+    <ul class="grid grid-cols-5 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center grow">
       {#each ['월', '화', '수', '목', '금'] as day}
         <li class="day-indicator">{day}</li>
       {/each}
