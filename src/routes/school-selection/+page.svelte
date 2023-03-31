@@ -1,8 +1,16 @@
 <script lang="ts">
   import MenuBar from '../../components/MenuBar.svelte'
+
+  let debounceTimer: any
+  function handleQueryChange(query: string) {
+    clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(() => {
+      console.log(query)
+    }, 800)
+  }
 </script>
 
-<MenuBar title="학교 선택" back={true} search={true} searchPlaceholder="초등학교 검색" />
+<MenuBar title="학교 선택" back={true} search={true} searchPlaceholder="초등학교 검색" queryChange={handleQueryChange} />
 <ul class="flex grow flex-col items-start gap-4 bg-neutral-100 p-4">
   <li class="flex w-full flex-col items-start rounded-lg bg-white">
     <span class="mx-5 mt-4 text-sm font-medium text-neutral-400">
