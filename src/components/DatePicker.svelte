@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition'
-  import { ChevronLeft, ChevronRight } from 'lucide-svelte'
+  import { ChevronLeft, ChevronRight, CalendarClock } from 'lucide-svelte'
 
   export let date: Date, updateDate: (date: Date) => void
 
@@ -64,10 +64,10 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white p-4 h-[356px]"
+    class="absolute top-1/2 left-1/2 flex h-[401px] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white"
     transition:slide={{ duration: 200 }}
   >
-    <div class="flex items-center">
+    <div class="flex items-center px-4 pt-4">
       <button class="month-arrow-button" on:click={() => (month -= 1)}>
         <ChevronLeft class="h-7 w-7" />
       </button>
@@ -76,7 +76,7 @@
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
-    <ul class="grid grid-cols-5 gap-3 text-center">
+    <ul class="grid grid-cols-5 gap-3 px-4 text-center">
       {#each ['월', '화', '수', '목', '금'] as day}
         <li class="day-indicator">{day}</li>
       {/each}
@@ -88,17 +88,28 @@
           class:active={day === date.getDate()}
           class:today={day === selectedDate.getDate() &&
             month === selectedDate.getMonth() + 1 &&
-            year === selectedDate.getFullYear()
-          }
+            year === selectedDate.getFullYear()}
         >
-          <button on:click={() => {
-            const newDate = new Date(date)
-            newDate.setDate(day)
-            updateDate(newDate)
-          }}>{day}</button>
+          <button
+            on:click={() => {
+              const newDate = new Date(date)
+              newDate.setDate(day)
+              updateDate(newDate)
+            }}>{day}</button
+          >
         </li>
       {/each}
     </ul>
+    <div class="flex justify-between border-t p-2">
+      <button
+        class="rounded-lg px-3 py-1 text-green-700 hover:bg-neutral-50 active:bg-neutral-100"
+        on:click={() => {
+          updateDate(new Date())
+        }}
+      >
+        오늘
+      </button>
+    </div>
   </div>
 {/if}
 
