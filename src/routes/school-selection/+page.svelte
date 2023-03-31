@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { selectedSchool, selectedSchoolName } from '../../stores'
+
   import MenuBar from '../../components/MenuBar.svelte'
 
   interface School {
@@ -62,6 +64,10 @@
       <h2 class="mx-5 text-2xl font-semibold">{school.SCHUL_NM}</h2>
       <button
         class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
+        on:click={() => {
+          selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
+          selectedSchoolName.set(school.SCHUL_NM)
+        }}
       >
         이 학교로 선택
       </button>
