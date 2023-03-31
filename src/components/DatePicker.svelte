@@ -76,9 +76,11 @@
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
-    <ul class="grid grid-cols-5 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center grow">
+    <ul class="grid grow grid-cols-5 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center">
       {#each ['월', '화', '수', '목', '금'] as day}
-        <li class="day-indicator">{day}</li>
+        <li class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent">
+          {day}
+        </li>
       {/each}
       {#each Array(placeholderDays == 5 ? 0 : placeholderDays).fill(0) as _}
         <li class="placeholder" />
@@ -120,9 +122,6 @@
   }
   .month-arrow-button {
     @apply flex h-10 w-10 items-center justify-center rounded-full text-green-700 hover:bg-neutral-50 active:bg-neutral-100;
-  }
-  .day-indicator {
-    @apply h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent;
   }
   ul li button {
     @apply flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-[1.25rem] hover:bg-green-50 active:bg-green-100;
