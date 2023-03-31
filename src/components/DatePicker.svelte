@@ -93,6 +93,7 @@
           <button
             on:click={() => {
               const newDate = new Date(date)
+              newDate.setMonth(month - 1)
               newDate.setDate(day)
               updateDate(newDate)
             }}>{day}</button
