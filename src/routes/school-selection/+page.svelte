@@ -39,6 +39,7 @@
     currentSchoolName = value
   })
 
+  let searched = false
   let searchedSchools: School[] = []
 
   let debounceTimer: any
@@ -57,6 +58,7 @@
             return
           }
           searchedSchools = res.schoolInfo[1].row
+          searched = true
         })
     }, 800)
   }
@@ -78,7 +80,7 @@
       <p>현재 선택된 학교가 없어요.</p>
     {/if}
   </div>
-  {#if searchedSchools.length}
+  {#if searchedSchools.length || !searched}
     <ul class="flex grow flex-col items-start gap-4">
       {#each searchedSchools as school}
         <li class="flex w-full flex-col items-start rounded-lg bg-white">
