@@ -1,6 +1,7 @@
 <script lang="ts">
   import { selectedSchool, selectedSchoolName } from '../../stores'
-  import { BoxSelect } from 'lucide-svelte'
+  import { fade, crossfade } from 'svelte/transition'
+  import { Info, BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -33,6 +34,11 @@
     LOAD_DTM: string
   }
 
+  let currentSchoolName: string;
+  selectedSchoolName.subscribe((value) => {
+    currentSchoolName = value
+  })
+
   let searchedSchools: School[] = []
 
   let debounceTimer: any
@@ -63,32 +69,38 @@
   searchPlaceholder="초등학교 검색"
   queryChange={handleQueryChange}
 />
-{#if searchedSchools.length}
-  <ul class="flex grow flex-col items-start gap-4 bg-neutral-100 p-4">
-    {#each searchedSchools as school}
-      <li class="flex w-full flex-col items-start rounded-lg bg-white">
-        <span class="mx-5 mt-4 text-sm font-medium text-neutral-400">
-          {school.ORG_RDNMA}
-        </span>
-        <h2 class="mx-5 text-2xl font-semibold">{school.SCHUL_NM}</h2>
-        <button
-          class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
-          on:click={() => {
-            selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
-            selectedSchoolName.set(school.SCHUL_NM)
-          }}
-        >
-          이 학교로 선택
-        </button>
-      </li>
-    {/each}
-  </ul>
-{:else}
-  <div class="flex flex-grow flex-col gap-1 items-center justify-center bg-neutral-100">
-    <SimpleInfo
-      Icon={BoxSelect}
-      title="검색 결과가 없어요"
-      description="오타를 확인해주세요."
-    />
+<div class="flex grow flex-col bg-neutral-100 p-4 gap-3 h-full">
+  <div class="bg-white p-2 pl-3 rounded-full flex gap-1 items-center">
+    <Info class="h-5 w-5" />
+    {#if currentSchoolName}
+      <p>현재 선택된 학교는 <b class="font-semibold">{currentSchoolName}</b>에요.</p>
+    {:else}
+      <p>현재 선택된 학교가 없어요.</p>
+    {/if}
   </div>
-{/if}
+  {#if searchedSchools.length}
+    <ul class="flex grow flex-col items-start gap-4">
+      {#each searchedSchools as school}
+        <li class="flex w-full flex-col items-start rounded-lg bg-white">
+          <span class="mx-5 mt-4 text-sm font-medium text-neutral-400">
+            {school.ORG_RDNMA}
+          </span>
+          <h2 class="mx-5 text-2xl font-semibold">{school.SCHUL_NM}</h2>
+          <button
+            class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
+            on:click={() => {
+              selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
+              selectedSchoolName.set(school.SCHUL_NM)
+            }}
+          >
+            이 학교로 선택
+          </button>
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <div class="grow flex justify-center items-center">
+      <SimpleInfo Icon={BoxSelect} title="검색 결과가 없어요" description="오타를 확인해주세요." />
+    </div>
+  {/if}
+</div>
