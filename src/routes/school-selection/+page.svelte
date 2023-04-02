@@ -1,5 +1,6 @@
 <script lang="ts">
   import { selectedSchool, selectedSchoolName } from '../../stores'
+  import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
@@ -41,6 +42,11 @@
   let searched = false
   let searchedSchools: School[] = []
 
+  let loadingAnimationReady = false
+  setTimeout(() => {
+    loadingAnimationReady = true
+  }, 0)
+
   let debounceTimer: any
   function handleQueryChange(query: string) {
     clearTimeout(debounceTimer)
@@ -79,7 +85,7 @@
       <p>현재 선택된 학교가 없어요.</p>
     {/if}
   </div>
-  {#if searchedSchools.length || !searched}
+  {#if searchedSchools.length}
     <ul class="flex grow flex-col items-start gap-4">
       {#each searchedSchools as school}
         <li class="flex w-full flex-col items-start rounded-lg bg-white">
@@ -99,6 +105,24 @@
         </li>
       {/each}
     </ul>
+  {:else if !searched}
+    <div class="flex grow items-center justify-center">
+      {#if loadingAnimationReady}
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-48 w-48 text-neutral-400" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12.4472 4.10557C12.1657 3.96481 11.8343 3.96481 11.5528 4.10557L1.55279 9.10557C1.214 9.27496 1 9.62123 1 10C1 10.3788 1.214 10.725 1.55279 10.8944L5 12.618V17C5 17.2652 5.10536 17.5196 5.29289 17.7071C7.02287 19.4371 9.55152 20.25 12 20.25C14.4485 20.25 16.9771 19.4371 18.7071 17.7071C18.8946 17.5196 19 17.2652 19 17V12.618L21 11.618V16C21 16.5523 21.4477 17 22 17C22.5523 17 23 16.5523 23 16V10C23 9.62123 22.786 9.27496 22.4472 9.10557L12.4472 4.10557ZM17.5721 11.0959C17.5596 11.1019 17.5471 11.1081 17.5348 11.1146L12 13.882L6.4652 11.1146C6.4529 11.1081 6.44044 11.1019 6.42784 11.0959L4.23607 10L12 6.11803L19.7639 10L17.5721 11.0959ZM7 13.618L11.5528 15.8944C11.8343 16.0352 12.1657 16.0352 12.4472 15.8944L17 13.618V16.5649C15.731 17.6607 13.8999 18.25 12 18.25C10.1001 18.25 8.26902 17.6607 7 16.5649V13.618Z"
+            fill="currentColor"
+            in:fade={{ duration: 400, delay: 400 }}
+          />
+          <path
+            d="M12.4472 4.10557C12.1657 3.96481 11.8343 3.96481 11.5528 4.10557L1.55279 9.10557C1.214 9.27496 1 9.62123 1 10C1 10.3788 1.214 10.725 1.55279 10.8944L5 12.618V17C5 17.2652 5.10536 17.5196 5.29289 17.7071C7.02287 19.4371 9.55152 20.25 12 20.25C14.4485 20.25 16.9771 19.4371 18.7071 17.7071C18.8946 17.5196 19 17.2652 19 17V12.618L21 11.618V16C21 16.5523 21.4477 17 22 17C22.5523 17 23 16.5523 23 16V10C23 9.62123 22.786 9.27496 22.4472 9.10557L12.4472 4.10557ZM17.5721 11.0959C17.5596 11.1019 17.5471 11.1081 17.5348 11.1146L12 13.882L6.4652 11.1146C6.4529 11.1081 6.44044 11.1019 6.42784 11.0959L4.23607 10L12 6.11803L19.7639 10L17.5721 11.0959ZM7 13.618L11.5528 15.8944C11.8343 16.0352 12.1657 16.0352 12.4472 15.8944L17 13.618V16.5649C15.731 17.6607 13.8999 18.25 12 18.25C10.1001 18.25 8.26902 17.6607 7 16.5649V13.618Z"
+            stroke="currentColor"
+            stroke-width="0.1"
+            in:draw={{ duration: 800 }}
+          />
+        </svg>
+      {/if}
+    </div>
   {:else}
     <div class="flex grow items-center justify-center">
       <SimpleInfo Icon={BoxSelect} title="검색 결과가 없어요" description="오타를 확인해주세요." />
