@@ -1,6 +1,5 @@
 <script lang="ts">
   import { selectedSchool, selectedSchoolName } from '../../stores'
-  import { fade, crossfade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
@@ -34,7 +33,7 @@
     LOAD_DTM: string
   }
 
-  let currentSchoolName: string;
+  let currentSchoolName: string
   selectedSchoolName.subscribe((value) => {
     currentSchoolName = value
   })
@@ -71,8 +70,8 @@
   searchPlaceholder="초등학교 검색"
   queryChange={handleQueryChange}
 />
-<div class="flex grow flex-col bg-neutral-100 p-4 gap-3 h-full">
-  <div class="bg-white p-2 pl-3 rounded-full flex gap-1 items-center">
+<div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
+  <div class="flex items-center gap-1 rounded-full bg-white p-2 pl-3">
     <Info class="h-5 w-5" />
     {#if currentSchoolName}
       <p>현재 선택된 학교는 <b class="font-semibold">{currentSchoolName}</b>에요.</p>
@@ -101,7 +100,7 @@
       {/each}
     </ul>
   {:else}
-    <div class="grow flex justify-center items-center">
+    <div class="flex grow items-center justify-center">
       <SimpleInfo Icon={BoxSelect} title="검색 결과가 없어요" description="오타를 확인해주세요." />
     </div>
   {/if}
