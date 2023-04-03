@@ -31,7 +31,11 @@
   onMount(() => {
     updateMeal()
   })
-  $: updateMeal()
+  $: {
+    // To update meal when date changes
+    date
+    updateMeal()
+  }
 </script>
 
 <ul class="flex grow flex-col items-center justify-center text-3xl">
