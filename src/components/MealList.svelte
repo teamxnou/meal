@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
 
-  import { AlertCircle } from 'lucide-svelte'
+  import { GraduationCap, AlertCircle } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
 
   export let date: Date
@@ -17,6 +17,8 @@
   selectedCity.subscribe((value) => {
     cityCode = value
   })
+
+  $: isSchoolSelected = schoolCode && cityCode
 
   let error: boolean = false
   let meal: string[] = []
@@ -49,12 +51,21 @@
   }
 </script>
 
-{#if !error}
+{#if !error && isSchoolSelected}
   <ul class="flex grow flex-col items-center justify-center text-3xl">
     {#each meal as menu}
       <li>{menu}</li>
     {/each}
   </ul>
+{:else if !isSchoolSelected}
+  <div class="flex grow flex-col items-center justify-center gap-5">
+    <SimpleInfo
+      Icon={GraduationCap}
+      title="학교를 선택해주세요"
+      description="학교를 선택하면 급식을 확인할 수 있어요."
+    />
+    <a href="/school-selection" class="mb-2 rounded-lg text-white py-2 px-4 bg-green-500 active:bg-green-600">학교 선택하기</a>
+  </div>
 {:else}
   <div class="flex grow flex-col items-center justify-center">
     <SimpleInfo
