@@ -34,7 +34,7 @@
       }
       meal = res.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
       error = false
-    }).catch((err) => {
+    }).catch(() => {
       error = true
     })
   }
