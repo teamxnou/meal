@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { selectedSchool, selectedSchoolName } from '../../stores'
+  import { selectedCity, selectedSchool, selectedSchoolName } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
@@ -96,6 +96,7 @@
           <button
             class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
             on:click={() => {
+              selectedCity.set(school.ATPT_OFCDC_SC_CODE)
               selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
               selectedSchoolName.set(school.SCHUL_NM)
             }}
