@@ -40,7 +40,9 @@
   }
 </script>
 
-<div class="mb-16 flex items-center justify-center gap-1">
+<div
+  class="absolute bottom-0 left-1/2 mb-16 flex -translate-x-1/2 transform items-center justify-center gap-1"
+>
   <button class="arrow-button" on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
