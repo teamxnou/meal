@@ -23,7 +23,6 @@
   let error: boolean = false
   let meal: string[] = []
   function updateMeal() {
-    console.log(`Updating meal for ${date}. School: ${schoolCode}, City: ${cityCode}`)
     if (!schoolCode || !cityCode) return
     fetch(
       `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${
