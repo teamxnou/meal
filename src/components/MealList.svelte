@@ -22,8 +22,30 @@
 
   $: isSchoolSelected = schoolCode && cityCode
 
+  function parseMeal(mealString: string): Menu[] {
+    const regex = /(.*) \((.*)\)/
+    const meal = mealString.split('<br/>').map((menu) => {
+      const match = menu.match(regex)
+      const menuName = match?.[1] || menu
+      const numString = match?.[2] || ' '
+      const allergies = numString
+        .split('.')
+        .map((n: string) => parseInt(n))
+        .filter(function (el) {
+          return !!el
+        })
+      return { name: menuName, allergies }
+    })
+    return meal
+  }
+
+  interface Menu {
+    name: string
+    allergies: number[]
+  }
+
   let error: boolean = false
-  let meal: string[] = []
+  let meal: Menu[] = []
   function updateMeal() {
     if (!schoolCode || !cityCode) return
     fetch(
@@ -37,11 +59,11 @@
           error = true
           return
         }
-        meal = res.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
+        meal = parseMeal(res.mealServiceDietInfo[1].row[0].DDISH_NM)
         error = false
       })
-      .catch(() => {
-        error = true
+      .catch((err) => {
+        console.log(err)
       })
   }
 
@@ -58,7 +80,7 @@
 {#if !error && isSchoolSelected}
   <ul class="flex grow flex-col items-center justify-center text-3xl">
     {#each meal as menu}
-      <li>{menu}</li>
+      <li>{menu.name}</li>
     {/each}
   </ul>
 {:else if !isSchoolSelected}
