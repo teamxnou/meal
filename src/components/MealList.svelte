@@ -65,8 +65,9 @@
         error = false
         errorCode = 0
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
+        error = true
+        errorCode = -1
       })
   }
 
