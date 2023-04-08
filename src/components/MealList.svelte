@@ -77,32 +77,34 @@
   }
 </script>
 
-{#if !error && isSchoolSelected}
-  <ul class="flex grow flex-col items-center justify-center text-3xl">
-    {#each meal as menu}
-      <li>{menu.name}</li>
-    {/each}
-  </ul>
-{:else if !isSchoolSelected}
-  <div class="flex grow flex-col items-center justify-center gap-5">
-    <SimpleInfo
-      Icon={GraduationCap}
-      title="학교를 선택해주세요"
-      description="학교를 선택하면 급식을 확인할 수 있어요."
-    />
-    <a
-      href="/school-selection"
-      class="mb-2 rounded-lg bg-green-500 py-2 px-4 text-white active:bg-green-600"
-    >
-      학교 선택하기
-    </a>
-  </div>
-{:else}
-  <div class="flex grow flex-col items-center justify-center">
-    <SimpleInfo
-      Icon={AlertCircle}
-      title="오류가 발생했어요"
-      description="급식 정보를 불러오는 도중 오류가 발생했어요. 다시 시도해주세요."
-    />
-  </div>
-{/if}
+<div class="mx-5 flex grow">
+  {#if !error && isSchoolSelected}
+    <ul class="flex grow flex-col items-center justify-center text-3xl">
+      {#each meal as menu}
+        <li>{menu.name}</li>
+      {/each}
+    </ul>
+  {:else if !isSchoolSelected}
+    <div class="flex grow flex-col items-center justify-center gap-5">
+      <SimpleInfo
+        Icon={GraduationCap}
+        title="학교를 선택해주세요"
+        description="학교를 선택하면 급식을 확인할 수 있어요."
+      />
+      <a
+        href="/school-selection"
+        class="mb-2 rounded-lg bg-green-500 py-2 px-4 text-white active:bg-green-600"
+      >
+        학교 선택하기
+      </a>
+    </div>
+  {:else}
+    <div class="flex grow flex-col items-center justify-center">
+      <SimpleInfo
+        Icon={AlertCircle}
+        title="오류가 발생했어요"
+        description="급식 정보를 불러오는 도중 오류가 발생했어요. 다시 시도해주세요."
+      />
+    </div>
+  {/if}
+</div>
