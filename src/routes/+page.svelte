@@ -17,8 +17,6 @@
 {#if typeof window !== 'undefined'}
   <MealList {date} />
 {/if}
-<!-- To make effect like DatePicker is a part of #app flex layout -->
-<div class="h-20"></div>
 <DatePicker
   {date}
   updateDate={(newDate) => {
