@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
 
-  import { GraduationCap, AlertCircle } from 'lucide-svelte'
+  import { GraduationCap, AlertCircle, ClipboardX } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
 
   export let date: Date
@@ -45,6 +45,7 @@
   }
 
   let error: boolean = false
+  let errorCode: number = 0
   let meal: Menu[] = []
   function updateMeal() {
     if (!schoolCode || !cityCode) return
@@ -57,10 +58,12 @@
       .then((res) => {
         if (!res.mealServiceDietInfo) {
           error = true
+          errorCode = parseInt(res.RESULT.CODE.replace(/[^0-9]/g, ''))
           return
         }
         meal = parseMeal(res.mealServiceDietInfo[1].row[0].DDISH_NM)
         error = false
+        errorCode = 0
       })
       .catch((err) => {
         console.log(err)
@@ -78,7 +81,7 @@
 </script>
 
 <div class="mx-5 flex grow">
-  {#if !error && isSchoolSelected}
+  {#if !error && isSchoolSelected && meal.length > 0}
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
         <li>{menu.name}</li>
@@ -97,6 +100,14 @@
       >
         학교 선택하기
       </a>
+    </div>
+  {:else if error && errorCode == 200}
+    <div class="flex grow flex-col items-center justify-center">
+      <SimpleInfo
+        Icon={ClipboardX}
+        title="급식 정보가 없어요"
+        description="선택된 날짜가 주말이나 공휴일, 또는 방학인지 확인해주세요."
+      />
     </div>
   {:else}
     <div class="flex grow flex-col items-center justify-center">
