@@ -81,7 +81,7 @@
   }
 </script>
 
-<div class="mx-5 flex grow">
+<div class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5">
   {#if !error && isSchoolSelected && meal.length > 0}
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
