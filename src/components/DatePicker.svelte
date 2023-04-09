@@ -40,7 +40,9 @@
   }
 </script>
 
-<div class="mb-16 flex items-center justify-center gap-1">
+<div
+  class="absolute bottom-0 left-1/2 mb-16 flex -translate-x-1/2 transform items-center justify-center gap-1"
+>
   <button class="arrow-button" on:click={() => changeDate(-1)}>
     <ChevronLeft class="h-7 w-7" />
   </button>
@@ -64,7 +66,7 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex h-[401px] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white"
+    class="absolute top-1/2 left-1/2 flex h-[401px] w-[280px] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white"
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center px-4 pt-4">
