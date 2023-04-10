@@ -1,0 +1,32 @@
+name: 💡 기능 제안
+description: 새로운 기능을 제안해보세요.
+title: '<제목>'
+labels: '기능'
+body:
+- type: textarea
+  attributes:
+    label: 왜 이 기능을 제안하게 되었나요?
+    description: 이 기능을 제안하게 된 계기에 대해 알려주세요.
+- type: dropdown
+  attributes:
+    label: 어떤 화면에서 이 기능을 사용하나요?
+    description: 이 기능을 사용할 화면을 선택해주세요.
+    multiple: false
+    options:
+      - '급식 화면'
+      - '학교 선택 화면'
+      - '기타'
+- type: textarea
+  attributes:
+    label: 어떤 기능이 추가되면 좋을 것 같나요?
+- type: textarea
+  attributes:
+    label: 기능을 어떻게 사용할 수 있나요?
+    placeholder: |
+      1. 어떤 화면에서...
+      2. 이 버튼을 누르고...
+      3. 이렇게 하면...
+- type: textarea
+  attributes:
+    label: 추가 정보
+    description: 기능을 구현할 때 도움이 되는 정보가 있다면 알려주세요.
