@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 const selectedCity = writable('')
 const selectedSchool = writable(0)
 const selectedSchoolName = writable('')
+const openSchoolToast = writable(false)
 
 if (typeof window !== 'undefined') {
   selectedCity.subscribe(value => {
@@ -25,4 +26,4 @@ if (typeof window !== 'undefined') {
   selectedSchoolName.set(localStorage.getItem('selectedSchoolName') || '')
 }
 
-export { selectedCity, selectedSchool, selectedSchoolName }
+export { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast }
