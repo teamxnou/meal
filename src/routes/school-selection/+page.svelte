@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { selectedCity, selectedSchool, selectedSchoolName } from '../../stores'
+  import { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
@@ -72,6 +72,10 @@
     selectedCity.set(school.ATPT_OFCDC_SC_CODE)
     selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
     selectedSchoolName.set(school.SCHUL_NM)
+    openSchoolToast.set(true)
+    setTimeout(() => {
+      openSchoolToast.set(false)
+    }, 2000)
   }
 </script>
 
