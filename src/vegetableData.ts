@@ -476,6 +476,16 @@ const filterData: Array<filterMenu> = [
     description: '면역력, 노화, 암 예방을 도와준다.'
   },
   {
+    name: '비름',
+    images: [
+      'https://i.ibb.co/TkSPXMT/image.jpg',
+      'https://i.ibb.co/Mf5Sk9B/image.jpg',
+    ],
+    source: ['자체 촬영', '국원초등학교'],
+    thumbnail: 0,
+    description: '칼슘이 많아 뼈 건강에 좋다.'
+  },
+  {
     name: '상추',
     images: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Lactuca_sativa_2.jpg/640px-Lactuca_sativa_2.jpg',
