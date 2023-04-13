@@ -86,6 +86,16 @@ const filterData: Array<filterMenu> = [
     description: '비타민이 많아 피부 미용에 좋고, 뼈를 튼튼하게 해준다.'
   },
   {
+    name: '고사리',
+    images: [
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Pteridium_aquilinum_%282%29.jpg/640px-Pteridium_aquilinum_%282%29.jpg',
+      'https://i.ibb.co/YbGsx1n/image.jpg'
+    ],
+    source: ['위키미디어 공용', '자체 촬영'],
+    thumbnail: 1,
+    description: '고사리의 어린 순을 캐 먹는다. 피를 맑게 하고 열을 내리는 데 효과적이다.'
+  },
+  {
     name: '곤드레',
     images: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Dried_gondre.jpg/640px-Dried_gondre.jpg',
