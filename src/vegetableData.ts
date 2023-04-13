@@ -572,6 +572,16 @@ const filterData: Array<filterMenu> = [
     description: '빈혈에 도움을 준다.'
   },
   {
+    name: '아삭이고추',
+    images: [
+      'https://i.ibb.co/nBFsxPR/image.jpg',
+      'https://i.ibb.co/yFyQ0Rc/image.jpg',
+    ],
+    source: ['자체 촬영', '국원초등학교'],
+    thumbnail: 0,
+    description: '비타민 A가 많아 면역력을 높여주며, 성인병 에방에 좋다.'
+  },
+  {
     name: '알감자',
     images: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Potatoes.jpg/640px-Potatoes.jpg',
