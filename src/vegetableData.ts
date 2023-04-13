@@ -262,9 +262,10 @@ const filterData: Array<filterMenu> = [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Holly_Oak_%28Quercus_ilex%29_acorns%2C_April%2C_Sydney_Royal_Botanic_Gardens%2C_Australia_%2816498239613%29.jpg/640px-Holly_Oak_%28Quercus_ilex%29_acorns%2C_April%2C_Sydney_Royal_Botanic_Gardens%2C_Australia_%2816498239613%29.jpg',
       'https://images.unsplash.com/photo-1604342602982-de9ff6884c4c',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Korean_acorn_jelly-Dotorimuk-02.jpg/640px-Korean_acorn_jelly-Dotorimuk-02.jpg',
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EB%8F%84%ED%86%A0%EB%A6%AC_%EB%AC%B5%EB%B0%A5_flick.jpg/640px-%EB%8F%84%ED%86%A0%EB%A6%AC_%EB%AC%B5%EB%B0%A5_flick.jpg'
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/%EB%8F%84%ED%86%A0%EB%A6%AC_%EB%AC%B5%EB%B0%A5_flick.jpg/640px-%EB%8F%84%ED%86%A0%EB%A6%AC_%EB%AC%B5%EB%B0%A5_flick.jpg',
+      'https://i.ibb.co/qMZWTLk/image.jpg'
     ],
-    source: ['위키미디어 공용', '언스플래시'],
+    source: ['위키미디어 공용', '언스플래시', '자체 촬영'],
     thumbnail: 1,
     description: '중금속 배출에 좋으며 따뜻한 성질을 지녀 위장에 좋다.'
   },
