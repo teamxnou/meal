@@ -211,6 +211,16 @@ const filterData: Array<filterMenu> = [
     description: '혈액 순환, 암 예방, 눈 건강, 변비 예방 등에 도움이 된다.'
   },
   {
+    name: '달래',
+    images: [
+      'https://i.ibb.co/sjmqHxs/image.jpg',
+      'https://i.ibb.co/Nx09w5S/image.jpg',
+    ],
+    source: ['자체 촬영', '국원초등학교'],
+    thumbnail: 0,
+    description: '혈액 순환, 면역력, 빈혈 예방에 좋다.'
+  },
+  {
     name: '대추',
     images: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Alb-Z._jujuba-fruit-8.jpg/640px-Alb-Z._jujuba-fruit-8.jpg',
