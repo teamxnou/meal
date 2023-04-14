@@ -1,4 +1,4 @@
-interface filterMenu {
+interface Vegetable {
   name: string
   exceptions?: Array<string>
   images: Array<string>
@@ -7,7 +7,7 @@ interface filterMenu {
   description: string
 }
 
-const filterData: Array<filterMenu> = [
+const filterData: Array<Vegetable> = [
   {
     name: '가지',
     images: [
@@ -847,7 +847,7 @@ const filterData: Array<filterMenu> = [
   }
 ]
 
-function addExceptions(filterMenu: Array<filterMenu>) {
+function addExceptions(filterMenu: Array<Vegetable>) {
   filterMenu.forEach((menuToAddExceptions) => {
     filterMenu.forEach((menuToCompare) => {
       if (menuToAddExceptions === menuToCompare) return
