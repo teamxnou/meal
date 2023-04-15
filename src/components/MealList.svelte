@@ -5,6 +5,9 @@
   import { GraduationCap, AlertCircle, ClipboardX } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
 
+  import vegetableData from '../vegetableData'
+  import { replaceWithExcepts } from '../replaceWithExcepts'
+
   export let date: Date
 
   $: formattedDate = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(
@@ -26,7 +29,7 @@
     const regex = /(.*) \((.*)\)/
     const meal = mealString.split('<br/>').map((menu) => {
       const match = menu.match(regex)
-      const menuName = match?.[1] || menu
+      let stringMenuName = match?.[1] || menu
       const numString = match?.[2] || ' '
       const allergies = numString
         .split('.')
@@ -34,13 +37,31 @@
         .filter(function (el) {
           return !!el
         })
+
+      vegetableData.forEach((vegetable, i) => {
+        stringMenuName = replaceWithExcepts(
+          stringMenuName,
+          vegetable.name,
+          vegetable.exceptions || [],
+          `[${vegetable.name}|${i}]`
+        )
+      })
+      const menuName = stringMenuName.split(/(\[[ㄱ-힣]+\|\d+\])/g).filter((token) => !!token).map((token) => {
+        const match = token.match(/\[([ㄱ-힣]+)\|(\d+)\]/)
+        return match ? { string: match[1], infoIndex: parseInt(match[2])} : { string: token }
+      })
       return { name: menuName, allergies }
     })
     return meal
   }
 
+  interface MenuToken {
+    string: string
+    infoIndex?: number
+  }
+
   interface Menu {
-    name: string
+    name: MenuToken[]
     allergies: number[]
   }
 
@@ -85,7 +106,15 @@
   {#if !error && isSchoolSelected && meal.length > 0}
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
-        <li>{menu.name}</li>
+        <li class="flex">
+          {#each menu.name as token}
+            {#if token.infoIndex}
+              <span>[{token.string}]</span>
+            {:else}
+              <span>{token.string}</span>
+            {/if}
+          {/each}
+        </li>
       {/each}
     </ul>
   {:else if !isSchoolSelected}
