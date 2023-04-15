@@ -4,6 +4,7 @@
 
   import { GraduationCap, AlertCircle, ClipboardX } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
+  import Vegetable from './Vegetable.svelte'
 
   import vegetableData from '../vegetableData'
   import { replaceWithExcepts } from '../replaceWithExcepts'
@@ -109,7 +110,7 @@
         <li class="flex">
           {#each menu.name as token}
             {#if token.infoIndex}
-              <span>[{token.string}]</span>
+              <Vegetable>{token.string}</Vegetable>
             {:else}
               <span>{token.string}</span>
             {/if}
