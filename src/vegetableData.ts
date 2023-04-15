@@ -7,7 +7,7 @@ interface Vegetable {
   description: string
 }
 
-const filterData: Array<Vegetable> = [
+const vegetableData: Array<Vegetable> = [
   {
     name: '가지',
     images: [
@@ -847,18 +847,18 @@ const filterData: Array<Vegetable> = [
   }
 ]
 
-function addExceptions(filterMenu: Array<Vegetable>) {
-  filterMenu.forEach((menuToAddExceptions) => {
-    filterMenu.forEach((menuToCompare) => {
-      if (menuToAddExceptions === menuToCompare) return
-      if (!menuToCompare.name.includes(menuToAddExceptions.name)) return
-      menuToAddExceptions.exceptions = menuToAddExceptions.exceptions || []
-      menuToAddExceptions.exceptions.push(menuToCompare.name)
+function addExceptions(vegetables: Array<Vegetable>) {
+  vegetables.forEach((vegetableToAddExceptions) => {
+    vegetables.forEach((vegetableToCompare) => {
+      if (vegetableToAddExceptions === vegetableToCompare) return
+      if (!vegetableToCompare.name.includes(vegetableToAddExceptions.name)) return
+      vegetableToAddExceptions.exceptions = vegetableToAddExceptions.exceptions || []
+      vegetableToAddExceptions.exceptions.push(vegetableToCompare.name)
     })
   })
-  return filterMenu
+  return vegetables
 }
 
-export default addExceptions(filterData).sort((a, b) => {
+export default addExceptions(vegetableData).sort((a, b) => {
   return a.name < b.name ? -1 : a.name > b.name ? 1 : 0
 })
