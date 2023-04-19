@@ -18,12 +18,12 @@
   <MenuBar title="재료 정보" back={true} />
   {#if id && isIdValid}
     <div class="flex grow flex-col">
-      <div class="grow flex snap-x snap-mandatorny overflow-x-scroll w-screen">
-        <div class="grow flex w-[300vw] snap-x snap-mandatory snap-start">
+      <div class="grow flex snap-x snap-mandatory overflow-x-scroll w-screen relative">
+        <div class="grow flex snap-x snap-mandatory" style={`width; ${vegetable.images.length * 100}vw;`}>
           {#each vegetable.images as image, i}
-            <div class="h-[calc(100vh-54px-8rem)] min-w-screen max-w-screen w-screen">
+            <div class="h-[calc(100vh-54px-8rem)] min-w-screen max-w-screen w-screen snap-start">
               <!-- Had to use calc, it was hard to make it with only %'s. -->
-              <img src={image} class="object-contain snap-start h-[calc(100vh-54px-8rem)] w-screen" alt={`${vegetable.name}의 ${i + 1}번째 사진`} />
+              <img src={image} class="object-contain h-[calc(100vh-54px-8rem)] w-screen" alt={`${vegetable.name}의 ${i + 1}번째 사진`} />
             </div>
           {/each}
         </div>
