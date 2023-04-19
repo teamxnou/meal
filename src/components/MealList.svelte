@@ -47,10 +47,13 @@
           `[${vegetable.name}|${i}]`
         )
       })
-      const menuName = stringMenuName.split(/(\[[ㄱ-힣]+\|\d+\])/g).filter((token) => !!token).map((token) => {
-        const match = token.match(/\[([ㄱ-힣]+)\|(\d+)\]/)
-        return match ? { string: match[1], infoIndex: parseInt(match[2])} : { string: token }
-      })
+      const menuName = stringMenuName
+        .split(/(\[[ㄱ-힣]+\|\d+\])/g)
+        .filter((token) => !!token)
+        .map((token) => {
+          const match = token.match(/\[([ㄱ-힣]+)\|(\d+)\]/)
+          return match ? { string: match[1], infoIndex: parseInt(match[2]) } : { string: token }
+        })
       return { name: menuName, allergies }
     })
     return meal
@@ -103,14 +106,16 @@
   }
 </script>
 
-<div class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5">
+<div
+  class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
+>
   {#if !error && isSchoolSelected && meal.length > 0}
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
         <li class="flex">
           {#each menu.name as token}
             {#if token.infoIndex}
-              <Vegetable>{token.string}</Vegetable>
+              <Vegetable infoIndex={token.infoIndex}>{token.string}</Vegetable>
             {:else}
               <span>{token.string}</span>
             {/if}
