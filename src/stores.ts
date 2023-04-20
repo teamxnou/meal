@@ -6,17 +6,17 @@ const selectedSchoolName = writable('')
 const openSchoolToast = writable(false)
 
 if (typeof window !== 'undefined') {
-  selectedCity.subscribe(value => {
+  selectedCity.subscribe((value) => {
     if (!value) return
     localStorage.setItem('selectedCity', value)
   })
 
-  selectedSchool.subscribe(value => {
+  selectedSchool.subscribe((value) => {
     if (!value) return
     localStorage.setItem('selectedSchool', String(value))
   })
 
-  selectedSchoolName.subscribe(value => {
+  selectedSchoolName.subscribe((value) => {
     if (!value) return
     localStorage.setItem('selectedSchoolName', value)
   })
