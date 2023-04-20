@@ -14,9 +14,7 @@
   $: queryChange(searchQuery)
 </script>
 
-
-
-<div class="shadow-lg rounded-b-lg overflow-hidden sticky top-0 w-full">
+<div class="sticky top-0 w-full overflow-hidden rounded-b-lg shadow-lg">
   <header
     class="flex items-center py-3 px-5"
     class:bg-neutral-100={!primary}

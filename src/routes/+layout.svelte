@@ -16,5 +16,5 @@
 
 <slot />
 {#if typeof window !== 'undefined' && openToast}
-  <Toast message={`학교로 ${currentSchoolName}가 선택되었어요.`} />
+  <Toast message="학교로 {currentSchoolName}가 선택되었어요." />
 {/if}

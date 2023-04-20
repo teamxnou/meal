@@ -15,9 +15,7 @@ export function replaceWithExcepts(
   })
 
   const regex = new RegExp(
-    `${
-      exceptsBeforeString.length ? `(?<!${exceptsBeforeString.join('|')})` : ''
-    }${find}${
+    `${exceptsBeforeString.length ? `(?<!${exceptsBeforeString.join('|')})` : ''}${find}${
       exceptsAfterString.length ? `(?!${exceptsAfterString.join('|')})` : ''
     }`,
     'g'

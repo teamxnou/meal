@@ -212,10 +212,7 @@ const vegetableData: Array<Vegetable> = [
   },
   {
     name: '달래',
-    images: [
-      'https://i.ibb.co/sjmqHxs/image.jpg',
-      'https://i.ibb.co/Nx09w5S/image.jpg',
-    ],
+    images: ['https://i.ibb.co/sjmqHxs/image.jpg', 'https://i.ibb.co/Nx09w5S/image.jpg'],
     source: ['자체 촬영', '국원초등학교'],
     thumbnail: 0,
     description: '혈액 순환, 면역력, 빈혈 예방에 좋다.'
@@ -488,10 +485,7 @@ const vegetableData: Array<Vegetable> = [
   },
   {
     name: '비름',
-    images: [
-      'https://i.ibb.co/TkSPXMT/image.jpg',
-      'https://i.ibb.co/Mf5Sk9B/image.jpg',
-    ],
+    images: ['https://i.ibb.co/TkSPXMT/image.jpg', 'https://i.ibb.co/Mf5Sk9B/image.jpg'],
     source: ['자체 촬영', '국원초등학교'],
     thumbnail: 0,
     description: '칼슘이 많아 뼈 건강에 좋다.'
@@ -583,10 +577,7 @@ const vegetableData: Array<Vegetable> = [
   },
   {
     name: '아삭이고추',
-    images: [
-      'https://i.ibb.co/nBFsxPR/image.jpg',
-      'https://i.ibb.co/yFyQ0Rc/image.jpg',
-    ],
+    images: ['https://i.ibb.co/nBFsxPR/image.jpg', 'https://i.ibb.co/yFyQ0Rc/image.jpg'],
     source: ['자체 촬영', '국원초등학교'],
     thumbnail: 0,
     description: '비타민 A가 많아 면역력을 높여주며, 성인병 에방에 좋다.'

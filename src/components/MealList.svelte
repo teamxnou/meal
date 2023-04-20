@@ -117,7 +117,9 @@
         <li class="flex">
           {#each menu.name as token}
             {#if token.infoIndex}
-              <Vegetable infoIndex={token.infoIndex} colors={highlighterColors}>{token.string}</Vegetable>
+              <Vegetable infoIndex={token.infoIndex} colors={highlighterColors}>
+                {token.string}
+              </Vegetable>
             {:else}
               <span>{token.string}</span>
             {/if}
