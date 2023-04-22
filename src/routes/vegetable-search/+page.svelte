@@ -16,19 +16,12 @@
     thumbnail: number
     description: string
   }
-  let searched = false
   let searchResults: Vegetable[] = vegetableData
-
-  let loadingAnimationReady = false
-  setTimeout(() => {
-    loadingAnimationReady = true
-  }, 0)
 
   let debounceTimer: any
   function handleQueryChange(query: string) {
     clearTimeout(debounceTimer)
     debounceTimer = setTimeout(() => {
-      searched = true
       searchResults = vegetableData.filter((vegetable) => vegetable.name.includes(query))
     }, 200)
   }
