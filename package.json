@@ -33,6 +33,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@vercel/analytics": "^1.0.0",
     "lucide-svelte": "^0.127.0"
   }
 }
