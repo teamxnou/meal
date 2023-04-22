@@ -31,7 +31,7 @@
     {/if}
     <h1 class="text-[20px] font-semibold">{title}</h1>
     {#if buttons.length}
-      <div class="flex h-full grow items-center justify-end">
+      <div class="flex h-full grow items-center justify-end gap-1">
         {#each buttons as Button, i}
           <a
             href={buttonLinks[i]}
