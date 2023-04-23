@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
 
-  import { GraduationCap, AlertCircle, ClipboardX } from 'lucide-svelte'
+  import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
@@ -130,7 +130,7 @@
   {:else if !isSchoolSelected}
     <div class="flex grow flex-col items-center justify-center gap-5">
       <SimpleInfo
-        Icon={GraduationCap}
+        Icon={School2}
         title="학교를 선택해주세요"
         description="학교를 선택하면 급식을 확인할 수 있어요."
       />

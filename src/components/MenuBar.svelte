@@ -20,6 +20,8 @@
     class:bg-neutral-100={!primary}
     class:bg-green-500={primary}
     class:text-white={primary}
+    class:h-14={primary}
+    class:h-12={!primary}
   >
     {#if back}
       <button
@@ -31,7 +33,7 @@
     {/if}
     <h1 class="text-[20px] font-semibold">{title}</h1>
     {#if buttons.length}
-      <div class="flex h-full grow items-center justify-end">
+      <div class="flex h-full grow items-center justify-end gap-1">
         {#each buttons as Button, i}
           <a
             href={buttonLinks[i]}
@@ -45,7 +47,7 @@
     {/if}
   </header>
   {#if search}
-    <div class="flex items-center gap-3 bg-neutral-50 py-3 pl-6 pr-2">
+    <div class="flex items-center gap-3 bg-neutral-50 py-3 pl-6 pr-2 h-12">
       <Search class="h-6 w-6 text-neutral-400" />
       <input
         type="text"

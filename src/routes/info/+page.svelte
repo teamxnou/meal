@@ -9,14 +9,14 @@
   import vegetableData from '../../vegetableData'
 
   const id = parseInt($page.url.searchParams.get('id') || '')
-  const isIdValid = id && !isNaN(id) && id >= 0 && id < vegetableData.length
+  const isIdValid = (id || id == 0) && !isNaN(id) && id >= 0 && id < vegetableData.length
 
   const vegetable = vegetableData[id]
 </script>
 
 <div class="flex max-h-screen grow flex-col" class:bg-neutral-300={isIdValid}>
   <MenuBar title="재료 정보" back={true} />
-  {#if id && isIdValid}
+  {#if isIdValid}
     <div class="flex grow flex-col">
       <div class="relative flex w-screen grow snap-x snap-mandatory overflow-x-scroll">
         <div

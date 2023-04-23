@@ -1,6 +1,6 @@
 {
   "name": "todayschoolmeal",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "dev": "vite dev --host",
@@ -34,6 +34,6 @@
   "type": "module",
   "dependencies": {
     "@vercel/analytics": "^1.0.0",
-    "lucide-svelte": "^0.127.0"
+    "lucide-svelte": "^0.171.0"
   }
 }
