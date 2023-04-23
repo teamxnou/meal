@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { GraduationCap, Search } from 'lucide-svelte'
+  import { School2, Search } from 'lucide-svelte'
 
   import MenuBar from '../components/MenuBar.svelte'
   import MealList from '../components/MealList.svelte'
@@ -10,7 +10,7 @@
 
 <MenuBar
   title="오늘뭐먹지"
-  buttons={[GraduationCap, Search]}
+  buttons={[School2, Search]}
   buttonLinks={['/school-selection', '/vegetable-search']}
   primary={true}
 />
