@@ -36,7 +36,7 @@
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   {#if searchResults.length}
-    <ul class="flex grow flex-col items-start gap-4">
+    <ul class="flex grow flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {#each searchResults as vegetable}
         <li class="w-full">
           <a
