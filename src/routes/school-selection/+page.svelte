@@ -96,13 +96,14 @@
     {/if}
   </div>
   {#if searchedSchools.length}
-    <ul class="flex grow flex-col items-start gap-4">
+    <ul class="flex grow flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {#each searchedSchools as school}
-        <li class="flex w-full flex-col items-start rounded-lg bg-white">
+        <li class="flex w-full flex-col items-start rounded-lg bg-white overflow-clip h-full">
           <span class="mx-5 mt-4 text-sm font-medium text-neutral-400">
             {school.ORG_RDNMA}
           </span>
           <h2 class="mx-5 text-2xl font-semibold">{school.SCHUL_NM}</h2>
+          <div class="grow"></div>
           <a
             href="/"
             class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
