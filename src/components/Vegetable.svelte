@@ -6,7 +6,7 @@
 
 <a
   href="/info?id={infoIndex}"
-  class="relative after:absolute after:bottom-0 after:left-0 after:-z-10 after:h-1/2 after:w-full"
+  class="relative after:absolute after:bottom-0 after:left-[3%] after:-z-10 after:h-1/2 after:w-[97%] after:rounded"
   style="--highlighter: {randomColor}"
 >
   <slot />
