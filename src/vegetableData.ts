@@ -360,7 +360,7 @@ const vegetableData: Array<Vegetable> = [
   },
   {
     name: '무',
-    exceptions: ['열무', '무침'],
+    exceptions: ['열무', '무침', '율무'],
     images: [
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Japanese_radish_field.jpg/640px-Japanese_radish_field.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Korean_radish_%28mu%29.jpg/640px-Korean_radish_%28mu%29.jpg',
