@@ -1,7 +1,7 @@
 <script lang="ts">
   export let infoIndex: number, colors: string[]
 
-  let randomColor = colors[Math.floor(Math.random() * colors.length)]
+  let randomColor = colors[infoIndex % colors.length]
 </script>
 
 <a
