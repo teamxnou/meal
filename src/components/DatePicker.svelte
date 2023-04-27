@@ -19,7 +19,8 @@
   let openDatepicker = false
   let year = date.getFullYear()
   let month = date.getMonth() + 1
-  let selectedDate = new Date()
+  let day = date.getDate()
+  let today = new Date()
   $: daysInMonth = Array.from(Array(new Date(year, month, 0).getDate()).keys()).map((i) => i + 1)
 
   $: placeholderDays = new Date(year, month - 1, 1).getDay()
@@ -82,10 +83,12 @@
       {/each}
       {#each daysInMonth as day}
         <li
-          class:active={day === date.getDate()}
-          class:today={day === selectedDate.getDate() &&
-            month === selectedDate.getMonth() + 1 &&
-            year === selectedDate.getFullYear()}
+          class:active={year === date.getFullYear() &&
+            month === date.getMonth() + 1 &&
+            day === date.getDate()}
+          class:today={day === today.getDate() &&
+            month === today.getMonth() + 1 &&
+            year === today.getFullYear()}
         >
           <button
             on:click={() => {
