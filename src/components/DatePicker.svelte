@@ -20,16 +20,9 @@
   let year = date.getFullYear()
   let month = date.getMonth() + 1
   let selectedDate = new Date()
-  $: weekDaysInMonth = new Array(new Date(year, month, 0).getDate())
-    .fill(0)
-    .map((_, i) => i + 1)
-    .filter(
-      (day) =>
-        new Date(year, month - 1, day).getDay() !== 0 &&
-        new Date(year, month - 1, day).getDay() !== 6
-    )
+  $: daysInMonth = Array.from(Array(new Date(year, month, 0).getDate()).keys()).map((i) => i + 1)
 
-  $: placeholderDays = new Date(year, month - 1, 1).getDay() - 1
+  $: placeholderDays = new Date(year, month - 1, 1).getDay()
   $: if (placeholderDays === -1) placeholderDays = 0
   $: if (month > 12) {
     month = 1
@@ -66,7 +59,7 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex h-[401px] w-[280px] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white"
+    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white h-[453px] w-[384px]"
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center px-4 pt-4">
@@ -78,16 +71,16 @@
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
-    <ul class="grid grow grid-cols-5 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center">
-      {#each ['월', '화', '수', '목', '금'] as day}
+    <ul class="grid grow grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center">
+      {#each ['일', '월', '화', '수', '목', '금', '토'] as day}
         <li class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent">
           {day}
         </li>
       {/each}
-      {#each Array(placeholderDays == 5 ? 0 : placeholderDays).fill(0) as _}
+      {#each Array(placeholderDays == 7 ? 0 : placeholderDays).fill(0) as _}
         <li class="placeholder" />
       {/each}
-      {#each weekDaysInMonth as day}
+      {#each daysInMonth as day}
         <li
           class:active={day === date.getDate()}
           class:today={day === selectedDate.getDate() &&
