@@ -12,6 +12,14 @@
   const isIdValid = (id || id == 0) && !isNaN(id) && id >= 0 && id < vegetableData.length
 
   const vegetable = vegetableData[id]
+
+  let carousel: HTMLDivElement
+  function scrollCarousel(pageOffset: number) {
+    carousel.scrollBy({
+      left: pageOffset * window.innerWidth,
+      behavior: 'smooth'
+    })
+  }
 </script>
 
 <div class="flex max-h-screen grow flex-col" class:bg-neutral-300={isIdValid}>
@@ -19,7 +27,10 @@
   {#if isIdValid}
     <div class="flex grow flex-col">
       <div class="relative flex w-screen grow">
-        <div class="relative flex w-screen grow snap-x snap-mandatory overflow-x-scroll">
+        <div
+          class="relative flex w-screen grow snap-x snap-mandatory overflow-x-scroll"
+          bind:this={carousel}
+        >
           <div
             class="flex grow snap-x snap-mandatory"
             style="width: {vegetable.images.length * 100}vw;"
@@ -40,11 +51,13 @@
         </div>
         <button
           class="absolute bottom-3 left-3 flex h-14 w-14 items-center justify-center rounded-full bg-white/50"
+          on:click={() => scrollCarousel(-1)}
         >
           <ChevronLeft class="h-7 w-7" />
         </button>
         <button
           class="absolute bottom-3 right-3 flex h-14 w-14 items-center justify-center rounded-full bg-white/50"
+          on:click={() => scrollCarousel(1)}
         >
           <ChevronRight class="h-7 w-7" />
         </button>
