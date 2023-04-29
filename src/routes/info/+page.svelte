@@ -15,10 +15,19 @@
 
   let carousel: HTMLDivElement
   function scrollCarousel(pageOffset: number) {
+    let prevScroll = carousel.scrollLeft
     carousel.scrollBy({
       left: pageOffset * window.innerWidth,
       behavior: 'smooth'
     })
+    setTimeout(() => {
+      if (carousel.scrollLeft == prevScroll) {
+        carousel.classList.add('motion-safe:animate-[shake_400ms_ease-in-out]')
+        setTimeout(() => {
+          carousel.classList.remove('motion-safe:animate-[shake_400ms_ease-in-out]')
+        }, 500)
+      }
+    }, 50)
   }
 </script>
 
