@@ -14,14 +14,12 @@
   $: queryChange(searchQuery)
 </script>
 
-<div class="sticky top-0 w-full overflow-hidden rounded-b-lg shadow-lg">
+<div class="sticky top-0 w-full overflow-hidden rounded-b-lg shadow-lg z-50">
   <header
-    class="flex items-center py-3 px-5"
+    class="flex items-center py-3 px-5 h-14"
     class:bg-neutral-100={!primary}
     class:bg-green-500={primary}
     class:text-white={primary}
-    class:h-14={primary}
-    class:h-12={!primary}
   >
     {#if back}
       <button
