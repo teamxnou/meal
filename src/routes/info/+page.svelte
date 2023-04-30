@@ -51,7 +51,7 @@
                 <!-- Had to use calc, it was hard to make it with only %'s. -->
                 <img
                   src={image}
-                  class="h-[calc(100vh-54px-theme(spacing.32))] w-screen object-contain"
+                  class="h-full w-screen object-contain"
                   alt="{vegetable.name}의 {i + 1}번째 사진"
                 />
               </div>
