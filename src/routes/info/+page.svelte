@@ -41,12 +41,12 @@
           bind:this={carousel}
         >
           <div
-            class="flex grow snap-x snap-mandatory"
+            class="flex grow snap-x snap-always snap-mandatory"
             style="width: {vegetable.images.length * 100}vw;"
           >
             {#each vegetable.images as image, i}
               <div
-                class="min-w-screen max-w-screen h-[calc(100vh-54px-theme(spacing.32))] w-screen snap-start"
+                class="min-w-screen max-w-screen snap-always h-[calc(100vh-54px-theme(spacing.32))] w-screen snap-start"
               >
                 <!-- Had to use calc, it was hard to make it with only %'s. -->
                 <img
