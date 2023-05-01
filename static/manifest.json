@@ -1,0 +1,45 @@
+{
+  "short_name": "오늘뭐먹지",
+  "name": "오늘뭐먹지",
+  "description": "초등학교 급식을 쉽고 빠르게, 다양한 기능과 함께 만나보세요!",
+  "start_url": "/?spa=true",
+  "icons": [
+    {
+      "src": "app.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "background-color": "#22c55e",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#22c55e",
+  "shortcuts": [
+    {
+      "name": "학교 변경하기",
+      "short_name": "학교 변경",
+      "description": "선택된 학교를 변경합니다.",
+      "url": "/school-selection?spa=true",
+      "icons": [
+        {
+          "src": "school_selection.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "재료 검색하기",
+      "short_name": "재료 검색",
+      "description": "색료 정보를 검색합니다.",
+      "url": "/vegetable-search?spa=true",
+      "icons": [
+        {
+          "src": "vegetable_search.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
