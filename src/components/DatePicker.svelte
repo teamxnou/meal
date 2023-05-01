@@ -110,6 +110,14 @@
       >
         오늘
       </button>
+      <button
+        class="rounded-lg px-3 py-1 text-green-700 hover:bg-neutral-50 active:bg-neutral-100"
+        on:click={() => {
+          openDatepicker = false
+        }}
+      >
+        확인
+      </button>
     </div>
   </div>
 {/if}
