@@ -101,9 +101,8 @@
         </li>
       {/each}
     </ul>
-    <div class="flex justify-between border-t p-2">
+    <div class="footer">
       <button
-        class="rounded-lg px-3 py-1 text-green-700 hover:bg-neutral-50 active:bg-neutral-100"
         on:click={() => {
           updateDate(new Date())
         }}
@@ -111,7 +110,6 @@
         오늘
       </button>
       <button
-        class="rounded-lg px-3 py-1 text-green-700 hover:bg-neutral-50 active:bg-neutral-100"
         on:click={() => {
           openDatepicker = false
         }}
@@ -143,5 +141,11 @@
   }
   ul li.active.today button {
     @apply bg-green-500 text-white;
+  }
+  .footer {
+    @apply flex items-center justify-end gap-3 px-4 pb-4;
+  }
+  .footer button {
+    @apply rounded-lg px-3 py-1 text-green-700 hover:bg-neutral-50 active:bg-neutral-100;
   }
 </style>
