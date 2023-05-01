@@ -5,12 +5,30 @@
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width" />
     <link rel="manifest" href="manifest.json" crossorigin="use-credentials" />
+
+    <meta property="og:url" content="https://meal.xnou.at" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="오늘뭐먹지" />
+    <meta
+      property="og:description"
+      content="초등학교 급식을 쉽고 빠르게, 다양한 기능과 함께 만나보세요!"
+    />
+    <meta property="og:image" content="/og-image.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content="meal.xnou.at" />
+    <meta name="twitter:url" content="https://meal.xnou.at" />
+    <meta name="twitter:title" content="오늘뭐먹지" />
+    <meta
+      name="twitter:description"
+      content="초등학교 급식을 쉽고 빠르게, 다양한 기능과 함께 만나보세요!"
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
     <title>오늘뭐먹지</title>
     %sveltekit.head%
   </head>
   <body data-sveltekit-preload-data="hover">
-    <div style="min-height: 100vh; display: flex; flex-direction: column">
-      %sveltekit.body%
-    </div>
+    <div style="min-height: 100vh; display: flex; flex-direction: column">%sveltekit.body%</div>
   </body>
 </html>
