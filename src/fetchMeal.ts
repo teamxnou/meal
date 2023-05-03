@@ -63,7 +63,6 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
 
   if (json.mealServiceDietInfo) {
     meal = parseMeal(json.mealServiceDietInfo[1].row[0].DDISH_NM)
-    console.log(meal) // prints meal correctly
     error = false
     errorCode = 0
   } else {
@@ -71,6 +70,5 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
     errorCode = parseInt(json.RESULT.CODE.replace(/[^0-9]/g, ''))
   }
 
-  console.log(meal) // prints []
   return { body: meal, error, errorCode }
 }
