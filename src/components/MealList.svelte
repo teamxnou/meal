@@ -62,7 +62,6 @@
     const total_survey = data?.[0].total_survey
     const total_votes = data?.[0].total_votes
     if (data?.length == 0 || total_votes > 10) return 0
-    console.log(ratio)
     const ratio = total_votes == 0 ? 0 : total_votes / total_survey
     if (ratio > 0.9) return 4
     else if (ratio > 0.7) return 3
