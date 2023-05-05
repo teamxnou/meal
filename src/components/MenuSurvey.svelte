@@ -51,7 +51,7 @@
   if (typeof window !== 'undefined' && localStorage.getItem('lastSurveyDate') != formattedDate) {
     fetchYesterdayMeal()
   }
-  
+
   function submitSurvey() {
     meal.forEach(async (menu) => {
       const { data } = await supabase
