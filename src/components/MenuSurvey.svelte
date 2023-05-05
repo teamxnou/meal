@@ -5,6 +5,7 @@
   const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
   const supabase = createClient(supabaseUrl, supabaseKey)
 
+  import { fade, fly } from 'svelte/transition'
   import { selectedCity, selectedSchool } from '../stores'
 
   import { getMeal, removeAllergyInfo } from '../fetchMeal'
@@ -73,13 +74,23 @@
     showSurvey = false
   }
 
-  let showSurvey = true
+  let showSurvey = false
+
+  setTimeout(() => {
+    showSurvey = true
+  }, 2000)
 </script>
 
 {#if meal && !error && meal.length > 0 && showSurvey}
-  <div class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30">
+  <div
+    class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30"
+    transition:fade={{ duration: 200 }}
+  >
     <div class="absolute bottom-0 left-0 right-0 p-5">
-      <div class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg">
+      <div
+        class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg"
+        transition:fly={{ y: 100 }}
+      >
         <h1 class="text-center text-2xl font-semibold">
           어제 급식 중 만족스러웠던 메뉴를 골라주세요.
         </h1>
