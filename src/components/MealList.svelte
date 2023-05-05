@@ -6,7 +6,7 @@
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
-  import { getMeal } from '../fetchMeal'
+  import { getMeal, parseMeal } from '../fetchMeal'
 
   export let date: Date
 
@@ -41,7 +41,8 @@
   async function updateMeal() {
     if (!schoolCode || !cityCode) return
     let res = await getMeal(cityCode, schoolCode, formattedDate)
-    meal = res.body
+    let parsedMeal = parseMeal(res.body)
+    meal = parsedMeal
     error = res.error
     errorCode = res.errorCode
   }

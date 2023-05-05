@@ -12,14 +12,14 @@ interface Menu {
 }
 
 interface Response {
-  body: Menu[]
+  body: string[]
   error: boolean
   errorCode: number
 }
 
-function parseMeal(mealString: string): Menu[] {
+export function parseMeal(rawMeal: string[]): Menu[] {
   const regex = /(.*) \((.*)\)/
-  const meal = mealString.split('<br/>').map((menu) => {
+  const meal = rawMeal.map((menu) => {
     const match = menu.match(regex)
     let stringMenuName = match?.[1] || menu
     const numString = match?.[2] || ' '
@@ -51,7 +51,7 @@ function parseMeal(mealString: string): Menu[] {
 }
 
 export async function getMeal(cityCode: string, schoolCode: number, date: string): Promise<Response> {
-  let meal: Menu[] = []
+  let meal: string[] = []
   let error = false
   let errorCode = 0
   const res = await fetch(
@@ -62,7 +62,7 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
   const json = await res.json()
 
   if (json.mealServiceDietInfo) {
-    meal = parseMeal(json.mealServiceDietInfo[1].row[0].DDISH_NM)
+    meal = json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
     error = false
     errorCode = 0
   } else {
