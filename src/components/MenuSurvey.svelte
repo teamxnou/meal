@@ -1,4 +1,10 @@
 <script lang="ts">
+  import { createClient } from '@supabase/supabase-js'
+
+  const supabaseUrl = 'https://ojeqqmhebtcdwpenevaf.supabase.co'
+  const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
   import { selectedCity, selectedSchool } from '../stores'
 
   import { getMeal, removeAllergyInfo } from '../fetchMeal'
@@ -44,6 +50,28 @@
   if (typeof window !== 'undefined' && localStorage.getItem('lastSurveyDate') != formattedDate) {
     fetchYesterdayMeal()
   }
+  
+  function submitSurvey() {
+    meal.forEach(async (menu) => {
+      const { data } = await supabase
+        .from('menus')
+        .select('name, total_survey, total_votes')
+        .eq('name', menu.name)
+      if (data?.length === 0) {
+        await supabase.from('menus').insert([{ name: menu.name, total_survey: 1, total_votes: 0 }])
+      } else {
+        await supabase
+          .from('menus')
+          .update({
+            total_survey: data?.[0].total_survey + 1,
+            total_votes: menu.voted ? data?.[0].total_votes + 1 : data?.[0].total_votes
+          })
+          .eq('name', menu.name)
+      }
+    })
+    localStorage.setItem('lastSurveyDate', formattedDate)
+    showSurvey = false
+  }
 
   let showSurvey = true
 </script>
@@ -73,7 +101,7 @@
         </ul>
         {#if !meal.some((menu) => menu.voted)}
           <button
-            class="w-full rounded-xl py-3 text-xl text-neutral-400 hover:text-neutral-500 hover:bg-neutral-100"
+            class="w-full rounded-xl py-3 text-xl text-neutral-400 hover:bg-neutral-100 hover:text-neutral-500"
             on:click={() => {
               localStorage.setItem('lastSurveyDate', formattedDate)
               showSurvey = false
@@ -84,10 +112,7 @@
         {:else}
           <button
             class="w-full rounded-xl bg-green-500 py-3 text-xl font-medium text-white hover:bg-green-600"
-            on:click={() => {
-              localStorage.setItem('lastSurveyDate', formattedDate)
-              showSurvey = false
-            }}
+            on:click={submitSurvey}
           >
             완료
           </button>
