@@ -71,15 +71,27 @@
             </li>
           {/each}
         </ul>
-        <button
-          class="w-full rounded-xl bg-green-500 py-3 text-xl font-medium text-white hover:bg-green-600"
-          on:click={() => {
-            localStorage.setItem('lastSurveyDate', formattedDate)
-            showSurvey = false
-          }}
-        >
-          완료
-        </button>
+        {#if !meal.some((menu) => menu.voted)}
+          <button
+            class="w-full rounded-xl py-3 text-xl text-neutral-400 hover:text-neutral-500 hover:bg-neutral-100"
+            on:click={() => {
+              localStorage.setItem('lastSurveyDate', formattedDate)
+              showSurvey = false
+            }}
+          >
+            무시하기
+          </button>
+        {:else}
+          <button
+            class="w-full rounded-xl bg-green-500 py-3 text-xl font-medium text-white hover:bg-green-600"
+            on:click={() => {
+              localStorage.setItem('lastSurveyDate', formattedDate)
+              showSurvey = false
+            }}
+          >
+            완료
+          </button>
+        {/if}
       </div>
     </div>
   </div>
