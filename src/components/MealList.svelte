@@ -53,18 +53,22 @@
     errorCode = res.errorCode
   }
 
-  async function canBeStarred(menu: MenuToken[]): Promise<boolean> {
+  async function canBeStarred(menu: MenuToken[]): Promise<number> {
     let name = menu.map((token) => token.string).join('')
     const { data } = await supabase
       .from('menus')
       .select('name, total_survey, total_votes')
       .eq('name', name)
-    if (data?.length == 0) return false
     const total_survey = data?.[0].total_survey
     const total_votes = data?.[0].total_votes
+    if (data?.length == 0 || total_votes > 10) return 0
     const ratio = total_votes == 0 ? 0 : total_survey / total_votes
     console.log(ratio)
-    return ratio > 0.5 && total_votes > 10
+    if (ratio > 0.9) return 4
+    else if (ratio > 0.7) return 3
+    else if (ratio > 0.5) return 2
+    else if (ratio > 0.3) return 1
+    else return 0
   }
 
   onMount(() => {
@@ -96,9 +100,17 @@
             {/if}
           {/each}
           {#await canBeStarred(menu.name) then canBeStarred}
-            {#if canBeStarred}
-              <span class="text-yellow-500 ml-2">⭐️</span>
-            {/if}
+            <span class="ml-2">
+              {#if canBeStarred == 1}
+                ⭐️
+              {:else if canBeStarred == 2}
+                🌟
+              {:else if canBeStarred == 3}
+                💫
+              {:else if canBeStarred == 4}
+                🌠
+              {/if}
+            </span>
           {/await}
         </li>
       {/each}
