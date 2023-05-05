@@ -45,7 +45,7 @@
     fetchYesterdayMeal()
   }
 
-  let showSurvey = false
+  let showSurvey = true
 </script>
 
 {#if meal && !error && meal.length > 0 && showSurvey}
