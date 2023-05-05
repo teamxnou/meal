@@ -99,17 +99,19 @@
             {/if}
           {/each}
           {#await canBeStarred(menu.name) then canBeStarred}
-            <span class="ml-2">
-              {#if canBeStarred == 1}
-                ⭐️
-              {:else if canBeStarred == 2}
-                🌟
-              {:else if canBeStarred == 3}
-                💫
-              {:else if canBeStarred == 4}
-                🌠
-              {/if}
-            </span>
+            {#if canBeStarred}
+              <span class="ml-2">
+                {#if canBeStarred == 1}
+                  ⭐️
+                {:else if canBeStarred == 2}
+                  🌟
+                {:else if canBeStarred == 3}
+                  💫
+                {:else if canBeStarred == 4}
+                  🌠
+                {/if}
+              </span>
+            {/if}
           {/await}
         </li>
       {/each}
