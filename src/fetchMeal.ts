@@ -50,6 +50,10 @@ export function parseMeal(rawMeal: string[]): Menu[] {
   return meal
 }
 
+export function removeAllergyInfo(meal: string[]) {
+  return meal.map((menu) => menu.replace(/ +\([0-9. ]+\)/g, ''))
+}
+
 export async function getMeal(cityCode: string, schoolCode: number, date: string): Promise<Response> {
   let meal: string[] = []
   let error = false
@@ -62,7 +66,7 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
   const json = await res.json()
 
   if (json.mealServiceDietInfo) {
-    meal = json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
+    meal = removeAllergyInfo(json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>'))
     error = false
     errorCode = 0
   } else {
@@ -72,3 +76,4 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
 
   return { body: meal, error, errorCode }
 }
+
