@@ -1,4 +1,10 @@
 <script lang="ts">
+  import { createClient } from '@supabase/supabase-js'
+
+  const supabaseUrl = 'https://ojeqqmhebtcdwpenevaf.supabase.co'
+  const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
 
@@ -47,6 +53,20 @@
     errorCode = res.errorCode
   }
 
+  async function canBeStarred(menu: MenuToken[]): Promise<boolean> {
+    let name = menu.map((token) => token.string).join('')
+    const { data } = await supabase
+      .from('menus')
+      .select('name, total_survey, total_votes')
+      .eq('name', name)
+    if (data?.length == 0) return false
+    const total_survey = data?.[0].total_survey
+    const total_votes = data?.[0].total_votes
+    const ratio = total_votes == 0 ? 0 : total_survey / total_votes
+    console.log(ratio)
+    return ratio > 0.5 && total_votes > 10
+  }
+
   onMount(() => {
     updateMeal()
   })
@@ -75,6 +95,11 @@
               <span>{token.string}</span>
             {/if}
           {/each}
+          {#await canBeStarred(menu.name) then canBeStarred}
+            {#if canBeStarred}
+              <span class="text-yellow-500 ml-2">⭐️</span>
+            {/if}
+          {/await}
         </li>
       {/each}
     </ul>
