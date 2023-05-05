@@ -44,9 +44,11 @@
   if (typeof window !== 'undefined' && localStorage.getItem('lastSurveyDate') != formattedDate) {
     fetchYesterdayMeal()
   }
+
+  let showSurvey = false
 </script>
 
-{#if meal && !error && meal.length > 0}
+{#if meal && !error && meal.length > 0 && showSurvey}
   <div class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30">
     <div class="absolute bottom-0 left-0 right-0 p-5">
       <div class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg">
@@ -71,6 +73,10 @@
         </ul>
         <button
           class="w-full rounded-xl bg-green-500 py-3 text-xl font-medium text-white hover:bg-green-600"
+          on:click={() => {
+            localStorage.setItem('lastSurveyDate', formattedDate)
+            showSurvey = false
+          }}
         >
           완료
         </button>
