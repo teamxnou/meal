@@ -59,7 +59,9 @@
         .select('name, total_survey, total_votes')
         .eq('name', menu.name)
       if (data?.length === 0) {
-        await supabase.from('menus').insert([{ name: menu.name, total_survey: 1, total_votes: 0 }])
+        await supabase
+          .from('menus')
+          .insert([{ name: menu.name, total_survey: 1, total_votes: menu.voted ? 1 : 0 }])
       } else {
         await supabase
           .from('menus')
