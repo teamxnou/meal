@@ -63,10 +63,10 @@
     const total_votes = data?.[0].total_votes
     if (data?.length == 0 || total_votes > 10) return 0
     const ratio = total_votes == 0 ? 0 : total_votes / total_survey
-    if (ratio > 0.9) return 4
-    else if (ratio > 0.7) return 3
-    else if (ratio > 0.5) return 2
-    else if (ratio > 0.3) return 1
+    if (ratio >= 0.9) return 4
+    else if (ratio >= 0.7) return 3
+    else if (ratio >= 0.5) return 2
+    else if (ratio >= 0.3) return 1
     else return 0
   }
 
