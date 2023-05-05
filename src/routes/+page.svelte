@@ -7,6 +7,7 @@
   import MenuBar from '../components/MenuBar.svelte'
   import MealList from '../components/MealList.svelte'
   import DatePicker from '../components/DatePicker.svelte'
+  import MenuSurvey from '../components/MenuSurvey.svelte'
 
   let date: Date = new Date()
 
@@ -43,3 +44,4 @@
     date = newDate
   }}
 />
+<MenuSurvey />
