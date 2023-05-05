@@ -25,10 +25,15 @@
   }
 
   let meal: SurveyMenuToken[] = []
+  let error = false
 
   async function fetchYesterdayMeal() {
     if (!schoolCode || !cityCode) return
     let mealResponse = await getMeal(cityCode, schoolCode, formattedDate)
+    if (mealResponse.error) {
+      error = true
+      return
+    }
     meal = removeAllergyInfo(mealResponse.body).map((menu) => {
       return {
         name: menu,
@@ -36,32 +41,40 @@
       }
     })
   }
-  fetchYesterdayMeal()
+  if (typeof window !== 'undefined' && localStorage.getItem('lastSurveyDate') != formattedDate) {
+    fetchYesterdayMeal()
+  }
 </script>
 
-<div class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30">
-  <div class="absolute bottom-0 left-0 right-0 p-5">
-    <div class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg">
-      <h1 class="text-center text-2xl font-semibold">
-        어제 급식 중 만족스러웠던 메뉴를 골라주세요.
-      </h1>
-      <ul class="grid grid-cols-2 gap-1">
-        {#each meal as menu, i}
-          <li>
-            <label
-              for="checkbox{i}"
-              class="flex w-full cursor-pointer gap-2 rounded-lg p-1 text-center text-xl h-full justify-center items-center transition duration-150"
-              class:bg-green-500={menu.voted}
-              class:text-white={menu.voted}
-              class:shadow-lg={menu.voted}
-            >
-              <input type="checkbox" id="checkbox{i}" class="hidden" bind:checked={menu.voted} />
-              <span>{menu.name}</span>
-            </label>
-          </li>
-        {/each}
-      </ul>
-      <button class="w-full rounded-xl bg-green-500 py-3 text-xl text-white font-medium hover:bg-green-600">완료</button>
+{#if meal && !error && meal.length > 0}
+  <div class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30">
+    <div class="absolute bottom-0 left-0 right-0 p-5">
+      <div class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg">
+        <h1 class="text-center text-2xl font-semibold">
+          어제 급식 중 만족스러웠던 메뉴를 골라주세요.
+        </h1>
+        <ul class="grid grid-cols-2 gap-1">
+          {#each meal as menu, i}
+            <li>
+              <label
+                for="checkbox{i}"
+                class="flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-1 text-center text-xl transition duration-150"
+                class:bg-green-500={menu.voted}
+                class:text-white={menu.voted}
+                class:shadow-lg={menu.voted}
+              >
+                <input type="checkbox" id="checkbox{i}" class="hidden" bind:checked={menu.voted} />
+                <span>{menu.name}</span>
+              </label>
+            </li>
+          {/each}
+        </ul>
+        <button
+          class="w-full rounded-xl bg-green-500 py-3 text-xl font-medium text-white hover:bg-green-600"
+        >
+          완료
+        </button>
+      </div>
     </div>
   </div>
-</div>
+{/if}
