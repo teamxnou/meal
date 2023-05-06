@@ -52,13 +52,14 @@
 </div>
 {#if openDatepicker}
   <div
-    class="absolute top-0 left-0 z-50 flex justify-center items-center h-screen w-screen bg-black/30"
+    class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30"
     transition:fade={{ duration: 200 }}
     on:click={() => (openDatepicker = false)}
     on:keypress={(e) => {
       if (e.key === 'Escape') openDatepicker = false
     }}
-  >
+  />
+  <div class="absolute top-0 left-0 flex h-screen w-screen items-center justify-center">
     <div
       class="z-[60] flex flex-col gap-3 rounded-2xl bg-white"
       transition:slide={{ duration: 200 }}
