@@ -60,7 +60,7 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white h-[453px] w-[384px] z-[60]"
+    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white z-[60]"
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center px-4 pt-4">
@@ -72,7 +72,7 @@
         <ChevronRight class="h-7 w-7" />
       </button>
     </div>
-    <ul class="grid grow grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center">
+    <ul class="grid grow grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-x-2 gap-y-3 px-4 text-center">
       {#each ['일', '월', '화', '수', '목', '금', '토'] as day}
         <li class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent">
           {day}
