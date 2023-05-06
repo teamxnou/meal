@@ -5,7 +5,7 @@ labels: '버그'
 body:
 - type: textarea
   attributes:
-    label: 어떤 기능에 버그가 있나요?
+    label: 어떤 기능의 어떤 부분에 버그가 있나요?
 - type: dropdown
   attributes:
     label: 버그가 일어나는 화면
@@ -14,6 +14,8 @@ body:
     options:
       - '급식 화면'
       - '학교 선택 화면'
+      - '재료 검색 화면'
+      - '재료 정보 화면'
       - '기타'
 - type: textarea
   attributes:

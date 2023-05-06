@@ -1,4 +1,10 @@
 <script lang="ts">
+  import { createClient } from '@supabase/supabase-js'
+
+  const supabaseUrl = 'https://ojeqqmhebtcdwpenevaf.supabase.co'
+  const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
 
@@ -6,8 +12,7 @@
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
-  import vegetableData from '../vegetableData'
-  import { replaceWithExcepts } from '../replaceWithExcepts'
+  import { getMeal, parseMeal } from '../fetchMeal'
 
   export let date: Date
 
@@ -26,39 +31,6 @@
 
   $: isSchoolSelected = schoolCode && cityCode
 
-  function parseMeal(mealString: string): Menu[] {
-    const regex = /(.*) \((.*)\)/
-    const meal = mealString.split('<br/>').map((menu) => {
-      const match = menu.match(regex)
-      let stringMenuName = match?.[1] || menu
-      const numString = match?.[2] || ' '
-      const allergies = numString
-        .split('.')
-        .map((n: string) => parseInt(n))
-        .filter(function (el) {
-          return !!el
-        })
-
-      vegetableData.forEach((vegetable, i) => {
-        stringMenuName = replaceWithExcepts(
-          stringMenuName,
-          vegetable.name,
-          vegetable.exceptions || [],
-          `[${vegetable.name}|${i}]`
-        )
-      })
-      const menuName = stringMenuName
-        .split(/(\[[ㄱ-힣]+\|\d+\])/g)
-        .filter((token) => !!token)
-        .map((token) => {
-          const match = token.match(/\[([ㄱ-힣]+)\|(\d+)\]/)
-          return match ? { string: match[1], infoIndex: parseInt(match[2]) } : { string: token }
-        })
-      return { name: menuName, allergies }
-    })
-    return meal
-  }
-
   interface MenuToken {
     string: string
     infoIndex?: number
@@ -72,28 +44,30 @@
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
-  function updateMeal() {
+  async function updateMeal() {
     if (!schoolCode || !cityCode) return
-    fetch(
-      `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${
-        import.meta.env.VITE_NEIS_API_KEY
-      }&Type=json&ATPT_OFCDC_SC_CODE=${cityCode}&SD_SCHUL_CODE=${schoolCode}&MLSV_YMD=${formattedDate}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.mealServiceDietInfo) {
-          error = true
-          errorCode = parseInt(res.RESULT.CODE.replace(/[^0-9]/g, ''))
-          return
-        }
-        meal = parseMeal(res.mealServiceDietInfo[1].row[0].DDISH_NM)
-        error = false
-        errorCode = 0
-      })
-      .catch(() => {
-        error = true
-        errorCode = -1
-      })
+    let res = await getMeal(cityCode, schoolCode, formattedDate)
+    let parsedMeal = parseMeal(res.body)
+    meal = parsedMeal
+    error = res.error
+    errorCode = res.errorCode
+  }
+
+  async function canBeStarred(menu: MenuToken[]): Promise<number> {
+    let name = menu.map((token) => token.string).join('')
+    const { data } = await supabase
+      .from('menus')
+      .select('name, total_survey, total_votes')
+      .eq('name', name)
+    const total_survey = data?.[0].total_survey
+    const total_votes = data?.[0].total_votes
+    if (data?.length == 0 || total_votes < 10) return 0
+    const ratio = total_votes == 0 ? 0 : total_votes / total_survey
+    if (ratio >= 0.9) return 4
+    else if (ratio >= 0.7) return 3
+    else if (ratio >= 0.5) return 2
+    else if (ratio >= 0.3) return 1
+    else return 0
   }
 
   onMount(() => {
@@ -124,6 +98,21 @@
               <span>{token.string}</span>
             {/if}
           {/each}
+          {#await canBeStarred(menu.name) then canBeStarred}
+            {#if canBeStarred}
+              <span class="ml-2">
+                {#if canBeStarred == 1}
+                  ⭐️
+                {:else if canBeStarred == 2}
+                  🌟
+                {:else if canBeStarred == 3}
+                  💫
+                {:else if canBeStarred == 4}
+                  🌠
+                {/if}
+              </span>
+            {/if}
+          {/await}
         </li>
       {/each}
     </ul>
