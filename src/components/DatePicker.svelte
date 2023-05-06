@@ -52,70 +52,76 @@
 </div>
 {#if openDatepicker}
   <div
-    class="absolute top-0 left-0 h-screen w-screen bg-black/30 z-50"
+    class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30"
     transition:fade={{ duration: 200 }}
     on:click={() => (openDatepicker = false)}
     on:keypress={(e) => {
       if (e.key === 'Escape') openDatepicker = false
     }}
   />
-  <div
-    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white h-[453px] w-[384px] z-[60]"
-    transition:slide={{ duration: 200 }}
-  >
-    <div class="flex items-center px-4 pt-4">
-      <button class="month-arrow-button" on:click={() => (month -= 1)}>
-        <ChevronLeft class="h-7 w-7" />
-      </button>
-      <div class="flex-grow text-center text-lg font-semibold">{year}년 {month}월</div>
-      <button class="month-arrow-button" on:click={() => (month += 1)}>
-        <ChevronRight class="h-7 w-7" />
-      </button>
-    </div>
-    <ul class="grid grow grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-3 px-4 text-center">
-      {#each ['일', '월', '화', '수', '목', '금', '토'] as day}
-        <li class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent">
-          {day}
-        </li>
-      {/each}
-      {#each Array(placeholderDays == 7 ? 0 : placeholderDays).fill(0) as _}
-        <li class="placeholder" />
-      {/each}
-      {#each daysInMonth as day}
-        <li
-          class:active={year === date.getFullYear() &&
-            month === date.getMonth() + 1 &&
-            day === date.getDate()}
-          class:today={day === today.getDate() &&
-            month === today.getMonth() + 1 &&
-            year === today.getFullYear()}
-        >
-          <button
-            on:click={() => {
-              const newDate = new Date(date)
-              newDate.setMonth(month - 1)
-              newDate.setDate(day)
-              updateDate(newDate)
-            }}>{day}</button
+  <div class="absolute top-0 left-0 flex h-screen w-screen items-center justify-center">
+    <div
+      class="z-[60] flex flex-col gap-3 rounded-2xl bg-white"
+      transition:slide={{ duration: 200 }}
+    >
+      <div class="flex items-center px-4 pt-4">
+        <button class="month-arrow-button" on:click={() => (month -= 1)}>
+          <ChevronLeft class="h-7 w-7" />
+        </button>
+        <div class="flex-grow text-center text-lg font-semibold">{year}년 {month}월</div>
+        <button class="month-arrow-button" on:click={() => (month += 1)}>
+          <ChevronRight class="h-7 w-7" />
+        </button>
+      </div>
+      <ul
+        class="grid grow grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] gap-x-2 gap-y-3 px-4 text-center"
+      >
+        {#each ['일', '월', '화', '수', '목', '금', '토'] as day}
+          <li
+            class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent"
           >
-        </li>
-      {/each}
-    </ul>
-    <div class="footer">
-      <button
-        on:click={() => {
-          updateDate(new Date())
-        }}
-      >
-        오늘
-      </button>
-      <button
-        on:click={() => {
-          openDatepicker = false
-        }}
-      >
-        확인
-      </button>
+            {day}
+          </li>
+        {/each}
+        {#each Array(placeholderDays == 7 ? 0 : placeholderDays).fill(0) as _}
+          <li class="placeholder" />
+        {/each}
+        {#each daysInMonth as day}
+          <li
+            class:active={year === date.getFullYear() &&
+              month === date.getMonth() + 1 &&
+              day === date.getDate()}
+            class:today={day === today.getDate() &&
+              month === today.getMonth() + 1 &&
+              year === today.getFullYear()}
+          >
+            <button
+              on:click={() => {
+                const newDate = new Date(date)
+                newDate.setMonth(month - 1)
+                newDate.setDate(day)
+                updateDate(newDate)
+              }}>{day}</button
+            >
+          </li>
+        {/each}
+      </ul>
+      <div class="footer">
+        <button
+          on:click={() => {
+            updateDate(new Date())
+          }}
+        >
+          오늘
+        </button>
+        <button
+          on:click={() => {
+            openDatepicker = false
+          }}
+        >
+          확인
+        </button>
+      </div>
     </div>
   </div>
 {/if}
