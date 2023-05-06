@@ -5,7 +5,7 @@ labels: '버그'
 body:
 - type: textarea
   attributes:
-    label: 어떤 기능에 버그가 있나요?
+    label: 어떤 기능의 어떤 부분에 버그가 있나요?
 - type: dropdown
   attributes:
     label: 버그가 일어나는 화면
