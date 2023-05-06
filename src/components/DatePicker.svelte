@@ -52,7 +52,7 @@
 </div>
 {#if openDatepicker}
   <div
-    class="absolute top-0 left-0 h-screen w-screen bg-black/30"
+    class="absolute top-0 left-0 h-screen w-screen bg-black/30 z-50"
     transition:fade={{ duration: 200 }}
     on:click={() => (openDatepicker = false)}
     on:keypress={(e) => {
@@ -60,7 +60,7 @@
     }}
   />
   <div
-    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white h-[453px] w-[384px]"
+    class="absolute top-1/2 left-1/2 flex -translate-x-1/2 -translate-y-1/2 transform flex-col gap-3 rounded-2xl bg-white h-[453px] w-[384px] z-[60]"
     transition:slide={{ duration: 200 }}
   >
     <div class="flex items-center px-4 pt-4">
