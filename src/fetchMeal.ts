@@ -71,7 +71,18 @@ export async function getMeal(
 
   if (json.mealServiceDietInfo) {
     meal = removeAllergyInfo(
-      json.mealServiceDietInfo[1].row[0].DDISH_NM.replace(/[^가-힣<br/>]+/g, '').split('<br/>')
+      json.mealServiceDietInfo[1].row[0].DDISH_NM.replace(/[^가-힣<br>]+/g, '').split('<br>').filter((menu: string) => {
+        /*
+          Matches:
+        - 우유급식
+        - 우유우유급식
+        - 급식우유
+        - 우유
+        - 흰죽환아용
+        - etc.
+        */
+        return !menu.match(/^(((급식)?(우유){1,2}(급식)?)|흰죽환아용)$/)
+      })
     )
     error = false
     errorCode = 0
