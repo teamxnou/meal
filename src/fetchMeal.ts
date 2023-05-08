@@ -71,19 +71,8 @@ export async function getMeal(
 
   if (json.mealServiceDietInfo) {
     meal = removeAllergyInfo(
-      json.mealServiceDietInfo[1].row[0].DDISH_NM.replace(/[^가-힣<br>]+/g, '').split('<br>').filter((menu: string) => {
-        /*
-          Matches:
-        - 우유급식
-        - 우유우유급식
-        - 급식우유
-        - 우유
-        - 흰죽환아용
-        - etc.
-        */
-        return !menu.match(/^(((급식)?(우유){1,2}(급식)?)|흰죽환아용)$/)
-      })
-    )
+      json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
+    ).map((menu) => cleanMenu(menu)).filter((menu) => !!menu)
     error = false
     errorCode = 0
   } else {
@@ -92,4 +81,12 @@ export async function getMeal(
   }
 
   return { body: meal, error, errorCode }
+}
+
+export function cleanMenu(menu: string): string {
+  // 우유
+  if (menu.match(/(급식)?\(?우유(급식)?\)?/g)) return ''
+  // 흰죽 (환아용)
+  if (menu.match(/흰죽 *\(환아용\)/g)) return ''
+  return menu.replace(/[^가-힣()]/g, '')
 }
