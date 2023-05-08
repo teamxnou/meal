@@ -71,7 +71,7 @@ export async function getMeal(
 
   if (json.mealServiceDietInfo) {
     meal = removeAllergyInfo(
-      json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>')
+      json.mealServiceDietInfo[1].row[0].DDISH_NM.split(/<br\/>|&/g)
     ).map(cleanMenu).filter(Boolean)
     error = false
     errorCode = 0
