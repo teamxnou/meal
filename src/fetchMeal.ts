@@ -85,7 +85,7 @@ export async function getMeal(
 
 export function cleanMenu(menu: string): string {
   // 우유
-  if (menu.match(/^ *(급식|강화)?\(?(우유)?(급식)?\)? *$/g)) return ''
+  if (menu.match(/^ *(급식|강화|우유)?\(?(우유)?(급식)?\)? *$/g)) return ''
   // 흰죽 (환아용)
   if (menu.match(/^ *흰죽 *\(환아용\) *$/g)) return ''
   return menu.replace(/[^가-힣()]/g, '')
