@@ -9,7 +9,7 @@
       <label
         class="flex cursor-pointer items-center justify-between bg-white px-5 py-1 hover:bg-neutral-50"
       >
-        <span class="my-2">토글</span>
+        <span class="my-2">메뉴 설문 참가</span>
         <input type="checkbox" class="peer appearance-none" />
         <div
           class="group-9 w-14 rounded-full border-2 bg-neutral-50 transition duration-500 peer-checked:border-green-500 peer-checked:bg-green-500 peer-checked:[&>div]:translate-x-5"
