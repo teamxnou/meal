@@ -1,7 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
 
-  import { Search } from 'lucide-svelte'
+  import { Settings, Search } from 'lucide-svelte'
   import CenteredSchool2 from '../components/CenteredSchool2.svelte'
 
   import MenuBar from '../components/MenuBar.svelte'
@@ -30,6 +30,8 @@
 </script>
 
 <MenuBar
+  LeftButton={Settings}
+  leftButtonLink="/settings"
   title="오늘뭐먹지"
   buttons={[CenteredSchool2, Search]}
   buttonLinks={['/school-selection', '/vegetable-search']}
