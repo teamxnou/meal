@@ -54,7 +54,11 @@ export function removeAllergyInfo(meal: string[]) {
   return meal.map((menu) => menu.replace(/ +\([0-9. ]+\)/g, ''))
 }
 
-export async function getMeal(cityCode: string, schoolCode: number, date: string): Promise<Response> {
+export async function getMeal(
+  cityCode: string,
+  schoolCode: number,
+  date: string
+): Promise<Response> {
   let meal: string[] = []
   let error = false
   let errorCode = 0
@@ -66,7 +70,9 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
   const json = await res.json()
 
   if (json.mealServiceDietInfo) {
-    meal = removeAllergyInfo(json.mealServiceDietInfo[1].row[0].DDISH_NM.split('<br/>'))
+    meal = removeAllergyInfo(
+      json.mealServiceDietInfo[1].row[0].DDISH_NM.split(/<br\/>|&/g)
+    ).map(cleanMenu).filter(Boolean)
     error = false
     errorCode = 0
   } else {
@@ -77,3 +83,10 @@ export async function getMeal(cityCode: string, schoolCode: number, date: string
   return { body: meal, error, errorCode }
 }
 
+export function cleanMenu(menu: string): string {
+  // 우유
+  if (menu.match(/^ *(급식|강화|우유)?\(?(우유)?(급식)?\)? *$/g)) return ''
+  // 흰죽 (환아용)
+  if (menu.match(/^ *흰죽 *\(환아용\) *$/g)) return ''
+  return menu.replace(/[^가-힣()]/g, '')
+}
