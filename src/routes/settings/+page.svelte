@@ -1,5 +1,21 @@
 <script lang="ts">
+  import { settings } from '../../settings'
+  import type { Settings } from '../../settings'
+
   import MenuBar from '../../components/MenuBar.svelte'
+
+  let _settings: Settings = $settings
+
+  settings.subscribe((value) => {
+    _settings = value
+  })
+
+  $: {
+    settings.update((value) => {
+      value = _settings
+      return value
+    })
+  }
 </script>
 
 <MenuBar title="설정" back={true} />
@@ -10,7 +26,11 @@
         class="flex cursor-pointer items-center justify-between bg-white px-5 py-1 hover:bg-neutral-50"
       >
         <span class="my-2">메뉴 설문 참가</span>
-        <input type="checkbox" class="peer appearance-none" />
+        <input
+          type="checkbox"
+          class="peer appearance-none"
+          bind:checked={_settings.parcipiateMenuSurvey}
+        />
         <div
           class="group-9 w-14 rounded-full border-2 bg-neutral-50 transition duration-500 peer-checked:border-green-500 peer-checked:bg-green-500 peer-checked:[&>div]:translate-x-5"
         >
