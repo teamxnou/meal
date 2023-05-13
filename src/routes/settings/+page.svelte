@@ -20,7 +20,7 @@
 
 <MenuBar title="설정" back={true} />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
-  <ul class="overflow-hidden rounded-lg">
+  <ul class="overflow-hidden rounded-lg divide-y">
     <li>
       <label
         class="flex cursor-pointer items-center justify-between bg-white px-5 py-1 hover:bg-neutral-50"
