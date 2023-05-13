@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
   import CenteredSchool2 from '../components/CenteredSchool2.svelte'
@@ -46,4 +47,6 @@
     date = newDate
   }}
 />
-<MenuSurvey />
+{#if $settings.parcipiateMenuSurvey}
+  <MenuSurvey />
+{/if}
