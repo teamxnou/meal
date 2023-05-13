@@ -42,7 +42,10 @@
       <label
         class="flex cursor-pointer items-center justify-between bg-white px-5 py-1 hover:bg-neutral-50"
       >
-        <span class="my-2">메뉴 설문 결과 보기</span>
+        <div class="flex flex-col my-2">
+          <span>메뉴 설문 결과 보기</span>
+          <p class="text-neutral-400 text-xs">메뉴 설문에서 다른 학생들이 만족스럽다고 표시한 메뉴에 별을 표시해요.</p>
+        </div>
         <input
           type="checkbox"
           class="peer appearance-none"
