@@ -1,7 +1,9 @@
 <script lang="ts">
   import { ChevronLeft, Search } from 'lucide-svelte'
 
-  export let title: string,
+  export let LeftButton: any = null,
+    leftButtonLink: string = '',
+    title: string,
     buttons: any[] = [],
     buttonLinks: (string | undefined)[] = [],
     primary: boolean = false,
@@ -28,6 +30,14 @@
       >
         <ChevronLeft class="h-7 w-7" />
       </button>
+    {:else if LeftButton}
+      <a
+        href={leftButtonLink}
+        class="mr-3 rounded hover:bg-black/5 active:bg-black/10 p-1"
+        role="button"
+      >
+        <LeftButton class="h-7 w-7" />
+      </a>
     {/if}
     <h1 class="text-[20px] font-semibold">{title}</h1>
     {#if buttons.length}
