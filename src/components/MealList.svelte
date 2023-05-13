@@ -7,6 +7,7 @@
 
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
+  import { settings } from '../settings'
 
   import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
@@ -54,6 +55,7 @@
   }
 
   async function canBeStarred(menu: MenuToken[]): Promise<number> {
+    if (!$settings.viewMenuSurvey) return 0
     let name = menu.map((token) => token.string).join('')
     const { data } = await supabase
       .from('menus')
