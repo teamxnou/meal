@@ -56,6 +56,7 @@
     class="arrow-button"
     class:bg-neutral-100={arrowAnimation == 'left'}
     on:click={() => changeDate(-1)}
+    aria-label="어제 급식 보기"
   >
     <ChevronLeft class="h-7 w-7" />
   </button>
@@ -69,6 +70,7 @@
     class="arrow-button"
     class:bg-neutral-100={arrowAnimation == 'right'}
     on:click={() => changeDate(1)}
+    aria-label="내일 급식 보기"
   >
     <ChevronRight class="h-7 w-7" />
   </button>
