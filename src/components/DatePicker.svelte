@@ -16,6 +16,21 @@
     updateDate(newDate)
   }
 
+  let arrowAnimation: 'left' | 'right' | undefined
+  $: {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          changeDate(e.key === 'ArrowRight' ? 1 : -1)
+          arrowAnimation = e.key === 'ArrowRight' ? 'right' : 'left'
+          setTimeout(() => {
+            arrowAnimation = undefined
+          }, 200)
+        }
+      })
+    }
+  }
+
   let openDatepicker = false
   let year = date.getFullYear()
   let month = date.getMonth() + 1
@@ -37,7 +52,11 @@
 <div
   class="absolute bottom-0 left-1/2 mb-16 flex -translate-x-1/2 transform items-center justify-center gap-1"
 >
-  <button class="arrow-button" on:click={() => changeDate(-1)}>
+  <button
+    class="arrow-button"
+    class:bg-neutral-100={arrowAnimation == 'left'}
+    on:click={() => changeDate(-1)}
+  >
     <ChevronLeft class="h-7 w-7" />
   </button>
   <button
@@ -46,7 +65,11 @@
   >
     {formattedDate}
   </button>
-  <button class="arrow-button" on:click={() => changeDate(1)}>
+  <button
+    class="arrow-button"
+    class:bg-neutral-100={arrowAnimation == 'right'}
+    on:click={() => changeDate(1)}
+  >
     <ChevronRight class="h-7 w-7" />
   </button>
 </div>
