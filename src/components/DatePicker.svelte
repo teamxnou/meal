@@ -63,6 +63,7 @@
   <button
     class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center active:bg-neutral-200"
     on:click={() => (openDatepicker = true)}
+    aria-label="날짜 선택. {formattedDate}"
   >
     {formattedDate}
   </button>
