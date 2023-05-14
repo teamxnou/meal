@@ -3,9 +3,11 @@
 
   export let LeftButton: any = null,
     leftButtonLink: string = '',
+    leftButtonLabel: string = '',
     title: string,
     buttons: any[] = [],
     buttonLinks: (string | undefined)[] = [],
+    buttonLabels: string[] = [],
     primary: boolean = false,
     back: boolean = false,
     search: boolean = false,
@@ -27,6 +29,7 @@
       <button
         on:click={() => history.back()}
         class="mr-3 rounded hover:bg-black/5 active:bg-black/10"
+        aria-label="뒤로가기"
       >
         <ChevronLeft class="h-7 w-7" />
       </button>
@@ -35,6 +38,7 @@
         href={leftButtonLink}
         class="mr-3 rounded hover:bg-black/5 active:bg-black/10 p-1"
         role="button"
+        aria-label={leftButtonLabel}
       >
         <LeftButton class="h-7 w-7" />
       </a>
@@ -47,6 +51,7 @@
             href={buttonLinks[i]}
             class="rounded p-1 hover:bg-black/5 active:bg-black/10"
             role="button"
+            aria-label={buttonLabels[i]}
           >
             <Button class="h-7 w-7" />
           </a>
