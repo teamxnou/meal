@@ -7,6 +7,7 @@
 
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
+  import { bodyAriaHidden } from '../a11y'
   import { settings } from '../settings'
 
   import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
@@ -31,6 +32,11 @@
   })
 
   $: isSchoolSelected = schoolCode && cityCode
+
+  let ariaHidden: boolean
+  bodyAriaHidden.subscribe((value) => {
+    ariaHidden = value
+  })
 
   interface MenuToken {
     string: string
@@ -86,6 +92,7 @@
 
 <div
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
+  aria-hidden={ariaHidden}
 >
   {#if !error && isSchoolSelected && meal.length > 0}
     <ul class="flex grow flex-col items-center justify-center text-3xl">

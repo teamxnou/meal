@@ -1,8 +1,11 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition'
+  import { bodyAriaHidden } from '../a11y'
   import { ChevronLeft, ChevronRight, CalendarClock } from 'lucide-svelte'
 
   export let date: Date, updateDate: (date: Date) => void
+
+  let tempDate: Date = date
 
   $: formattedDate = new Date(date).toLocaleDateString('ko-KR', {
     month: 'long',
@@ -15,6 +18,11 @@
     newDate.setDate(newDate.getDate() + offset)
     updateDate(newDate)
   }
+
+  let ariaHidden: boolean
+  bodyAriaHidden.subscribe((value) => {
+    ariaHidden = value
+  })
 
   let arrowAnimation: 'left' | 'right' | undefined
   $: {
@@ -55,23 +63,36 @@
   <button
     class="arrow-button"
     class:bg-neutral-100={arrowAnimation == 'left'}
-    on:click={() => changeDate(-1)}
+    on:click={() => {
+      changeDate(-1)
+      tempDate = date
+    }}
     aria-label="어제 급식 보기"
+    aria-hidden={ariaHidden}
   >
     <ChevronLeft class="h-7 w-7" />
   </button>
   <button
     class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center active:bg-neutral-200"
-    on:click={() => (openDatepicker = true)}
+    on:click={() => {
+      openDatepicker = true
+      bodyAriaHidden.set(true)
+      tempDate = date
+    }}
     aria-label="날짜 선택. {formattedDate}"
+    aria-hidden={ariaHidden}
   >
     {formattedDate}
   </button>
   <button
     class="arrow-button"
     class:bg-neutral-100={arrowAnimation == 'right'}
-    on:click={() => changeDate(1)}
+    on:click={() => {
+      changeDate(1)
+      tempDate = date
+    }}
     aria-label="내일 급식 보기"
+    aria-hidden={ariaHidden}
   >
     <ChevronRight class="h-7 w-7" />
   </button>
@@ -80,22 +101,37 @@
   <div
     class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30"
     transition:fade={{ duration: 200 }}
-    on:click={() => (openDatepicker = false)}
+    on:click={() => {
+      openDatepicker = false
+      bodyAriaHidden.set(false)
+      updateDate(tempDate)
+    }}
     on:keypress={(e) => {
-      if (e.key === 'Escape') openDatepicker = false
+      if (e.key === 'Escape') {
+        openDatepicker = false
+        bodyAriaHidden.set(false)
+        updateDate(tempDate)
+      }
     }}
   />
-  <div class="absolute top-0 left-0 flex h-screen w-screen items-center justify-center">
+  <div
+    class="absolute top-0 left-0 flex h-screen w-screen items-center justify-center"
+    id="calander"
+    role="dialog"
+    aria-modal="true"
+  >
     <div
       class="z-[60] flex flex-col gap-3 rounded-2xl bg-white"
       transition:slide={{ duration: 200 }}
     >
       <div class="flex items-center px-4 pt-4">
-        <button class="month-arrow-button" on:click={() => (month -= 1)}>
+        <button class="month-arrow-button" on:click={() => (month -= 1)} aria-label="이전 달 보기">
           <ChevronLeft class="h-7 w-7" />
         </button>
-        <div class="flex-grow text-center text-lg font-semibold">{year}년 {month}월</div>
-        <button class="month-arrow-button" on:click={() => (month += 1)}>
+        <div class="flex-grow text-center text-lg font-semibold" aria-label="{year}년 {month}월">
+          {year}년 {month}월
+        </div>
+        <button class="month-arrow-button" on:click={() => (month += 1)} aria-label="다음 달 보기">
           <ChevronRight class="h-7 w-7" />
         </button>
       </div>
@@ -105,30 +141,48 @@
         {#each ['일', '월', '화', '수', '목', '금', '토'] as day}
           <li
             class="h-3 cursor-default bg-transparent text-sm text-neutral-400 hover:bg-transparent"
+            aria-hidden="true"
           >
             {day}
           </li>
         {/each}
         {#each Array(placeholderDays == 7 ? 0 : placeholderDays).fill(0) as _}
-          <li class="placeholder" />
+          <li class="placeholder" aria-hidden="true" />
         {/each}
         {#each daysInMonth as day}
           <li
-            class:active={year === date.getFullYear() &&
-              month === date.getMonth() + 1 &&
-              day === date.getDate()}
+            class:active={year === tempDate.getFullYear() &&
+              month === tempDate.getMonth() + 1 &&
+              day === tempDate.getDate()}
             class:today={day === today.getDate() &&
               month === today.getMonth() + 1 &&
               year === today.getFullYear()}
           >
             <button
-              on:click={() => {
+              on:click={(e) => {
                 const newDate = new Date(date)
                 newDate.setMonth(month - 1)
                 newDate.setDate(day)
-                updateDate(newDate)
-              }}>{day}</button
+                tempDate = newDate
+              }}
+              aria-label="{day === today.getDate() &&
+              month === today.getMonth() + 1 &&
+              year === today.getFullYear()
+                ? '오늘. '
+                : year === tempDate.getFullYear() &&
+                  month === tempDate.getMonth() + 1 &&
+                  day === tempDate.getDate()
+                ? '선택됨. '
+                : ''}{day}일 {['일', '월', '화', '수', '목', '금', '토'][
+                new Date(year, month - 1, day).getDay()
+              ]}요일{year !== tempDate.getFullYear() ||
+              month !== tempDate.getMonth() + 1 ||
+              day !== tempDate.getDate()
+                ? ' 선택'
+                : ''}"
             >
+              {day}
+            </button>
           </li>
         {/each}
       </ul>
@@ -143,6 +197,8 @@
         <button
           on:click={() => {
             openDatepicker = false
+            bodyAriaHidden.set(false)
+            updateDate(tempDate)
           }}
         >
           확인

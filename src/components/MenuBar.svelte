@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { bodyAriaHidden } from '../a11y'
   import { ChevronLeft, Search } from 'lucide-svelte'
 
   export let LeftButton: any = null,
@@ -16,9 +17,17 @@
 
   let searchQuery = ''
   $: queryChange(searchQuery)
+
+  let ariaHidden: boolean
+  bodyAriaHidden.subscribe((value) => {
+    ariaHidden = value
+  })
 </script>
 
-<div class="sticky top-0 w-full overflow-hidden rounded-b-lg shadow-lg z-50">
+<div
+  class="sticky top-0 z-50 w-full overflow-hidden rounded-b-lg shadow-lg"
+  aria-hidden={ariaHidden}
+>
   <header
     class="flex items-center py-3 px-5 h-14"
     class:bg-neutral-100={!primary}
@@ -60,7 +69,7 @@
     {/if}
   </header>
   {#if search}
-    <div class="flex items-center gap-3 bg-neutral-50 py-3 pl-6 pr-2 h-12">
+    <div class="flex h-12 items-center gap-3 bg-neutral-50 py-3 pl-6 pr-2">
       <Search class="h-6 w-6 text-neutral-400" />
       <input
         type="text"
