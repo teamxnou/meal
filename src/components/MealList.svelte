@@ -128,6 +128,7 @@
       <a
         href="/school-selection"
         class="mb-2 rounded-lg bg-green-500 py-2 px-4 text-white active:bg-green-600"
+        role="button"
       >
         학교 선택하기
       </a>
