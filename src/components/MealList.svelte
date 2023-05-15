@@ -100,7 +100,11 @@
         <li class="flex">
           {#each menu.name as token}
             {#if token.infoIndex}
-              <Vegetable infoIndex={token.infoIndex} colors={highlighterColors}>
+              <Vegetable
+                infoIndex={token.infoIndex}
+                colors={highlighterColors}
+                tabindex={ariaHidden ? -1 : 0}
+              >
                 {token.string}
               </Vegetable>
             {:else}
@@ -136,6 +140,7 @@
         href="/school-selection"
         class="mb-2 rounded-lg bg-green-500 py-2 px-4 text-white active:bg-green-600"
         role="button"
+        tabindex={ariaHidden ? -1 : 0}
       >
         학교 선택하기
       </a>

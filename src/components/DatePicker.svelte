@@ -16,6 +16,7 @@
   function changeDate(offset: number) {
     const newDate = new Date(date)
     newDate.setDate(newDate.getDate() + offset)
+    tempDate = newDate
     updateDate(newDate)
   }
 
@@ -94,6 +95,7 @@
     }}
     aria-label="어제 급식 보기"
     aria-hidden={ariaHidden}
+    tabindex={ariaHidden ? -1 : 0}
   >
     <ChevronLeft class="h-7 w-7" />
   </button>
@@ -106,6 +108,7 @@
     }}
     aria-label="날짜 선택. {formattedDate}"
     aria-hidden={ariaHidden}
+    tabindex={ariaHidden ? -1 : 0}
   >
     {formattedDate}
   </button>
@@ -118,6 +121,7 @@
     }}
     aria-label="내일 급식 보기"
     aria-hidden={ariaHidden}
+    tabindex={ariaHidden ? -1 : 0}
   >
     <ChevronRight class="h-7 w-7" />
   </button>

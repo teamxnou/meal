@@ -39,6 +39,7 @@
         on:click={() => history.back()}
         class="mr-3 rounded hover:bg-black/5 active:bg-black/10"
         aria-label="뒤로가기"
+        tabindex={ariaHidden ? -1 : 0}
       >
         <ChevronLeft class="h-7 w-7" />
       </button>
@@ -48,6 +49,7 @@
         class="mr-3 rounded hover:bg-black/5 active:bg-black/10 p-1"
         role="button"
         aria-label={leftButtonLabel}
+        tabindex={ariaHidden ? -1 : 0}
       >
         <LeftButton class="h-7 w-7" />
       </a>
@@ -61,6 +63,7 @@
             class="rounded p-1 hover:bg-black/5 active:bg-black/10"
             role="button"
             aria-label={buttonLabels[i]}
+            tabindex={ariaHidden ? -1 : 0}
           >
             <Button class="h-7 w-7" />
           </a>
@@ -76,6 +79,7 @@
         class="grow bg-transparent focus:outline-none"
         placeholder={searchPlaceholder}
         bind:value={searchQuery}
+        tabindex={ariaHidden ? -1 : 0}
       />
     </div>
   {/if}
