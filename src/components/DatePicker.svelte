@@ -40,21 +40,17 @@
     }
   }
 
-  function isDaySelected(day: number) {
-    return (
-      year === tempDate.getFullYear() &&
-      month === tempDate.getMonth() + 1 &&
-      day === tempDate.getDate()
-    )
-  }
+  $: selectedDayInCurrentMonth =
+    year === tempDate.getFullYear() && month === tempDate.getMonth() + 1 ? tempDate.getDate() : 0
 
   function isToday(day: number) {
     return year === today.getFullYear() && month === today.getMonth() + 1 && day === today.getDate()
   }
 
   function dayAreaLabel(day: number) {
-    const prefix = isToday(day) ? '오늘, ' : isDaySelected(day) ? '선택됨. ' : ''
-    const suffix = isDaySelected(day) ? '' : ' 선택'
+    const selected = selectedDayInCurrentMonth == day
+    const prefix = isToday(day) ? '오늘, ' : selected ? '선택됨. ' : ''
+    const suffix = selected ? '' : ' 선택'
     return `${prefix} ${day}일 ${dayNames[new Date(year, month - 1, day).getDay()]}요일 ${suffix}`
   }
 
@@ -132,6 +128,7 @@
     transition:fade={{ duration: 200 }}
     on:click={closeDatepicker}
     on:keypress={(e) => {
+      console.log(e.key)
       if (e.key === 'Escape') {
         closeDatepicker()
       }
@@ -173,7 +170,7 @@
           <li class="placeholder" aria-hidden="true" />
         {/each}
         {#each daysInMonth as day}
-          <li class:active={isDaySelected(day)} class:today={isToday(day)}>
+          <li class:active={selectedDayInCurrentMonth == day} class:today={isToday(day)}>
             <button
               on:click={() => {
                 const newDate = new Date(date)
