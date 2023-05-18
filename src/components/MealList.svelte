@@ -88,6 +88,8 @@
   }
 
   const highlighterColors = ['#fca5a5', '#fdba74', '#fcd34d', '#bef264', '#7dd3fc', '#c4b5fd']
+
+  let joinedMeal: string = ''
 </script>
 
 <div
@@ -95,6 +97,23 @@
   aria-hidden={ariaHidden}
 >
   {#if !error && isSchoolSelected && meal.length > 0}
+    <button
+      class="sr-only"
+      on:click={() => {
+        joinedMeal = ''
+        setTimeout(() => {
+          joinedMeal = meal
+            .map((menu) => {
+              return menu.name.map((token) => token.string).join('')
+            })
+            .join('. ')
+          setTimeout(() => {
+            joinedMeal = ''
+          }, 10);
+        }, 10)
+      }}>급식 모두 듣기</button
+    >
+    <span role="alert" aria-live="assertive" class="sr-only" aria-hidden={joinedMeal ? 'false' : 'true'}>{joinedMeal}</span>
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
         <li class="flex">
