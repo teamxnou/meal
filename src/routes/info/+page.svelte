@@ -61,12 +61,14 @@
         <button
           class="absolute bottom-3 left-3 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 shadow-lg transition duration-200 hover:bg-neutral-200 hover:shadow-xl"
           on:click={() => scrollCarousel(-1)}
+          aria-hidden="true"
         >
           <ChevronLeft class="h-7 w-7" />
         </button>
         <button
           class="absolute bottom-3 right-3 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 shadow-lg transition duration-200 hover:bg-neutral-200 hover:shadow-xl"
           on:click={() => scrollCarousel(1)}
+          aria-hidden="true"
         >
           <ChevronRight class="h-7 w-7" />
         </button>
