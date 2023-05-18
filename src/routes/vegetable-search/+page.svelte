@@ -48,6 +48,7 @@
               alt="{vegetable.name}의 사진"
               class="w-full aspect-video object-cover rounded-t-lg"
               loading="lazy"
+              aria-hidden="true"
             />
             <h2 class="mx-5 text-2xl font-semibold">
               {vegetable.name}
