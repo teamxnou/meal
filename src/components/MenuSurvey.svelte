@@ -111,12 +111,18 @@
             <li>
               <label
                 for="checkbox{i}"
-                class="flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-1 text-center text-xl transition duration-150"
+                class="menulabel"
                 class:bg-green-500={menu.voted}
                 class:text-white={menu.voted}
                 class:shadow-lg={menu.voted}
               >
-                <input type="checkbox" id="checkbox{i}" class="hidden" bind:checked={menu.voted} />
+                <input
+                  type="checkbox"
+                  id="checkbox{i}"
+                  class="peer h-0 w-0 overflow-hidden focus:ring-0 focus:ring-offset-0"
+                  bind:checked={menu.voted}
+                  tabindex="0"
+                />
                 <span>{menu.name}</span>
               </label>
             </li>
@@ -144,3 +150,12 @@
     </div>
   </div>
 {/if}
+
+<style lang="postcss">
+  .menulabel {
+    @apply flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-1 text-center text-xl transition duration-150;
+  }
+  .menulabel:has(input:focus:focus-visible) {
+    @apply outline-none ring-2 ring-green-600 ring-offset-2 ring-offset-white;
+  }
+</style>
