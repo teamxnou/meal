@@ -7,6 +7,7 @@
 
   import { fade, fly } from 'svelte/transition'
   import { selectedCity, selectedSchool } from '../stores'
+  import { modalOpened } from '../a11y'
 
   import { getMeal, removeAllergyInfo } from '../fetchMeal'
 
@@ -77,10 +78,19 @@
   }
 
   let showSurvey = false
+  modalOpened.set(false)
 
   setTimeout(() => {
     showSurvey = true
   }, 2000)
+
+  $: {
+    if (meal && !error && meal.length > 0 && showSurvey) {
+      modalOpened.set(true)
+    } else {
+      modalOpened.set(false)
+    }
+  }
 </script>
 
 {#if meal && !error && meal.length > 0 && showSurvey}
@@ -93,8 +103,8 @@
         class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg"
         transition:fly={{ y: 100 }}
       >
-        <h1 class="text-center text-2xl font-semibold">
-          어제 급식 중 만족스러웠던 메뉴를 골라주세요.
+        <h1 class="text-center text-2xl font-semibold" role="alert" aria-live="assertive">
+          <span class="sr-only">메뉴 설문 열림</span>어제 급식 중 만족스러웠던 메뉴를 골라주세요.
         </h1>
         <ul class="grid grid-cols-2 gap-1">
           {#each meal as menu, i}
