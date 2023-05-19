@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { bodyAriaHidden } from '../a11y'
+  import { modalOpened } from '../a11y'
   import { ChevronLeft, Search } from 'lucide-svelte'
 
   export let LeftButton: any = null,
@@ -19,7 +19,7 @@
   $: queryChange(searchQuery)
 
   let ariaHidden: boolean
-  bodyAriaHidden.subscribe((value) => {
+  modalOpened.subscribe((value) => {
     ariaHidden = value
   })
 </script>

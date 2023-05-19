@@ -7,7 +7,7 @@
 
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
-  import { bodyAriaHidden } from '../a11y'
+  import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
   import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
@@ -34,7 +34,7 @@
   $: isSchoolSelected = schoolCode && cityCode
 
   let ariaHidden: boolean
-  bodyAriaHidden.subscribe((value) => {
+  modalOpened.subscribe((value) => {
     ariaHidden = value
   })
 

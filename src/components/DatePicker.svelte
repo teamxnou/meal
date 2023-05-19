@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition'
-  import { bodyAriaHidden } from '../a11y'
+  import { modalOpened } from '../a11y'
   import { ChevronLeft, ChevronRight } from 'lucide-svelte'
 
   export let date: Date, updateDate: (date: Date) => void
@@ -21,7 +21,7 @@
   }
 
   let ariaHidden: boolean
-  bodyAriaHidden.subscribe((value) => {
+  modalOpened.subscribe((value) => {
     ariaHidden = value
   })
 
@@ -59,7 +59,7 @@
   let openDatepicker = false
   function closeDatepicker() {
     openDatepicker = false
-    bodyAriaHidden.set(false)
+    modalOpened.set(false)
     updateDate(tempDate)
   }
 
@@ -99,7 +99,7 @@
     class="relative w-[8rem] gap-0 rounded-lg bg-neutral-100 px-3 py-1 text-center active:bg-neutral-200"
     on:click={() => {
       openDatepicker = true
-      bodyAriaHidden.set(true)
+      modalOpened.set(true)
       tempDate = date
     }}
     aria-label="날짜 선택. {formattedDate}"
