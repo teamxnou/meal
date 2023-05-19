@@ -23,8 +23,26 @@
     </p>
   </div>
   <div
-    class="group-9 w-14 rounded-full border-2 bg-neutral-50 transition duration-500 peer-checked:border-green-500 peer-checked:bg-green-500 peer-checked:[&>div]:translate-x-5"
+    class="switch"
   >
-    <div class="h-8 w-8 transform rounded-full bg-white shadow transition duration-300" />
+    <div />
   </div>
 </label>
+
+<style lang="postcss"> 
+  .switch {
+    @apply w-14 rounded-full border-2 bg-neutral-50 transition duration-500 peer-checked:border-green-500 peer-checked:bg-green-500 peer-checked:[&>div]:translate-x-5;
+  }
+  .switch > div {
+    @apply h-8 w-8 transform rounded-full bg-white shadow transition duration-300;
+  }
+  input[type='checkbox']:focus {
+    @apply outline-none ring-0 ring-offset-0;
+  }
+  input[type='checkbox']:focus:focus-visible ~ .switch {
+    @apply ring-2 ring-neutral-300 ring-offset-2 ring-offset-white;
+  }
+  input[type='checkbox']:checked:focus:focus-visible ~ .switch {
+    @apply ring-2 ring-green-600 ring-offset-2;
+  }
+</style>
