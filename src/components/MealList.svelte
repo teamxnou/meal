@@ -7,6 +7,7 @@
 
   import { onMount } from 'svelte'
   import { selectedCity, selectedSchool } from '../stores'
+  import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
   import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
@@ -31,6 +32,11 @@
   })
 
   $: isSchoolSelected = schoolCode && cityCode
+
+  let ariaHidden: boolean
+  modalOpened.subscribe((value) => {
+    ariaHidden = value
+  })
 
   interface MenuToken {
     string: string
@@ -82,18 +88,42 @@
   }
 
   const highlighterColors = ['#fca5a5', '#fdba74', '#fcd34d', '#bef264', '#7dd3fc', '#c4b5fd']
+
+  let joinedMeal: string = ''
 </script>
 
 <div
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
+  aria-hidden={ariaHidden}
 >
   {#if !error && isSchoolSelected && meal.length > 0}
+    <button
+      class="sr-only"
+      on:click={() => {
+        joinedMeal = ''
+        setTimeout(() => {
+          joinedMeal = meal
+            .map((menu) => {
+              return menu.name.map((token) => token.string).join('')
+            })
+            .join('. ')
+          setTimeout(() => {
+            joinedMeal = ''
+          }, 10);
+        }, 10)
+      }}>급식 모두 듣기</button
+    >
+    <span role="alert" aria-live="assertive" class="sr-only" aria-hidden={joinedMeal ? 'false' : 'true'}>{joinedMeal}</span>
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
         <li class="flex">
           {#each menu.name as token}
             {#if token.infoIndex}
-              <Vegetable infoIndex={token.infoIndex} colors={highlighterColors}>
+              <Vegetable
+                infoIndex={token.infoIndex}
+                colors={highlighterColors}
+                tabindex={ariaHidden ? -1 : 0}
+              >
                 {token.string}
               </Vegetable>
             {:else}
@@ -128,6 +158,8 @@
       <a
         href="/school-selection"
         class="mb-2 rounded-lg bg-green-500 py-2 px-4 text-white active:bg-green-600"
+        role="button"
+        tabindex={ariaHidden ? -1 : 0}
       >
         학교 선택하기
       </a>
