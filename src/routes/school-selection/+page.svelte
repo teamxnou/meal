@@ -96,14 +96,21 @@
     {/if}
   </div>
   {#if searchedSchools.length}
-    <ul class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+    <ul
+      class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+    >
       {#each searchedSchools as school}
-        <li class="flex w-full flex-col items-start rounded-lg bg-white overflow-clip">
+        <li class="flex w-full flex-col items-start overflow-clip rounded-lg bg-white">
           <span class="mx-5 mt-4 text-sm font-medium text-neutral-400" aria-hidden="true">
             {school.ORG_RDNMA}
           </span>
-          <h2 class="px-5 text-2xl font-semibold truncate max-w-full" aria-label="{school.SCHUL_NM}. 주소: {school.ORG_RDNMA}">{school.SCHUL_NM}</h2>
-          <div class="grow"></div>
+          <h2
+            class="max-w-full truncate px-5 text-2xl font-semibold"
+            aria-label="{school.SCHUL_NM}. 주소: {school.ORG_RDNMA}"
+          >
+            {school.SCHUL_NM}
+          </h2>
+          <div class="grow" />
           <a
             href="/"
             class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"

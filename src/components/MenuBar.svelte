@@ -29,7 +29,7 @@
   aria-hidden={ariaHidden}
 >
   <header
-    class="flex items-center py-3 px-5 h-14"
+    class="flex h-14 items-center py-3 px-5"
     class:bg-neutral-100={!primary}
     class:bg-green-500={primary}
     class:text-white={primary}
@@ -46,7 +46,7 @@
     {:else if LeftButton}
       <a
         href={leftButtonLink}
-        class="mr-3 rounded hover:bg-black/5 active:bg-black/10 p-1"
+        class="mr-3 rounded p-1 hover:bg-black/5 active:bg-black/10"
         role="button"
         aria-label={leftButtonLabel}
         tabindex={ariaHidden ? -1 : 0}
