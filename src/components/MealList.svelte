@@ -56,8 +56,8 @@
   async function getSurveyData(menus: string[]) {
     const orStatement = menus.map((menu) => `name.eq.${menu}`).join(',')
     return await supabase.from('menus').select('name, total_survey, total_votes').or(orStatement)
-  } 
-  
+  }
+
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
@@ -66,7 +66,9 @@
     let res = await getMeal(cityCode, schoolCode, formattedDate)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
-      const { data } = await getSurveyData(parsedMeal.map((menu) => menu.name.map((token) => token.string).join('')))
+      const { data } = await getSurveyData(
+        parsedMeal.map((menu) => menu.name.map((token) => token.string).join(''))
+      )
       surveyData = data as menuSurveyData[]
     }
     meal = parsedMeal
@@ -120,11 +122,16 @@
             .join('. ')
           setTimeout(() => {
             joinedMeal = ''
-          }, 10);
+          }, 10)
         }, 10)
       }}>급식 모두 듣기</button
     >
-    <span role="alert" aria-live="assertive" class="sr-only" aria-hidden={joinedMeal ? 'false' : 'true'}>{joinedMeal}</span>
+    <span
+      role="alert"
+      aria-live="assertive"
+      class="sr-only"
+      aria-hidden={joinedMeal ? 'false' : 'true'}>{joinedMeal}</span
+    >
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
         <li class="flex">
