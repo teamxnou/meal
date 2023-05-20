@@ -40,7 +40,8 @@
   </ul>
   <ul class="overflow-hidden rounded-lg">
     <li class="bg-white px-5 py-3 text-neutral-400">
-      v{process.env.npm_package_version}
+      <span aria-hidden="true">v1.2.0</span>
+      <span class="sr-only">버전 1 점 2 점 0</span>
     </li>
   </ul>
 </div>
