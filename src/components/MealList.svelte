@@ -47,7 +47,17 @@
     name: MenuToken[]
     allergies: number[]
   }
-
+  interface menuSurveyData {
+    name: string
+    total_survey: number
+    total_votes: number
+  }
+  let surveyData: menuSurveyData[] = []
+  async function getSurveyData(menus: string[]) {
+    const orStatement = menus.map((menu) => `name.eq.${menu}`).join(',')
+    return await supabase.from('menus').select('name, total_survey, total_votes').or(orStatement)
+  } 
+  
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
@@ -55,6 +65,10 @@
     if (!schoolCode || !cityCode) return
     let res = await getMeal(cityCode, schoolCode, formattedDate)
     let parsedMeal = parseMeal(res.body)
+    if (!res.error) {
+      const { data } = await getSurveyData(parsedMeal.map((menu) => menu.name.map((token) => token.string).join('')))
+      surveyData = data as menuSurveyData[]
+    }
     meal = parsedMeal
     error = res.error
     errorCode = res.errorCode
@@ -63,10 +77,7 @@
   async function canBeStarred(menu: MenuToken[]): Promise<number> {
     if (!$settings.viewMenuSurvey) return 0
     let name = menu.map((token) => token.string).join('')
-    const { data } = await supabase
-      .from('menus')
-      .select('name, total_survey, total_votes')
-      .eq('name', name)
+    const data = surveyData.filter((data) => data.name == name)
     const total_survey = data?.[0].total_survey
     const total_votes = data?.[0].total_votes
     if (data?.length == 0 || total_survey < 10) return 0
