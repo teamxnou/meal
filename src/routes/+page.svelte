@@ -33,9 +33,11 @@
 <MenuBar
   LeftButton={Settings}
   leftButtonLink="/settings"
+  leftButtonLabel="설정"
   title="오늘뭐먹지"
   buttons={[CenteredSchool2, Search]}
   buttonLinks={['/school-selection', '/vegetable-search']}
+  buttonLabels={['학교 선택', '재료 검색']}
   primary={true}
 />
 {#if typeof window !== 'undefined'}

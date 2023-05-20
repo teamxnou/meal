@@ -7,6 +7,7 @@
 
   import { fade, fly } from 'svelte/transition'
   import { selectedCity, selectedSchool } from '../stores'
+  import { modalOpened } from '../a11y'
 
   import { getMeal, removeAllergyInfo } from '../fetchMeal'
 
@@ -77,10 +78,19 @@
   }
 
   let showSurvey = false
+  modalOpened.set(false)
 
   setTimeout(() => {
     showSurvey = true
   }, 2000)
+
+  $: {
+    if (meal && !error && meal.length > 0 && showSurvey) {
+      modalOpened.set(true)
+    } else {
+      modalOpened.set(false)
+    }
+  }
 </script>
 
 {#if meal && !error && meal.length > 0 && showSurvey}
@@ -93,20 +103,26 @@
         class="mx-auto flex w-full max-w-lg flex-col gap-5 rounded-xl bg-white p-5 shadow-lg"
         transition:fly={{ y: 100 }}
       >
-        <h1 class="text-center text-2xl font-semibold">
-          어제 급식 중 만족스러웠던 메뉴를 골라주세요.
+        <h1 class="text-center text-2xl font-semibold" role="alert" aria-live="assertive">
+          <span class="sr-only">메뉴 설문 열림</span>어제 급식 중 만족스러웠던 메뉴를 골라주세요.
         </h1>
         <ul class="grid grid-cols-2 gap-1">
           {#each meal as menu, i}
             <li>
               <label
                 for="checkbox{i}"
-                class="flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-1 text-center text-xl transition duration-150"
+                class="menulabel"
                 class:bg-green-500={menu.voted}
                 class:text-white={menu.voted}
                 class:shadow-lg={menu.voted}
               >
-                <input type="checkbox" id="checkbox{i}" class="hidden" bind:checked={menu.voted} />
+                <input
+                  type="checkbox"
+                  id="checkbox{i}"
+                  class="peer h-0 w-0 overflow-hidden focus:ring-0 focus:ring-offset-0"
+                  bind:checked={menu.voted}
+                  tabindex="0"
+                />
                 <span>{menu.name}</span>
               </label>
             </li>
@@ -134,3 +150,12 @@
     </div>
   </div>
 {/if}
+
+<style lang="postcss">
+  .menulabel {
+    @apply flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-lg p-1 text-center text-xl transition duration-150;
+  }
+  .menulabel:has(input:focus:focus-visible) {
+    @apply outline-none ring-2 ring-green-600 ring-offset-2 ring-offset-white;
+  }
+</style>

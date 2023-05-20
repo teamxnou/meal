@@ -1,6 +1,6 @@
 <script lang="ts">
   import '../app.css'
-  
+
   // Vercel analytics
   import { dev } from '$app/environment'
   import { inject } from '@vercel/analytics'

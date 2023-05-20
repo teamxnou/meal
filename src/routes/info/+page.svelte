@@ -41,12 +41,12 @@
           bind:this={carousel}
         >
           <div
-            class="flex grow snap-x snap-always snap-mandatory"
+            class="flex grow snap-x snap-mandatory snap-always"
             style="width: {vegetable.images.length * 100}vw;"
           >
             {#each vegetable.images as image, i}
               <div
-                class="min-w-screen max-w-screen snap-always h-[calc(100vh-54px-theme(spacing.32))] w-screen snap-start"
+                class="min-w-screen max-w-screen h-[calc(100vh-54px-theme(spacing.32))] w-screen snap-start snap-always"
               >
                 <!-- Had to use calc, it was hard to make it with only %'s. -->
                 <img
@@ -61,12 +61,14 @@
         <button
           class="absolute bottom-3 left-3 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 shadow-lg transition duration-200 hover:bg-neutral-200 hover:shadow-xl"
           on:click={() => scrollCarousel(-1)}
+          aria-hidden="true"
         >
           <ChevronLeft class="h-7 w-7" />
         </button>
         <button
           class="absolute bottom-3 right-3 flex h-14 w-14 items-center justify-center rounded-full bg-neutral-100 shadow-lg transition duration-200 hover:bg-neutral-200 hover:shadow-xl"
           on:click={() => scrollCarousel(1)}
+          aria-hidden="true"
         >
           <ChevronRight class="h-7 w-7" />
         </button>

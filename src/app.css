@@ -5,3 +5,7 @@
 button {
   -webkit-tap-highlight-color: transparent;
 }
+
+*:focus {
+  @apply outline-none ring-2 ring-green-600 ring-offset-2 ring-offset-white;
+}

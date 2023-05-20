@@ -1,7 +1,5 @@
 <script lang="ts">
-  import { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast } from '../../stores'
-  import { draw, fade } from 'svelte/transition'
-  import { Info, BoxSelect } from 'lucide-svelte'
+  import { BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -36,18 +34,21 @@
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   {#if searchResults.length}
-    <ul class="flex grow flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+    <ul
+      class="flex grow flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+    >
       {#each searchResults as vegetable}
         <li class="w-full">
           <a
             href="/info?id={vegetableData.indexOf(vegetable)}"
-            class="flex w-full flex-col items-start rounded-lg bg-white gap-3 pb-3"
+            class="flex w-full flex-col items-start gap-3 rounded-lg bg-white pb-3"
           >
             <img
               src={vegetable.images[vegetable.thumbnail]}
               alt="{vegetable.name}의 사진"
-              class="w-full aspect-video object-cover rounded-t-lg"
+              class="aspect-video w-full rounded-t-lg object-cover"
               loading="lazy"
+              aria-hidden="true"
             />
             <h2 class="mx-5 text-2xl font-semibold">
               {vegetable.name}
