@@ -17,6 +17,8 @@
       return value
     })
   }
+
+  const version = import.meta.env.VITE_APP_VERSION
 </script>
 
 <MenuBar title="설정" back={true} />
@@ -40,7 +42,7 @@
   </ul>
   <ul class="overflow-hidden rounded-lg">
     <li class="bg-white px-5 py-3 text-neutral-400">
-      v1.3.0
+      v{version}
     </li>
   </ul>
 </div>
