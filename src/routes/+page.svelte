@@ -16,13 +16,20 @@
     const hash = window.location.hash.slice(1)
     if (window.location.hash && new Date(hash).toString() !== 'Invalid Date') {
       date = new Date(hash)
+      goto('/')
+    } else {
+      const savedDate = sessionStorage.getItem('date')
+      if (savedDate) {
+        date = new Date(savedDate)
+      }
     }
   }
 
   $: {
     if (typeof window !== 'undefined' && date instanceof Date) {
-      goto(
-        `/#${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      sessionStorage.setItem(
+        'date',
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
           date.getDate()
         ).padStart(2, '0')}`
       )
