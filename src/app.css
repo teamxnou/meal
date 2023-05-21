@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:is(html, body):has(#route-main) {
+  @apply overscroll-y-none;
+}
+
 button {
   -webkit-tap-highlight-color: transparent;
 }
