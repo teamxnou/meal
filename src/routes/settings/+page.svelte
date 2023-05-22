@@ -2,6 +2,7 @@
   import { settings } from '../../settings'
   import type { Settings } from '../../settings'
 
+  import { Bird, Dog, Cat, Fish } from 'lucide-svelte'
   import MenuBar from '../../components/MenuBar.svelte'
   import MenuSwitch from '../../components/MenuSwitch.svelte'
 
@@ -23,6 +24,29 @@
 
 <MenuBar title="설정" back={true} />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
+  <div class="flex flex-col items-center rounded-lg bg-white">
+    <span class="sr-only">업데이트 정보</span>
+    <div
+      class="w-full rounded-t-lg bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-center text-white"
+    >
+      <h1 class="font-mono text-3xl font-bold">v{version}</h1>
+    </div>
+    <div class="w-full">
+      <ul class="flex w-full flex-col gap-2 p-4">
+        {#each [Bird, Dog, Cat, Fish] as Icon}
+          <li class="flex w-full items-center gap-5 px-3">
+            <div>
+              <Icon class="h-8 w-8 text-purple-500" />
+            </div>
+            <div class="grow">
+              <h3 class="font-semibold">Example title</h3>
+              <p class="font-normal text-neutral-400">Example description</p>
+            </div>
+          </li>
+        {/each}
+      </ul>
+    </div>
+  </div>
   <ul class="divide-y overflow-hidden rounded-lg">
     <li>
       <MenuSwitch
