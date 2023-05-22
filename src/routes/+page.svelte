@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { notifyRelease } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
@@ -41,6 +42,7 @@
   LeftButton={Settings}
   leftButtonLink="/settings"
   leftButtonLabel="설정"
+  leftButtonBadge={$notifyRelease ? '새 버전의 기능을 확인해보세요' : undefined}
   title="오늘뭐먹지"
   buttons={[CenteredSchool2, Search]}
   buttonLinks={['/school-selection', '/vegetable-search']}
