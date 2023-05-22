@@ -48,6 +48,17 @@
           {/each}
         </ul>
       </div>
+      <div class="w-full p-3">
+        <button
+          class="w-full rounded-xl bg-purple-500 py-3 text-xl font-medium text-white hover:bg-purple-600 focus:ring-purple-600"
+          on:click={() => {
+            $notifyRelease = false
+            localStorage.setItem('lastUsedBigRelease', version)
+          }}
+        >
+          확인
+        </button>
+      </div>
     </div>
   {/if}
   <ul class="divide-y overflow-hidden rounded-lg">
