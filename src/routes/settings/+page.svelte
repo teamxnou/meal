@@ -31,7 +31,7 @@
 <MenuBar title="설정" back={true} />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   {#if $notifyRelease}
-    <div class="flex flex-col items-center rounded-lg bg-white" transition:slide>
+    <div class="flex flex-col items-center rounded-lg bg-white" out:slide|local>
       <span class="sr-only">업데이트 정보</span>
       <div
         class="w-full rounded-t-lg bg-gradient-to-br from-blue-500 to-purple-600 p-8 text-center text-white"
