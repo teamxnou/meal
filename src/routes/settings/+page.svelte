@@ -5,7 +5,8 @@
   import { settings } from '../../settings'
   import type { Settings } from '../../settings'
 
-  import { Bird, Dog, Cat, Fish } from 'lucide-svelte'
+  import { logs } from '../../updateLog'
+
   import MenuBar from '../../components/MenuBar.svelte'
   import MenuSwitch from '../../components/MenuSwitch.svelte'
 
@@ -23,6 +24,8 @@
   }
 
   const version = import.meta.env.VITE_APP_VERSION
+
+  const updateLogs = logs[version]
 </script>
 
 <MenuBar title="설정" back={true} />
@@ -37,14 +40,14 @@
       </div>
       <div class="w-full">
         <ul class="flex w-full flex-col gap-2 p-4">
-          {#each [Bird, Dog, Cat, Fish] as Icon}
+          {#each updateLogs as log}
             <li class="flex w-full items-center gap-5 px-3">
               <div>
-                <Icon class="h-8 w-8 text-purple-500" />
+                <svelte:component this={log.Icon} class="h-8 w-8 text-purple-500" />
               </div>
               <div class="grow">
-                <h3 class="font-semibold">Example title</h3>
-                <p class="font-normal text-neutral-400">Example description</p>
+                <h3 class="font-semibold">{log.title}</h3>
+                <p class="font-normal text-neutral-400">{log.description}</p>
               </div>
             </li>
           {/each}
