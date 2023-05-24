@@ -1,10 +1,11 @@
 <script lang="ts">
   import { modalOpened } from '../a11y'
-  import { ChevronLeft, Search } from 'lucide-svelte'
+  import { ChevronLeft, Sparkle, Search } from 'lucide-svelte'
 
   export let LeftButton: any = null,
     leftButtonLink: string = '',
     leftButtonLabel: string = '',
+    leftButtonBadge: string = '',
     title: string,
     buttons: any[] = [],
     buttonLinks: (string | undefined)[] = [],
@@ -46,12 +47,17 @@
     {:else if LeftButton}
       <a
         href={leftButtonLink}
-        class="mr-3 rounded p-1 hover:bg-black/5 active:bg-black/10"
+        class="relative mr-3 rounded p-1 hover:bg-black/5 active:bg-black/10"
         role="button"
-        aria-label={leftButtonLabel}
+        aria-label={leftButtonBadge ? `${leftButtonBadge}. ${leftButtonLabel}` : leftButtonLabel}
         tabindex={ariaHidden ? -1 : 0}
       >
         <LeftButton class="h-7 w-7" />
+        {#if leftButtonBadge}
+          <Sparkle
+            class="absolute -top-1 -right-2 h-5 w-5 animate-[spin_3s_linear_infinite] fill-yellow-200 text-yellow-200"
+          />
+        {/if}
       </a>
     {/if}
     <h1 class="text-[20px] font-semibold">{title}</h1>
