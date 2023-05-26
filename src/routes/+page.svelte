@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
+  import { notifyRelease } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
@@ -16,13 +17,20 @@
     const hash = window.location.hash.slice(1)
     if (window.location.hash && new Date(hash).toString() !== 'Invalid Date') {
       date = new Date(hash)
+      goto('/')
+    } else {
+      const savedDate = sessionStorage.getItem('date')
+      if (savedDate) {
+        date = new Date(savedDate)
+      }
     }
   }
 
   $: {
     if (typeof window !== 'undefined' && date instanceof Date) {
-      goto(
-        `/#${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+      sessionStorage.setItem(
+        'date',
+        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
           date.getDate()
         ).padStart(2, '0')}`
       )
@@ -34,6 +42,7 @@
   LeftButton={Settings}
   leftButtonLink="/settings"
   leftButtonLabel="설정"
+  leftButtonBadge={$notifyRelease ? '새 버전의 기능을 확인해보세요' : undefined}
   title="오늘뭐먹지"
   buttons={[CenteredSchool2, Search]}
   buttonLinks={['/school-selection', '/vegetable-search']}
@@ -52,3 +61,4 @@
 {#if $settings.parcipiateMenuSurvey}
   <MenuSurvey />
 {/if}
+<div id="route-main"></div>

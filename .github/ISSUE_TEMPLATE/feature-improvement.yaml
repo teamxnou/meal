@@ -16,6 +16,7 @@ body:
       - '학교 선택 화면'
       - '재료 검색 화면'
       - '재료 정보 화면'
+      - '설정 화면'
       - '기타'
 - type: textarea
   attributes:

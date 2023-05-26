@@ -77,6 +77,26 @@
     month = 12
     year -= 1
   }
+
+  if (typeof document !== 'undefined') {
+    let swipeStartX = 0
+
+    document.addEventListener('touchstart', (e) => {
+      swipeStartX = e.touches[0].clientX
+    })
+
+    document.addEventListener('touchend', (e) => {
+      const swipeEndX = e.changedTouches[0].clientX
+
+      const swipeX = swipeEndX - swipeStartX
+
+      if (swipeX > 80) {
+        changeDate(-1)
+      } else if (swipeX < -80) {
+        changeDate(1)
+      }
+    })
+  }
 </script>
 
 <div
