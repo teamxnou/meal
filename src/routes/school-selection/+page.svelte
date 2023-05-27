@@ -90,7 +90,8 @@
   title="학교 선택"
   back={true}
   search={true}
-  searchPlaceholder="초등학교 검색"
+  searchDisabled={$isNeisUnderMaintaince}
+  searchPlaceholder={$isNeisUnderMaintaince ? '점검 중에는 학교를 검색할 수 없어요' : '초등학교 검색'}
   queryChange={handleQueryChange}
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">

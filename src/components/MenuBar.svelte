@@ -14,6 +14,7 @@
     back: boolean = false,
     search: boolean = false,
     searchPlaceholder: string = '검색',
+    searchDisabled: boolean = false,
     queryChange: (query: string) => void = () => {}
 
   let searchQuery = ''
@@ -84,6 +85,7 @@
         type="text"
         class="grow bg-transparent focus:outline-none"
         placeholder={searchPlaceholder}
+        disabled={searchDisabled}
         bind:value={searchQuery}
         tabindex={ariaHidden ? -1 : 0}
       />
