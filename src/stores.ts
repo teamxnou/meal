@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store'
+import type { Writable } from 'svelte/store'
 
 const selectedCity = writable('')
 const selectedSchool = writable(0)
@@ -7,6 +8,8 @@ const openSchoolToast = writable(false)
 
 const lastBigRelease = import.meta.env.VITE_LAST_BIG_RELEASE
 const notifyRelease = writable(false)
+
+const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
 if (typeof window !== 'undefined') {
   selectedCity.subscribe((value) => {
@@ -37,4 +40,11 @@ if (typeof window !== 'undefined') {
   selectedSchoolName.set(localStorage.getItem('selectedSchoolName') || '')
 }
 
-export { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast, notifyRelease }
+export {
+  selectedCity,
+  selectedSchool,
+  selectedSchoolName,
+  openSchoolToast,
+  notifyRelease,
+  isNeisUnderMaintaince
+}
