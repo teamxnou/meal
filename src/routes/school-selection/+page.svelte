@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast } from '../../stores'
+  import {
+    selectedCity,
+    selectedSchool,
+    selectedSchoolName,
+    openSchoolToast,
+    isNeisUnderMaintaince
+  } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
+  import ServerMaintainceAlert from '../../components/ServerMaintainceAlert.svelte'
 
   interface School {
     ATPT_OFCDC_SC_CODE: string
@@ -123,6 +130,8 @@
         </li>
       {/each}
     </ul>
+  {:else if $isNeisUnderMaintaince}
+    <ServerMaintainceAlert />
   {:else if !searched}
     <div class="flex grow items-center justify-center">
       {#if loadingAnimationReady}
