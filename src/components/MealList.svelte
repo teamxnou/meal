@@ -6,7 +6,7 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { onMount } from 'svelte'
-  import { selectedCity, selectedSchool } from '../stores'
+  import { selectedCity, selectedSchool, isNeisUnderMaintaince } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
@@ -15,6 +15,7 @@
   import Vegetable from './Vegetable.svelte'
 
   import { getMeal, parseMeal } from '../fetchMeal'
+  import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
 
   export let date: Date
 
@@ -63,6 +64,7 @@
   let meal: Menu[] = []
   async function updateMeal() {
     if (!schoolCode || !cityCode) return
+    if ($isNeisUnderMaintaince) return
     let res = await getMeal(cityCode, schoolCode, formattedDate)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
@@ -109,7 +111,7 @@
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
 >
-  {#if !error && isSchoolSelected && meal.length > 0}
+  {#if !error && isSchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince}
     <button
       class="sr-only"
       on:click={() => {
@@ -166,6 +168,12 @@
         </li>
       {/each}
     </ul>
+  {:else if $isNeisUnderMaintaince}
+    <div
+      class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50"
+    >
+      <ServerMaintainceAlert />
+    </div>
   {:else if !isSchoolSelected}
     <div class="flex grow flex-col items-center justify-center gap-5">
       <SimpleInfo

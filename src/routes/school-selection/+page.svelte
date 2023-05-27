@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast } from '../../stores'
+  import {
+    selectedCity,
+    selectedSchool,
+    selectedSchoolName,
+    openSchoolToast,
+    isNeisUnderMaintaince
+  } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
+  import ServerMaintainceAlert from '../../components/ServerMaintainceAlert.svelte'
 
   interface School {
     ATPT_OFCDC_SC_CODE: string
@@ -83,7 +90,8 @@
   title="학교 선택"
   back={true}
   search={true}
-  searchPlaceholder="초등학교 검색"
+  searchDisabled={$isNeisUnderMaintaince}
+  searchPlaceholder={$isNeisUnderMaintaince ? '점검 중에는 학교를 검색할 수 없어요' : '초등학교 검색'}
   queryChange={handleQueryChange}
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
@@ -123,6 +131,8 @@
         </li>
       {/each}
     </ul>
+  {:else if $isNeisUnderMaintaince}
+    <ServerMaintainceAlert />
   {:else if !searched}
     <div class="flex grow items-center justify-center">
       {#if loadingAnimationReady}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
-  import { notifyRelease } from '../stores'
+  import { notifyRelease, isNeisUnderMaintaince } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
