@@ -40,6 +40,11 @@
 
   onMount(async () => {
     // Detect whether the NEIS server is under maintaince
+    // If it's during SSR, set to true
+    if (typeof window !== 'undefined') {
+      isNeisUnderMaintaince.set(true)
+      return
+    }
     try {
       await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
       isNeisUnderMaintaince.set(false)
