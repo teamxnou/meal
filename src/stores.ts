@@ -16,17 +16,17 @@ if (typeof window !== 'undefined') {
     if (!value) return
     localStorage.setItem('selectedCity', value)
   })
-
+  
   selectedSchool.subscribe((value) => {
     if (!value) return
     localStorage.setItem('selectedSchool', String(value))
   })
-
+  
   selectedSchoolName.subscribe((value) => {
     if (!value) return
     localStorage.setItem('selectedSchoolName', value)
   })
-
+  
   const lastUsedBigRelease = localStorage.getItem('lastUsedBigRelease') || ''
   if (lastUsedBigRelease === '') localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   if (lastBigRelease != lastUsedBigRelease) notifyRelease.set(true)
@@ -34,10 +34,22 @@ if (typeof window !== 'undefined') {
     if (!value) return
     localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   })
-
+  
   selectedCity.set(localStorage.getItem('selectedCity') || '')
   selectedSchool.set(Number(localStorage.getItem('selectedSchool')) || 0)
   selectedSchoolName.set(localStorage.getItem('selectedSchoolName') || '')
+  
+  // Detect whether the NEIS server is under maintaince
+  try {
+    await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
+    isNeisUnderMaintaince.set(false)
+  } catch (error) {
+    if (navigator.onLine) {
+      isNeisUnderMaintaince.set(true)
+    } else {
+      isNeisUnderMaintaince.set(false)
+    }
+  }
 }
 
 export {

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
   import { goto } from '$app/navigation'
   import { notifyRelease, isNeisUnderMaintaince } from '../stores'
   import { settings } from '../settings'
@@ -37,25 +36,6 @@
       )
     }
   }
-
-  onMount(async () => {
-    // Detect whether the NEIS server is under maintaince
-    // If it's during SSR, set to true
-    if (typeof window !== 'undefined') {
-      isNeisUnderMaintaince.set(true)
-      return
-    }
-    try {
-      await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
-      isNeisUnderMaintaince.set(false)
-    } catch (error) {
-      if (navigator.onLine) {
-        isNeisUnderMaintaince.set(true)
-      } else {
-        isNeisUnderMaintaince.set(false)
-      }
-    }
-  })
 </script>
 
 <MenuBar
