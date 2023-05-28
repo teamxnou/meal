@@ -1,11 +1,5 @@
 <script lang="ts">
-  import {
-    selectedCity,
-    selectedSchool,
-    selectedSchoolName,
-    openSchoolToast,
-    isNeisUnderMaintaince
-  } from '../../stores'
+  import { primarySchool, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect, Star } from 'lucide-svelte'
 
@@ -41,11 +35,6 @@
     LOAD_DTM: string
   }
 
-  let currentSchoolName: string
-  selectedSchoolName.subscribe((value) => {
-    currentSchoolName = value
-  })
-
   let searched = false
   let searchedSchools: School[] = []
 
@@ -76,9 +65,11 @@
   }
 
   function selectSchool(school: School) {
-    selectedCity.set(school.ATPT_OFCDC_SC_CODE)
-    selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
-    selectedSchoolName.set(school.SCHUL_NM)
+    primarySchool.set({
+      name: school.SCHUL_NM,
+      city: school.ATPT_OFCDC_SC_CODE,
+      school: parseInt(school.SD_SCHUL_CODE)
+    })
     openSchoolToast.set(true)
     setTimeout(() => {
       openSchoolToast.set(false)
@@ -97,8 +88,8 @@
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   <div class="flex items-center gap-1 rounded-full bg-white p-2 pl-3">
     <Info class="h-5 w-5" />
-    {#if currentSchoolName}
-      <p>현재 선택된 학교는 <b class="font-semibold">{currentSchoolName}</b>에요.</p>
+    {#if $primarySchool.name}
+      <p>현재 선택된 학교는 <b class="font-semibold">{$primarySchool.name}</b>에요.</p>
     {:else}
       <p>현재 선택된 학교가 없어요.</p>
     {/if}
@@ -130,7 +121,7 @@
               기본 학교로 선택
             </a>
             <button
-              class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 active:bg-yellow-100 focus:ring-yellow-500"
+              class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 focus:ring-yellow-500 active:bg-yellow-100"
             >
               <Star class="h-6 w-6" />
             </button>

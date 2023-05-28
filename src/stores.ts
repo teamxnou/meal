@@ -1,9 +1,17 @@
 import { writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
-const selectedCity = writable('')
-const selectedSchool = writable(0)
-const selectedSchoolName = writable('')
+interface School {
+  name: string
+  city: string
+  school: number
+}
+
+const primarySchool: Writable<School> = writable({
+  name: '',
+  city: '',
+  school: 0
+})
 const openSchoolToast = writable(false)
 
 const lastBigRelease = import.meta.env.VITE_LAST_BIG_RELEASE
@@ -12,21 +20,11 @@ const notifyRelease = writable(false)
 const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
 if (typeof window !== 'undefined') {
-  selectedCity.subscribe((value) => {
+  primarySchool.subscribe((value) => {
     if (!value) return
-    localStorage.setItem('selectedCity', value)
+    localStorage.setItem('primarySchool', JSON.stringify(value))
   })
-  
-  selectedSchool.subscribe((value) => {
-    if (!value) return
-    localStorage.setItem('selectedSchool', String(value))
-  })
-  
-  selectedSchoolName.subscribe((value) => {
-    if (!value) return
-    localStorage.setItem('selectedSchoolName', value)
-  })
-  
+
   const lastUsedBigRelease = localStorage.getItem('lastUsedBigRelease') || ''
   if (lastUsedBigRelease === '') localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   if (lastBigRelease != lastUsedBigRelease) notifyRelease.set(true)
@@ -34,11 +32,9 @@ if (typeof window !== 'undefined') {
     if (!value) return
     localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   })
-  
-  selectedCity.set(localStorage.getItem('selectedCity') || '')
-  selectedSchool.set(Number(localStorage.getItem('selectedSchool')) || 0)
-  selectedSchoolName.set(localStorage.getItem('selectedSchoolName') || '')
-  
+
+  primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '') || primarySchool)
+
   // Detect whether the NEIS server is under maintaince
   try {
     await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
@@ -52,11 +48,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export {
-  selectedCity,
-  selectedSchool,
-  selectedSchoolName,
-  openSchoolToast,
-  notifyRelease,
-  isNeisUnderMaintaince
-}
+export { primarySchool, openSchoolToast, notifyRelease, isNeisUnderMaintaince }

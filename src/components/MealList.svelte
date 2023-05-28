@@ -6,7 +6,7 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { onMount } from 'svelte'
-  import { selectedCity, selectedSchool, isNeisUnderMaintaince } from '../stores'
+  import { primarySchool, isNeisUnderMaintaince } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
@@ -23,16 +23,7 @@
     date.getDate()
   ).padStart(2, '0')}`
 
-  let schoolCode: number
-  selectedSchool.subscribe((value) => {
-    schoolCode = value
-  })
-  let cityCode: string
-  selectedCity.subscribe((value) => {
-    cityCode = value
-  })
-
-  $: isSchoolSelected = schoolCode && cityCode
+  $: isSchoolSelected = $primarySchool.city && $primarySchool.school
 
   let ariaHidden: boolean
   modalOpened.subscribe((value) => {
@@ -63,9 +54,9 @@
   let errorCode: number = 0
   let meal: Menu[] = []
   async function updateMeal() {
-    if (!schoolCode || !cityCode) return
+    if (!$primarySchool.city || !$primarySchool.school) return
     if ($isNeisUnderMaintaince) return
-    let res = await getMeal(cityCode, schoolCode, formattedDate)
+    let res = await getMeal($primarySchool.city, $primarySchool.school, formattedDate)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
       const { data } = await getSurveyData(
