@@ -7,7 +7,7 @@
     isNeisUnderMaintaince
   } from '../../stores'
   import { draw, fade } from 'svelte/transition'
-  import { Info, BoxSelect } from 'lucide-svelte'
+  import { Info, BoxSelect, Star } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -119,15 +119,22 @@
             {school.SCHUL_NM}
           </h2>
           <div class="grow" />
-          <a
-            href="/"
-            class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
-            on:click={() => selectSchool(school)}
-            aria-label="{school.SCHUL_NM}로 선택"
-            role="button"
-          >
-            이 학교로 선택
-          </a>
+          <div class="flex w-full justify-between px-2 pt-3 pb-2">
+            <a
+              href="/"
+              class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
+              on:click={() => selectSchool(school)}
+              aria-label="{school.SCHUL_NM}를 기본 학교로 선택"
+              role="button"
+            >
+              기본 학교로 선택
+            </a>
+            <button
+              class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 active:bg-yellow-100 focus:ring-yellow-500"
+            >
+              <Star class="h-6 w-6" />
+            </button>
+          </div>
         </li>
       {/each}
     </ul>
