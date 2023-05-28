@@ -85,7 +85,6 @@
     let result = false
     arr.forEach((i) => {
       if (JSON.stringify(i) == JSON.stringify(item)) {
-        console.log(arr, 'includes', item)
         result = true
       }
     })
