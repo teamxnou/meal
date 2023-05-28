@@ -7,6 +7,7 @@
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
   import ServerMaintainceAlert from '../../components/ServerMaintainceAlert.svelte'
+  import SchoolCard from '../../components/SchoolCard.svelte'
 
   interface SearchedSchool {
     ATPT_OFCDC_SC_CODE: string
@@ -108,7 +109,9 @@
   back={true}
   search={true}
   searchDisabled={$isNeisUnderMaintaince}
-  searchPlaceholder={$isNeisUnderMaintaince ? '점검 중에는 학교를 검색할 수 없어요' : '초등학교 검색'}
+  searchPlaceholder={$isNeisUnderMaintaince
+    ? '점검 중에는 학교를 검색할 수 없어요'
+    : '초등학교 검색'}
   queryChange={handleQueryChange}
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
@@ -125,41 +128,14 @@
       class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
     >
       {#each searchedSchools as school}
-        <li class="flex w-full flex-col items-start overflow-clip rounded-lg bg-white">
-          <span class="mx-5 mt-4 text-sm font-medium text-neutral-400" aria-hidden="true">
-            {school.ORG_RDNMA}
-          </span>
-          <h2
-            class="max-w-full truncate px-5 text-2xl font-semibold"
-            aria-label="{school.SCHUL_NM}. 주소: {school.ORG_RDNMA}"
-          >
-            {school.SCHUL_NM}
-          </h2>
-          <div class="grow" />
-          <div class="flex w-full justify-between px-2 pt-3 pb-2">
-            <a
-              href="/"
-              class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
-              on:click={() => selectSchool(school)}
-              aria-label="{school.SCHUL_NM}를 기본 학교로 선택"
-              role="button"
-            >
-              기본 학교로 선택
-            </a>
-            <button
-              class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 focus:ring-yellow-500 active:bg-yellow-100"
-              on:click={() => {
-                handleFavoriteSchool(school)
-              }}
-            >
-              {#if altIncludes($altSchools, toSchoolType(school))}
-                <Star class="h-6 w-6 fill-yellow-500" />
-              {:else}
-                <Star class="h-6 w-6" />
-              {/if}
-            </button>
-          </div>
-        </li>
+        <SchoolCard
+          {school}
+          name={school.SCHUL_NM}
+          address={school.ORG_RDNMA}
+          isFavorite={altIncludes($altSchools, toSchoolType(school))}
+          {selectSchool}
+          {handleFavoriteSchool}
+        />
       {/each}
     </ul>
   {:else if $isNeisUnderMaintaince}
