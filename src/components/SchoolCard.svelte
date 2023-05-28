@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { slide } from 'svelte/transition'
   import { Star } from 'lucide-svelte'
 
   export let school: any,
@@ -9,7 +10,7 @@
     handleFavoriteSchool: (school: any) => void
 </script>
 
-<li class="flex w-full flex-col items-start overflow-clip rounded-lg bg-white">
+<li class="flex w-full flex-col items-start overflow-clip rounded-lg bg-white" out:slide|local>
   <span class="mx-5 mt-4 text-sm font-medium text-neutral-400" aria-hidden="true">
     {address}
   </span>

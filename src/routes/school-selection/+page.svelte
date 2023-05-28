@@ -1,7 +1,7 @@
 <script lang="ts">
   import { primarySchool, altSchools, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
   import type { School } from '../../stores'
-  import { draw, fade } from 'svelte/transition'
+  import { draw, fade, slide } from 'svelte/transition'
   import { Info, BoxSelect, Star } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
@@ -127,22 +127,24 @@
   </div>
   {#if searchedSchools.length}
     {#if currentQuery == '' && $altSchools.length != 0}
-      <span class="text-sm font-medium text-neutral-400">즐겨찾기</span>
-      <ul
-        class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
-      >
-        {#each $altSchools as school}
-          <SchoolCard
-            {school}
-            name={school.name}
-            address={school.address}
-            isFavorite={altIncludes($altSchools, school)}
-            {selectSchool}
-            {handleFavoriteSchool}
-          />
-        {/each}
-      </ul>
-      <span class="text-sm font-medium text-neutral-400">모든 학교</span>
+      <div class="flex flex-col gap-3" transition:slide|local>
+        <span class="text-sm font-medium text-neutral-400">즐겨찾기</span>
+        <ul
+          class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+        >
+          {#each $altSchools as school}
+            <SchoolCard
+              {school}
+              name={school.name}
+              address={school.address}
+              isFavorite={altIncludes($altSchools, school)}
+              {selectSchool}
+              {handleFavoriteSchool}
+            />
+          {/each}
+        </ul>
+        <span class="text-sm font-medium text-neutral-400">모든 학교</span>
+      </div>
     {/if}
     <ul
       class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
