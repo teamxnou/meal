@@ -7,7 +7,7 @@
   import SimpleInfo from '../../components/SimpleInfo.svelte'
   import ServerMaintainceAlert from '../../components/ServerMaintainceAlert.svelte'
 
-  interface School {
+  interface SearchedSchool {
     ATPT_OFCDC_SC_CODE: string
     ATPT_OFCDC_SC_NM: string
     SD_SCHUL_CODE: string
@@ -36,7 +36,7 @@
   }
 
   let searched = false
-  let searchedSchools: School[] = []
+  let searchedSchools: SearchedSchool[] = []
 
   let loadingAnimationReady = false
   setTimeout(() => {
@@ -64,7 +64,7 @@
     }, 800)
   }
 
-  function selectSchool(school: School) {
+  function selectSchool(school: SearchedSchool) {
     primarySchool.set({
       name: school.SCHUL_NM,
       city: school.ATPT_OFCDC_SC_CODE,
