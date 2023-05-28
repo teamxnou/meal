@@ -54,4 +54,4 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export { primarySchool, openSchoolToast, notifyRelease, isNeisUnderMaintaince }
+export { primarySchool, altSchools, openSchoolToast, notifyRelease, isNeisUnderMaintaince }
