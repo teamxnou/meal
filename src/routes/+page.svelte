@@ -7,6 +7,7 @@
   import CenteredSchool2 from '../components/CenteredSchool2.svelte'
 
   import MenuBar from '../components/MenuBar.svelte'
+  import SchoolBar from '../components/SchoolBar.svelte'
   import MealList from '../components/MealList.svelte'
   import DatePicker from '../components/DatePicker.svelte'
   import MenuSurvey from '../components/MenuSurvey.svelte'
@@ -49,6 +50,7 @@
   buttonLabels={['학교 선택', '재료 검색']}
   primary={true}
 />
+<SchoolBar />
 {#if typeof window !== 'undefined'}
   <MealList {date} />
 {/if}
