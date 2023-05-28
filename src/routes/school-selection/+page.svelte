@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { primarySchool, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
+  import { primarySchool, altSchools, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
+  import type { School } from '../../stores'
   import { draw, fade } from 'svelte/transition'
   import { Info, BoxSelect, Star } from 'lucide-svelte'
 
@@ -64,16 +65,42 @@
     }, 800)
   }
 
-  function selectSchool(school: SearchedSchool) {
-    primarySchool.set({
+  function toSchoolType(school: SearchedSchool): School {
+    return {
       name: school.SCHUL_NM,
       city: school.ATPT_OFCDC_SC_CODE,
       school: parseInt(school.SD_SCHUL_CODE)
-    })
+    }
+  }
+
+  function selectSchool(school: SearchedSchool) {
+    primarySchool.set(toSchoolType(school))
     openSchoolToast.set(true)
     setTimeout(() => {
       openSchoolToast.set(false)
     }, 2000)
+  }
+
+  function altIncludes(arr: any[], item: any) {
+    let result = false
+    arr.forEach((i) => {
+      if (JSON.stringify(i) == JSON.stringify(item)) {
+        console.log(arr, 'includes', item)
+        result = true
+      }
+    })
+    return result
+  }
+
+  function handleFavoriteSchool(rawSchool: SearchedSchool) {
+    const school = toSchoolType(rawSchool)
+    if (altIncludes($altSchools, school)) {
+      altSchools.update((schools) =>
+        schools.filter((s) => JSON.stringify(s) != JSON.stringify(school))
+      )
+    } else {
+      altSchools.update((schools) => [...schools, school])
+    }
   }
 </script>
 
@@ -122,8 +149,15 @@
             </a>
             <button
               class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 focus:ring-yellow-500 active:bg-yellow-100"
+              on:click={() => {
+                handleFavoriteSchool(school)
+              }}
             >
-              <Star class="h-6 w-6" />
+              {#if altIncludes($altSchools, toSchoolType(school))}
+                <Star class="h-6 w-6 fill-yellow-500" />
+              {:else}
+                <Star class="h-6 w-6" />
+              {/if}
             </button>
           </div>
         </li>

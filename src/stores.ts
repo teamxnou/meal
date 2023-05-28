@@ -26,7 +26,7 @@ if (typeof window !== 'undefined') {
     localStorage.setItem('primarySchool', JSON.stringify(value))
   })
   altSchools.subscribe((value) => {
-    if (!value) return
+    if (value.length == 0) return
     localStorage.setItem('altSchools', JSON.stringify(value))
   })
 
@@ -55,3 +55,4 @@ if (typeof window !== 'undefined') {
 }
 
 export { primarySchool, altSchools, openSchoolToast, notifyRelease, isNeisUnderMaintaince }
+export type { School }
