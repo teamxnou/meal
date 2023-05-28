@@ -12,6 +12,7 @@ const primarySchool: Writable<School> = writable({
   city: '',
   school: 0
 })
+const altSchools: Writable<School[]> = writable([])
 const openSchoolToast = writable(false)
 
 const lastBigRelease = import.meta.env.VITE_LAST_BIG_RELEASE
@@ -24,6 +25,10 @@ if (typeof window !== 'undefined') {
     if (!value) return
     localStorage.setItem('primarySchool', JSON.stringify(value))
   })
+  altSchools.subscribe((value) => {
+    if (!value) return
+    localStorage.setItem('altSchools', JSON.stringify(value))
+  })
 
   const lastUsedBigRelease = localStorage.getItem('lastUsedBigRelease') || ''
   if (lastUsedBigRelease === '') localStorage.setItem('lastUsedBigRelease', lastBigRelease)
@@ -34,6 +39,7 @@ if (typeof window !== 'undefined') {
   })
 
   primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '') || primarySchool)
+  altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '') || [])
 
   // Detect whether the NEIS server is under maintaince
   try {
