@@ -46,6 +46,7 @@
   }, 0)
 
   let debounceTimer: any
+  let currentQuery: string = ''
   function handleQueryChange(query: string) {
     clearTimeout(debounceTimer)
     debounceTimer = setTimeout(() => {
@@ -62,6 +63,7 @@
           }
           searchedSchools = res.schoolInfo[1].row
           searched = true
+          currentQuery = query
         })
     }, 800)
   }
@@ -70,7 +72,8 @@
     return {
       name: school.SCHUL_NM,
       city: school.ATPT_OFCDC_SC_CODE,
-      school: parseInt(school.SD_SCHUL_CODE)
+      school: parseInt(school.SD_SCHUL_CODE),
+      address: school.ORG_RDNMA
     }
   }
 
@@ -92,8 +95,7 @@
     return result
   }
 
-  function handleFavoriteSchool(rawSchool: SearchedSchool) {
-    const school = toSchoolType(rawSchool)
+  function handleFavoriteSchool(school: School) {
     if (altIncludes($altSchools, school)) {
       altSchools.update((schools) =>
         schools.filter((s) => JSON.stringify(s) != JSON.stringify(school))
@@ -124,6 +126,24 @@
     {/if}
   </div>
   {#if searchedSchools.length}
+    {#if currentQuery == '' && $altSchools.length != 0}
+      <span class="text-sm font-medium text-neutral-400">즐겨찾기</span>
+      <ul
+        class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+      >
+        {#each $altSchools as school}
+          <SchoolCard
+            {school}
+            name={school.name}
+            address={school.address}
+            isFavorite={altIncludes($altSchools, school)}
+            {selectSchool}
+            {handleFavoriteSchool}
+          />
+        {/each}
+      </ul>
+      <span class="text-sm font-medium text-neutral-400">모든 학교</span>
+    {/if}
     <ul
       class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
     >
@@ -134,7 +154,7 @@
           address={school.ORG_RDNMA}
           isFavorite={altIncludes($altSchools, toSchoolType(school))}
           {selectSchool}
-          {handleFavoriteSchool}
+          handleFavoriteSchool={() => handleFavoriteSchool(toSchoolType(school))}
         />
       {/each}
     </ul>

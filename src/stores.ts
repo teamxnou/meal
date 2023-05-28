@@ -5,12 +5,14 @@ interface School {
   name: string
   city: string
   school: number
+  address: string
 }
 
 const primarySchool: Writable<School> = writable({
   name: '',
   city: '',
-  school: 0
+  school: 0,
+  address: '',
 })
 const altSchools: Writable<School[]> = writable([])
 const openSchoolToast = writable(false)
