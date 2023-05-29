@@ -77,8 +77,8 @@
     }
   }
 
-  function selectSchool(school: SearchedSchool) {
-    primarySchool.set(toSchoolType(school))
+  function selectSchool(school: School) {
+    primarySchool.set(school)
     openSchoolToast.set(true)
     setTimeout(() => {
       openSchoolToast.set(false)
@@ -135,8 +135,6 @@
           {#each $altSchools as school}
             <SchoolCard
               {school}
-              name={school.name}
-              address={school.address}
               isFavorite={altIncludes($altSchools, school)}
               {selectSchool}
               {handleFavoriteSchool}
@@ -151,9 +149,7 @@
     >
       {#each searchedSchools as school}
         <SchoolCard
-          {school}
-          name={school.SCHUL_NM}
-          address={school.ORG_RDNMA}
+          school={toSchoolType(school)}
           isFavorite={altIncludes($altSchools, toSchoolType(school))}
           {selectSchool}
           handleFavoriteSchool={() => handleFavoriteSchool(toSchoolType(school))}
