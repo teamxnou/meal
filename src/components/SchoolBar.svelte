@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { primarySchool, altSchools } from '../stores'
   import { modalOpened } from '../a11y'
 
   import { Flag } from 'lucide-svelte'
 </script>
 
 <ul class="mx-auto mt-10 flex divide-x rounded-full bg-neutral-100">
-  {#each ['국원초', '남산초', '혜성학교'] as name, i}
+  {#each [$primarySchool, ...$altSchools] as school, i}
     <li
       class="[&:first-child>button]:rounded-l-full [&:first-child>button]:pl-3 [&:last-child>button]:rounded-r-full [&:last-child>button]:pr-3"
     >
@@ -17,7 +18,7 @@
         {#if i == 0}
           <Flag class="w-4 h-4 inline-block" />
         {/if}
-        {name}
+        {school.name.replace('등학교', '')}
       </button>
     </li>
   {/each}
