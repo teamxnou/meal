@@ -6,7 +6,13 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { onMount } from 'svelte'
-  import { primarySchool, primarySchoolSelected, isNeisUnderMaintaince } from '../stores'
+  import {
+    primarySchool,
+    primarySchoolSelected,
+    altSchools,
+    currentSchoolIndex,
+    isNeisUnderMaintaince
+  } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
@@ -48,13 +54,16 @@
     return await supabase.from('menus').select('name, total_survey, total_votes').or(orStatement)
   }
 
+  $: schools = [$primarySchool, ...$altSchools.filter((s) => s.name != $primarySchool.name)]
+  $: currentSchool = schools[$currentSchoolIndex]
+
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
   async function updateMeal() {
-    if (!$primarySchool.city || !$primarySchool.school) return
+    if (!currentSchool.city || !currentSchool.school) return
     if ($isNeisUnderMaintaince) return
-    let res = await getMeal($primarySchool.city, $primarySchool.school, formattedDate)
+    let res = await getMeal(currentSchool.city, currentSchool.school, formattedDate)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
       const { data } = await getSurveyData(
@@ -88,6 +97,7 @@
   $: {
     // To update meal when date changes
     date
+    $currentSchoolIndex
     updateMeal()
   }
 
@@ -158,9 +168,7 @@
       {/each}
     </ul>
   {:else if $isNeisUnderMaintaince}
-    <div
-      class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50"
-    >
+    <div class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50">
       <ServerMaintainceAlert />
     </div>
   {:else if !$primarySchoolSelected}

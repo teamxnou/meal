@@ -17,6 +17,7 @@ const defaultSchoolObj: School = {
 const primarySchool: Writable<School> = writable(defaultSchoolObj)
 const primarySchoolSelected: Writable<boolean> = writable(false)
 const altSchools: Writable<School[]> = writable([])
+const currentSchoolIndex = writable(0)
 const openSchoolToast = writable(false)
 
 const lastBigRelease = import.meta.env.VITE_LAST_BIG_RELEASE
@@ -66,6 +67,7 @@ export {
   primarySchool,
   primarySchoolSelected,
   altSchools,
+  currentSchoolIndex,
   openSchoolToast,
   notifyRelease,
   isNeisUnderMaintaince

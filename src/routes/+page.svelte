@@ -4,7 +4,8 @@
     notifyRelease,
     isNeisUnderMaintaince,
     primarySchoolSelected,
-    altSchools
+    altSchools,
+    currentSchoolIndex
   } from '../stores'
   import { settings } from '../settings'
 
@@ -30,6 +31,9 @@
         date = new Date(savedDate)
       }
     }
+
+    const savedCurrentSchoolIndex = sessionStorage.getItem('currentSchoolIndex') || '0'
+    currentSchoolIndex.set(Number(savedCurrentSchoolIndex))
   }
 
   $: {
