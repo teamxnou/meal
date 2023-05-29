@@ -15,6 +15,7 @@ const defaultSchoolObj: School = {
   address: '',
 }
 const primarySchool: Writable<School> = writable(defaultSchoolObj)
+const primarySchoolSelected: Writable<boolean> = writable(false)
 const altSchools: Writable<School[]> = writable([])
 const openSchoolToast = writable(false)
 
@@ -25,8 +26,12 @@ const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
 if (typeof window !== 'undefined') {
   primarySchool.subscribe((value) => {
-    if (value == defaultSchoolObj) return
+    if (value == defaultSchoolObj || Object.keys(value).length == 0) {
+      primarySchoolSelected.set(false)
+      return
+    }
     localStorage.setItem('primarySchool', JSON.stringify(value))
+    primarySchoolSelected.set(true)
   })
   altSchools.subscribe((value) => {
     if (value.length == 0) return
@@ -57,5 +62,12 @@ if (typeof window !== 'undefined') {
   }
 }
 
-export { primarySchool, altSchools, openSchoolToast, notifyRelease, isNeisUnderMaintaince }
+export {
+  primarySchool,
+  primarySchoolSelected,
+  altSchools,
+  openSchoolToast,
+  notifyRelease,
+  isNeisUnderMaintaince
+}
 export type { School }

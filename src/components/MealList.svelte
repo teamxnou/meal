@@ -6,7 +6,7 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { onMount } from 'svelte'
-  import { primarySchool, isNeisUnderMaintaince } from '../stores'
+  import { primarySchool, primarySchoolSelected, isNeisUnderMaintaince } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
@@ -22,8 +22,6 @@
   $: formattedDate = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(
     date.getDate()
   ).padStart(2, '0')}`
-
-  $: isSchoolSelected = $primarySchool.city && $primarySchool.school
 
   let ariaHidden: boolean
   modalOpened.subscribe((value) => {
@@ -102,7 +100,7 @@
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
 >
-  {#if !error && isSchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince}
+  {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince}
     <button
       class="sr-only"
       on:click={() => {
@@ -165,7 +163,7 @@
     >
       <ServerMaintainceAlert />
     </div>
-  {:else if !isSchoolSelected}
+  {:else if !$primarySchoolSelected}
     <div class="flex grow flex-col items-center justify-center gap-5">
       <SimpleInfo
         Icon={School2}

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
-  import { notifyRelease, isNeisUnderMaintaince, primarySchool, altSchools } from '../stores'
+  import { notifyRelease, isNeisUnderMaintaince, primarySchoolSelected, altSchools } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
@@ -50,7 +50,7 @@
   buttonLabels={['학교 선택', '재료 검색']}
   primary={true}
 />
-{#if $primarySchool && $primarySchool.city && $primarySchool.school && $altSchools.length > 0}
+{#if $primarySchoolSelected && $altSchools.length > 0}
   <SchoolBar />
 {/if}
 {#if typeof window !== 'undefined'}
