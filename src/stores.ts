@@ -47,7 +47,7 @@ if (typeof window !== 'undefined') {
   })
 
   primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '{}') || defaultSchoolObj)
-  altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '[]') || [])
+  altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '[]'))
 
   // Detect whether the NEIS server is under maintaince
   try {
