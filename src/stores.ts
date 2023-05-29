@@ -8,12 +8,13 @@ interface School {
   address: string
 }
 
-const primarySchool: Writable<School> = writable({
+const defaultSchoolObj: School = {
   name: '',
   city: '',
   school: 0,
   address: '',
-})
+}
+const primarySchool: Writable<School> = writable(defaultSchoolObj)
 const altSchools: Writable<School[]> = writable([])
 const openSchoolToast = writable(false)
 
@@ -24,7 +25,7 @@ const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
 if (typeof window !== 'undefined') {
   primarySchool.subscribe((value) => {
-    if (!value) return
+    if (value == defaultSchoolObj) return
     localStorage.setItem('primarySchool', JSON.stringify(value))
   })
   altSchools.subscribe((value) => {
@@ -40,8 +41,8 @@ if (typeof window !== 'undefined') {
     localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   })
 
-  primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '') || primarySchool)
-  altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '') || [])
+  primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '{}') || defaultSchoolObj)
+  altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '[]') || [])
 
   // Detect whether the NEIS server is under maintaince
   try {
