@@ -1,6 +1,12 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
-  import { notifyRelease, isNeisUnderMaintaince } from '../stores'
+  import {
+    notifyRelease,
+    isNeisUnderMaintaince,
+    primarySchoolSelected,
+    altSchools,
+    currentSchoolIndex
+  } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
@@ -25,6 +31,9 @@
         date = new Date(savedDate)
       }
     }
+
+    const savedCurrentSchoolIndex = sessionStorage.getItem('currentSchoolIndex') || '0'
+    currentSchoolIndex.set(Number(savedCurrentSchoolIndex))
   }
 
   $: {
@@ -50,7 +59,9 @@
   buttonLabels={['학교 선택', '재료 검색']}
   primary={true}
 />
-<SchoolBar />
+{#if $primarySchoolSelected && $altSchools.length > 0}
+  <SchoolBar />
+{/if}
 {#if typeof window !== 'undefined'}
   <MealList {date} />
 {/if}
@@ -63,4 +74,4 @@
 {#if $settings.parcipiateMenuSurvey}
   <MenuSurvey />
 {/if}
-<div id="route-main"></div>
+<div id="route-main" />

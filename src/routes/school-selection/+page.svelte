@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { primarySchool, altSchools, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
+  import {
+    primarySchool,
+    primarySchoolSelected,
+    altSchools,
+    openSchoolToast,
+    isNeisUnderMaintaince
+  } from '../../stores'
   import type { School } from '../../stores'
   import { draw, fade, slide } from 'svelte/transition'
   import { Info, BoxSelect, Star } from 'lucide-svelte'
@@ -77,8 +83,8 @@
     }
   }
 
-  function selectSchool(school: SearchedSchool) {
-    primarySchool.set(toSchoolType(school))
+  function selectSchool(school: School) {
+    primarySchool.set(school)
     openSchoolToast.set(true)
     setTimeout(() => {
       openSchoolToast.set(false)
@@ -119,7 +125,7 @@
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   <div class="flex items-center gap-1 rounded-full bg-white p-2 pl-3">
     <Info class="h-5 w-5" />
-    {#if $primarySchool.name}
+    {#if $primarySchoolSelected}
       <p>현재 선택된 학교는 <b class="font-semibold">{$primarySchool.name}</b>에요.</p>
     {:else}
       <p>현재 선택된 학교가 없어요.</p>
@@ -135,8 +141,6 @@
           {#each $altSchools as school}
             <SchoolCard
               {school}
-              name={school.name}
-              address={school.address}
               isFavorite={altIncludes($altSchools, school)}
               {selectSchool}
               {handleFavoriteSchool}
@@ -151,9 +155,7 @@
     >
       {#each searchedSchools as school}
         <SchoolCard
-          {school}
-          name={school.SCHUL_NM}
-          address={school.ORG_RDNMA}
+          school={toSchoolType(school)}
           isFavorite={altIncludes($altSchools, toSchoolType(school))}
           {selectSchool}
           handleFavoriteSchool={() => handleFavoriteSchool(toSchoolType(school))}
