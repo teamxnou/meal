@@ -1,6 +1,11 @@
 <script lang="ts">
   import { goto } from '$app/navigation'
-  import { notifyRelease, isNeisUnderMaintaince, primarySchoolSelected, altSchools } from '../stores'
+  import {
+    notifyRelease,
+    isNeisUnderMaintaince,
+    primarySchoolSelected,
+    altSchools
+  } from '../stores'
   import { settings } from '../settings'
 
   import { Settings, Search } from 'lucide-svelte'
@@ -65,4 +70,4 @@
 {#if $settings.parcipiateMenuSurvey}
   <MenuSurvey />
 {/if}
-<div id="route-main"></div>
+<div id="route-main" />

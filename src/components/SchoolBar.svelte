@@ -16,7 +16,7 @@
         tabindex={$modalOpened ? -1 : 0}
       >
         {#if i == 0}
-          <Flag class="w-4 h-4 inline-block" />
+          <Flag class="inline-block h-4 w-4" />
         {/if}
         {school.name.replace('등학교', '')}
       </button>

@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { primarySchool, primarySchoolSelected, altSchools, openSchoolToast, isNeisUnderMaintaince } from '../../stores'
+  import {
+    primarySchool,
+    primarySchoolSelected,
+    altSchools,
+    openSchoolToast,
+    isNeisUnderMaintaince
+  } from '../../stores'
   import type { School } from '../../stores'
   import { draw, fade, slide } from 'svelte/transition'
   import { Info, BoxSelect, Star } from 'lucide-svelte'
