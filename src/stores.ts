@@ -12,7 +12,7 @@ const defaultSchoolObj: School = {
   name: '',
   city: '',
   school: 0,
-  address: '',
+  address: ''
 }
 const primarySchool: Writable<School> = writable(defaultSchoolObj)
 const primarySchoolSelected: Writable<boolean> = writable(false)
