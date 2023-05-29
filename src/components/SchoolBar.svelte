@@ -3,10 +3,12 @@
   import { modalOpened } from '../a11y'
 
   import { Flag } from 'lucide-svelte'
+
+  $: schools = [$primarySchool, ...$altSchools.filter((s) => s.name != $primarySchool.name)]
 </script>
 
 <ul class="mx-auto mt-10 flex divide-x rounded-full bg-neutral-100">
-  {#each [$primarySchool, ...$altSchools] as school, i}
+  {#each schools as school, i}
     <li
       class="[&:first-child>button]:rounded-l-full [&:first-child>button]:pl-3 [&:last-child>button]:rounded-r-full [&:last-child>button]:pr-3"
     >
