@@ -2,6 +2,8 @@
   import { slide } from 'svelte/transition'
   import { Star } from 'lucide-svelte'
 
+  import { primarySchoolSelected } from '../stores'
+
   export let school: any,
     name: string,
     address: string,
@@ -31,17 +33,19 @@
     >
       기본 학교로 선택
     </a>
-    <button
-      class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 focus:ring-yellow-500 active:bg-yellow-100"
-      on:click={() => {
-        handleFavoriteSchool(school)
-      }}
-    >
-      {#if isFavorite}
-        <Star class="h-6 w-6 fill-yellow-500" />
-      {:else}
-        <Star class="h-6 w-6" />
-      {/if}
-    </button>
+    {#if $primarySchoolSelected}
+      <button
+        class="rounded py-2 px-3 text-yellow-500 hover:bg-yellow-50 focus:ring-yellow-500 active:bg-yellow-100"
+        on:click={() => {
+          handleFavoriteSchool(school)
+        }}
+      >
+        {#if isFavorite}
+          <Star class="h-6 w-6 fill-yellow-500" />
+        {:else}
+          <Star class="h-6 w-6" />
+        {/if}
+      </button>
+    {/if}
   </div>
 </li>
