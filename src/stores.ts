@@ -25,7 +25,14 @@ const notifyRelease = writable(false)
 
 const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
-const date = writable(new Date())
+const date: Writable<Date> = writable(new Date())
+// If it's past 7 PM, set the date to tomorrow
+if (new Date().getHours() >= 19) {
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  tomorrow.setHours(0, 0, 0, 0)
+  date.set(tomorrow)
+}
 
 if (typeof window !== 'undefined') {
   primarySchool.subscribe((value) => {
