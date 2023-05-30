@@ -52,7 +52,9 @@ if (typeof window !== 'undefined') {
 
   // Detect whether the NEIS server is under maintaince
   try {
-    await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
+    async () => {
+      await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
+    }
     isNeisUnderMaintaince.set(false)
   } catch (error) {
     if (navigator.onLine) {
