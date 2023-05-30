@@ -64,7 +64,7 @@
   async function updateMeal() {
     loading = false
     const loadingDebounce = setTimeout(() => {
-      loading = true
+      if ($settings.showMealLoading) loading = true
     }, 200)
     if (!currentSchool.city || !currentSchool.school) return
     if ($isNeisUnderMaintaince) return

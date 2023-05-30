@@ -83,6 +83,15 @@
       />
     </li>
   </ul>
+  <ul class="divide-y overflow-hidden rounded-lg">
+    <li>
+      <MenuSwitch
+        name="급식을 불러올 때 로딩 표시"
+        bind:checked={_settings.showMealLoading}
+        updateChecked={(checked) => (_settings.showMealLoading = checked)}
+      />
+    </li>
+  </ul>
   <ul class="overflow-hidden rounded-lg">
     <li class="bg-white px-5 py-3 text-neutral-400">
       v{version}
