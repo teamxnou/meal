@@ -5,7 +5,8 @@
     isNeisUnderMaintaince,
     primarySchoolSelected,
     altSchools,
-    currentSchoolIndex
+    currentSchoolIndex,
+    date as savedDate
   } from '../stores'
   import { settings } from '../settings'
 
@@ -18,33 +19,9 @@
   import DatePicker from '../components/DatePicker.svelte'
   import MenuSurvey from '../components/MenuSurvey.svelte'
 
-  let date: Date = new Date()
-
   if (typeof window !== 'undefined') {
-    const hash = window.location.hash.slice(1)
-    if (window.location.hash && new Date(hash).toString() !== 'Invalid Date') {
-      date = new Date(hash)
-      goto('/')
-    } else {
-      const savedDate = sessionStorage.getItem('date')
-      if (savedDate) {
-        date = new Date(savedDate)
-      }
-    }
-
     const savedCurrentSchoolIndex = sessionStorage.getItem('currentSchoolIndex') || '0'
     currentSchoolIndex.set(Number(savedCurrentSchoolIndex))
-  }
-
-  $: {
-    if (typeof window !== 'undefined' && date instanceof Date) {
-      sessionStorage.setItem(
-        'date',
-        `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
-          date.getDate()
-        ).padStart(2, '0')}`
-      )
-    }
   }
 </script>
 
@@ -63,14 +40,9 @@
   <SchoolBar />
 {/if}
 {#if typeof window !== 'undefined'}
-  <MealList {date} />
+  <MealList />
 {/if}
-<DatePicker
-  {date}
-  updateDate={(newDate) => {
-    date = newDate
-  }}
-/>
+<DatePicker />
 {#if $settings.parcipiateMenuSurvey}
   <MenuSurvey />
 {/if}

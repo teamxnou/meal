@@ -25,6 +25,8 @@ const notifyRelease = writable(false)
 
 const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
+const date = writable(new Date())
+
 if (typeof window !== 'undefined') {
   primarySchool.subscribe((value) => {
     if (value == defaultSchoolObj || Object.keys(value).length == 0) {
@@ -72,6 +74,7 @@ export {
   currentSchoolIndex,
   openSchoolToast,
   notifyRelease,
-  isNeisUnderMaintaince
+  isNeisUnderMaintaince,
+  date
 }
 export type { School }

@@ -15,6 +15,7 @@
   } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
+  import { date } from '../stores'
 
   import { School2, AlertCircle, ClipboardX, LeafyGreen } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
@@ -23,10 +24,8 @@
   import { getMeal, parseMeal } from '../fetchMeal'
   import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
 
-  export let date: Date
-
-  $: formattedDate = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(
-    date.getDate()
+  $: formattedDate = `${$date.getFullYear()}${String($date.getMonth() + 1).padStart(2, '0')}${String(
+    $date.getDate()
   ).padStart(2, '0')}`
 
   let ariaHidden: boolean
@@ -103,7 +102,7 @@
   })
   $: {
     // To update meal when date changes
-    date
+    $date
     $currentSchoolIndex
     updateMeal()
   }

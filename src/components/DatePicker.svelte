@@ -1,23 +1,22 @@
 <script lang="ts">
   import { fade, slide } from 'svelte/transition'
   import { modalOpened } from '../a11y'
+  import { date } from '../stores'
   import { ChevronLeft, ChevronRight } from 'lucide-svelte'
 
-  export let date: Date, updateDate: (date: Date) => void
+  let tempDate: Date = $date
 
-  let tempDate: Date = date
-
-  $: formattedDate = new Date(date).toLocaleDateString('ko-KR', {
+  $: formattedDate = new Date($date).toLocaleDateString('ko-KR', {
     month: 'long',
     day: 'numeric',
     weekday: 'short'
   })
 
   function changeDate(offset: number) {
-    const newDate = new Date(date)
+    const newDate = new Date($date)
     newDate.setDate(newDate.getDate() + offset)
     tempDate = newDate
-    updateDate(newDate)
+    date.set(newDate)
   }
 
   let ariaHidden: boolean
@@ -60,11 +59,11 @@
   function closeDatepicker() {
     openDatepicker = false
     modalOpened.set(false)
-    updateDate(tempDate)
+    date.set(tempDate)
   }
 
-  let year = date.getFullYear()
-  let month = date.getMonth() + 1
+  let year = $date.getFullYear()
+  let month = $date.getMonth() + 1
   let today = new Date()
   $: daysInMonth = Array.from(Array(new Date(year, month, 0).getDate()).keys()).map((i) => i + 1)
 
@@ -107,7 +106,7 @@
     class:bg-neutral-100={arrowAnimation == 'left'}
     on:click={() => {
       changeDate(-1)
-      tempDate = date
+      tempDate = $date
     }}
     aria-label="어제 급식 보기"
     aria-hidden={ariaHidden}
@@ -120,7 +119,7 @@
     on:click={() => {
       openDatepicker = true
       modalOpened.set(true)
-      tempDate = date
+      tempDate = $date
     }}
     aria-label="날짜 선택. {formattedDate}"
     aria-hidden={ariaHidden}
@@ -133,7 +132,7 @@
     class:bg-neutral-100={arrowAnimation == 'right'}
     on:click={() => {
       changeDate(1)
-      tempDate = date
+      tempDate = $date
     }}
     aria-label="내일 급식 보기"
     aria-hidden={ariaHidden}
@@ -193,7 +192,7 @@
           <li class:active={selectedDayInCurrentMonth == day} class:today={isToday(day)}>
             <button
               on:click={() => {
-                const newDate = new Date(date)
+                const newDate = new Date($date)
                 newDate.setMonth(month - 1)
                 newDate.setDate(day)
                 tempDate = newDate
