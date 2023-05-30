@@ -16,7 +16,7 @@
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
 
-  import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
+  import { School2, AlertCircle, ClipboardX, LeafyGreen } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
@@ -60,7 +60,12 @@
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
+  let loading = false
   async function updateMeal() {
+    loading = false
+    const loadingDebounce = setTimeout(() => {
+      loading = true
+    }, 200)
     if (!currentSchool.city || !currentSchool.school) return
     if ($isNeisUnderMaintaince) return
     let res = await getMeal(currentSchool.city, currentSchool.school, formattedDate)
@@ -74,6 +79,8 @@
     meal = parsedMeal
     error = res.error
     errorCode = res.errorCode
+    loading = false
+    clearTimeout(loadingDebounce)
   }
 
   async function canBeStarred(menu: MenuToken[]): Promise<number> {
@@ -110,7 +117,7 @@
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
 >
-  {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince}
+  {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince && !loading}
     <button
       class="sr-only"
       on:click={() => {
@@ -167,6 +174,10 @@
         </li>
       {/each}
     </ul>
+  {:else if loading}
+    <div class="flex grow justify-center items-center">
+      <LeafyGreen class="w-7 h-7 animate-spin text-neutral-400" />
+    </div>
   {:else if $isNeisUnderMaintaince}
     <div class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50">
       <ServerMaintainceAlert />
