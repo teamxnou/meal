@@ -4,12 +4,14 @@ interface Settings {
   parcipiateMenuSurvey: boolean
   viewMenuSurvey: boolean
   showMealLoading: boolean
+  tomorrowMealAfter7pm: boolean
 }
 
 const defaultSettings: Settings = {
   parcipiateMenuSurvey: true,
   viewMenuSurvey: true,
-  showMealLoading: true
+  showMealLoading: true,
+  tomorrowMealAfter7pm: true
 }
 const settings = writable<Settings>()
 

@@ -91,6 +91,13 @@
         updateChecked={(checked) => (_settings.showMealLoading = checked)}
       />
     </li>
+    <li>
+      <MenuSwitch
+        name="오후 7시 이후 내일 급식 표시"
+        bind:checked={_settings.tomorrowMealAfter7pm}
+        updateChecked={(checked) => (_settings.tomorrowMealAfter7pm = checked)}
+      />
+    </li>
   </ul>
   <ul class="overflow-hidden rounded-lg">
     <li class="bg-white px-5 py-3 text-neutral-400">
