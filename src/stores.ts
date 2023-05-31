@@ -1,5 +1,7 @@
-import { writable } from 'svelte/store'
+import { writable, get } from 'svelte/store'
 import type { Writable } from 'svelte/store'
+
+import { settings } from './settings'
 
 interface School {
   name: string
@@ -26,8 +28,9 @@ const notifyRelease = writable(false)
 const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
 const date: Writable<Date> = writable(new Date())
+
 // If it's past 7 PM, set the date to tomorrow
-if (new Date().getHours() >= 19) {
+if (get(settings).tomorrowMealAfter7pm && new Date().getHours() >= 19) {
   const tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)
   tomorrow.setHours(0, 0, 0, 0)
