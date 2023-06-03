@@ -138,7 +138,7 @@
       </div>
       {#if allergySettingOpened}
         <div class="bg-white px-3 pt-2 pb-3 flex flex-col gap-2">
-          <ul class="flex flex-wrap gap-3" transition:slide>
+          <ul class="flex flex-wrap gap-3" transition:slide|local>
             {#each allergies as name, i}
               <li>
                 <label
