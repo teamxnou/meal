@@ -5,6 +5,7 @@ interface Settings {
   viewMenuSurvey: boolean
   showMealLoading: boolean
   tomorrowMealAfter7pm: boolean
+  shareMeal: boolean
   allergies: boolean[]
 }
 
@@ -13,6 +14,7 @@ const defaultSettings: Settings = {
   viewMenuSurvey: true,
   showMealLoading: true,
   tomorrowMealAfter7pm: true,
+  shareMeal: true,
   allergies: []
 }
 const settings = writable<Settings>()

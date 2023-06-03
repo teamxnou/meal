@@ -123,6 +123,13 @@
         updateChecked={(checked) => (_settings.tomorrowMealAfter7pm = checked)}
       />
     </li>
+    <li>
+      <MenuSwitch
+        name="급식 공유 버튼"
+        bind:checked={_settings.shareMeal}
+        updateChecked={(checked) => (_settings.shareMeal = checked)}
+      />
+    </li>
   </ul>
   <ul class="divide-y overflow-hidden rounded-lg">
     <li class="w-full">
