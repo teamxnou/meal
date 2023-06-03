@@ -23,6 +23,7 @@
 
   import { getMeal, parseMeal } from '../fetchMeal'
   import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
+    import MealShare from './MealShare.svelte'
 
   $: formattedDate = `${$date.getFullYear()}${String($date.getMonth() + 1).padStart(2, '0')}${String(
     $date.getDate()
@@ -213,9 +214,7 @@
         {/each}
       </ul>
       {#if $settings.shareMeal}
-        <button class="rounded-lg hover:bg-green-50 py-1 text-green-500 active:bg-green-100 px-3">
-          급식 공유하기
-        </button>
+        <MealShare />
       {/if}
     </div>
   {:else if loading}
