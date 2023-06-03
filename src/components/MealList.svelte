@@ -82,6 +82,27 @@
     clearTimeout(loadingDebounce)
   }
 
+  let allergies = [
+    '난류',
+    '우유',
+    '메밀',
+    '땅콩',
+    '대두',
+    '밀',
+    '고등어',
+    '게',
+    '새우',
+    '돼지고기',
+    '복숭아',
+    '토마토',
+    '아황산류',
+    '호두',
+    '닭고기',
+    '쇠고기',
+    '오징어',
+    '조개류',
+    '잣'
+  ]
   function findAllergic(allergies: number[]): number[] {
     let allergic: number[] = []
     allergies.forEach((n) => {
@@ -149,35 +170,42 @@
     >
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
-        <li class="flex" class:text-red-500={findAllergic(menu.allergies).length > 0}>
-          {#each menu.name as token}
-            {#if token.infoIndex}
-              <Vegetable
-                infoIndex={token.infoIndex}
-                colors={highlighterColors}
-                tabindex={ariaHidden ? -1 : 0}
-              >
-                {token.string}
-              </Vegetable>
-            {:else}
-              <span>{token.string}</span>
-            {/if}
-          {/each}
-          {#await canBeStarred(menu.name) then canBeStarred}
-            {#if canBeStarred}
-              <span class="ml-2">
-                {#if canBeStarred == 1}
-                  ⭐️
-                {:else if canBeStarred == 2}
-                  🌟
-                {:else if canBeStarred == 3}
-                  💫
-                {:else if canBeStarred == 4}
-                  🌠
-                {/if}
-              </span>
-            {/if}
-          {/await}
+        <li class="flex flex-col items-center">
+          <div class:text-red-500={findAllergic(menu.allergies).length > 0}>
+            {#each menu.name as token}
+              {#if token.infoIndex}
+                <Vegetable
+                  infoIndex={token.infoIndex}
+                  colors={highlighterColors}
+                  tabindex={ariaHidden ? -1 : 0}
+                >
+                  {token.string}
+                </Vegetable>
+              {:else}
+                <span>{token.string}</span>
+              {/if}
+            {/each}
+            {#await canBeStarred(menu.name) then canBeStarred}
+              {#if canBeStarred}
+                <span class="ml-2">
+                  {#if canBeStarred == 1}
+                    ⭐️
+                  {:else if canBeStarred == 2}
+                    🌟
+                  {:else if canBeStarred == 3}
+                    💫
+                  {:else if canBeStarred == 4}
+                    🌠
+                  {/if}
+                </span>
+              {/if}
+            {/await}
+          </div>
+          {#if findAllergic(menu.allergies).length > 0}
+            <p class="text-red-500 text-sm mb-1">
+              {findAllergic(menu.allergies).map((n) => allergies[n - 1]).join(', ')}
+            </p>
+          {/if}
         </li>
       {/each}
     </ul>
