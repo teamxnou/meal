@@ -151,8 +151,9 @@
                 </span>
                 <span
                   class="flex h-10 items-center rounded-r-lg border border-l-0 border-neutral-100 px-3"
-                  >{name}</span
                 >
+                  {name}
+                </span>
               </label>
             </li>
           {/each}
