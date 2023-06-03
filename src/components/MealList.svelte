@@ -82,6 +82,14 @@
     clearTimeout(loadingDebounce)
   }
 
+  function findAllergic(allergies: number[]): number[] {
+    let allergic: number[] = []
+    allergies.forEach((n) => {
+      if ($settings.allergies[n - 1]) allergic.push(n)
+    })
+    return allergic
+  }
+
   async function canBeStarred(menu: MenuToken[]): Promise<number> {
     if (!$settings.viewMenuSurvey) return 0
     let name = menu.map((token) => token.string).join('')
@@ -141,7 +149,7 @@
     >
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
-        <li class="flex">
+        <li class="flex" class:text-red-500={findAllergic(menu.allergies).length > 0}>
           {#each menu.name as token}
             {#if token.infoIndex}
               <Vegetable
