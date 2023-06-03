@@ -62,10 +62,10 @@
   let loading = false
   async function updateMeal() {
     loading = false
+    if (!currentSchool.city || !currentSchool.school) return
     const loadingDebounce = setTimeout(() => {
       if ($settings.showMealLoading) loading = true
     }, 200)
-    if (!currentSchool.city || !currentSchool.school) return
     if ($isNeisUnderMaintaince) return
     let res = await getMeal(currentSchool.city, currentSchool.school, formattedDate)
     let parsedMeal = parseMeal(res.body)
@@ -144,7 +144,7 @@
 <div
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
->
+> 
   {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince && !loading}
     <button
       class="sr-only"
