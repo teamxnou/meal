@@ -51,7 +51,7 @@ export function parseMeal(rawMeal: string[]): Menu[] {
 }
 
 export function removeAllergyInfo(meal: string[]) {
-  return meal.map((menu) => menu.replace(/ +\([0-9. ]+\)/g, ''))
+  return meal.map((menu) => menu.replace(/ *\([0-9. ]+\)/g, ''))
 }
 
 export async function getMeal(
