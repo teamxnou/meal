@@ -168,47 +168,52 @@
       class="sr-only"
       aria-hidden={joinedMeal ? 'false' : 'true'}>{joinedMeal}</span
     >
-    <ul class="flex grow flex-col items-center justify-center text-3xl">
-      {#each meal as menu}
-        <li class="flex flex-col items-center">
-          <div class:text-red-500={findAllergic(menu.allergies).length > 0}>
-            {#each menu.name as token}
-              {#if token.infoIndex}
-                <Vegetable
-                  infoIndex={token.infoIndex}
-                  colors={highlighterColors}
-                  tabindex={ariaHidden ? -1 : 0}
-                >
-                  {token.string}
-                </Vegetable>
-              {:else}
-                <span>{token.string}</span>
-              {/if}
-            {/each}
-            {#await canBeStarred(menu.name) then canBeStarred}
-              {#if canBeStarred}
-                <span class="ml-2">
-                  {#if canBeStarred == 1}
-                    ⭐️
-                  {:else if canBeStarred == 2}
-                    🌟
-                  {:else if canBeStarred == 3}
-                    💫
-                  {:else if canBeStarred == 4}
-                    🌠
-                  {/if}
-                </span>
-              {/if}
-            {/await}
-          </div>
-          {#if findAllergic(menu.allergies).length > 0}
-            <p class="text-red-500 text-sm mb-1">
-              {findAllergic(menu.allergies).map((n) => allergies[n - 1]).join(', ')}
-            </p>
-          {/if}
-        </li>
-      {/each}
-    </ul>
+    <div class="flex flex-col grow justify-center items-center">
+      <ul class="flex grow flex-col items-center justify-center text-3xl">
+        {#each meal as menu}
+          <li class="flex flex-col items-center">
+            <div class:text-red-500={findAllergic(menu.allergies).length > 0}>
+              {#each menu.name as token}
+                {#if token.infoIndex}
+                  <Vegetable
+                    infoIndex={token.infoIndex}
+                    colors={highlighterColors}
+                    tabindex={ariaHidden ? -1 : 0}
+                  >
+                    {token.string}
+                  </Vegetable>
+                {:else}
+                  <span>{token.string}</span>
+                {/if}
+              {/each}
+              {#await canBeStarred(menu.name) then canBeStarred}
+                {#if canBeStarred}
+                  <span class="ml-2">
+                    {#if canBeStarred == 1}
+                      ⭐️
+                    {:else if canBeStarred == 2}
+                      🌟
+                    {:else if canBeStarred == 3}
+                      💫
+                    {:else if canBeStarred == 4}
+                      🌠
+                    {/if}
+                  </span>
+                {/if}
+              {/await}
+            </div>
+            {#if findAllergic(menu.allergies).length > 0}
+              <p class="mb-1 text-sm text-red-500">
+                {findAllergic(menu.allergies)
+                  .map((n) => allergies[n - 1])
+                  .join(', ')}
+              </p>
+            {/if}
+          </li>
+        {/each}
+      </ul>
+      <button class="rounded-lg hover:bg-green-50 py-1 text-green-500 active:bg-green-100 px-3">급식 공유하기</button>
+    </div>
   {:else if loading}
     <div class="flex grow justify-center items-center">
       <LeafyGreen class="w-7 h-7 animate-spin text-neutral-400" />
