@@ -7,6 +7,8 @@
 
   import { logs } from '../../updateLog'
 
+  import { ChevronDown } from 'lucide-svelte'
+
   import MenuBar from '../../components/MenuBar.svelte'
   import MenuSwitch from '../../components/MenuSwitch.svelte'
 
@@ -26,6 +28,29 @@
   const version = import.meta.env.VITE_APP_VERSION
 
   const updateLogs = logs[version]
+
+  let allergySettingOpened = true
+  let allergies = [
+    '난류',
+    '우유',
+    '메밀',
+    '땅콩',
+    '대두',
+    '밀',
+    '고등어',
+    '게',
+    '새우',
+    '돼지고기',
+    '복숭아',
+    '토마토',
+    '아황산류',
+    '호두',
+    '닭고기',
+    '쇠고기',
+    '오징어',
+    '조개류',
+    '잣'
+  ]
 </script>
 
 <MenuBar title="설정" back={true} />
@@ -97,6 +122,42 @@
         bind:checked={_settings.tomorrowMealAfter7pm}
         updateChecked={(checked) => (_settings.tomorrowMealAfter7pm = checked)}
       />
+    </li>
+  </ul>
+  <ul class="divide-y overflow-hidden rounded-lg">
+    <li class="w-full">
+      <div class="w-full">
+        <button
+          class="flex w-full justify-between bg-white px-5 py-3 hover:bg-neutral-50"
+          on:click={() => (allergySettingOpened = !allergySettingOpened)}
+          aria-labelledby="allergy-setting"
+        >
+          <span id="allergy-setting">알레르기 설정</span>
+          <ChevronDown class="h-6 w-6 text-neutral-400" />
+        </button>
+      </div>
+      {#if allergySettingOpened}
+        <ul class="flex flex-wrap gap-3 bg-white pt-2 pb-3 px-3" transition:slide>
+          {#each allergies as name, i}
+            <li>
+              <label
+                class="flex cursor-pointer items-center justify-center rounded-lg hover:bg-neutral-50"
+              >
+                <input type="checkbox" class="hidden peer" bind:checked={_settings.allergies[i]} />
+                <span
+                  class="flex h-10 w-10 items-center justify-center rounded-l-lg bg-neutral-100 text-lg font-semibold peer-checked:bg-green-500 peer-checked:text-white transition duration-150"
+                >
+                  {i + 1}
+                </span>
+                <span
+                  class="flex h-10 items-center rounded-r-lg border border-l-0 border-neutral-100 px-3"
+                  >{name}</span
+                >
+              </label>
+            </li>
+          {/each}
+        </ul>
+      {/if}
     </li>
   </ul>
   <ul class="overflow-hidden rounded-lg">
