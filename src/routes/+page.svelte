@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { goto } from '$app/navigation'
   import {
     notifyRelease,
-    isNeisUnderMaintaince,
     primarySchoolSelected,
     altSchools,
     currentSchoolIndex,
-    date as savedDate
   } from '../stores'
   import { settings } from '../settings'
 

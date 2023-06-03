@@ -137,7 +137,7 @@
         </button>
       </div>
       {#if allergySettingOpened}
-        <div class="bg-white px-3 pt-2 pb-3 flex flex-col gap-2">
+        <div class="flex flex-col gap-2 bg-white px-3 pt-2 pb-3">
           <ul class="flex flex-wrap gap-3" transition:slide|local>
             {#each allergies as name, i}
               <li>
@@ -164,12 +164,21 @@
             {/each}
           </ul>
           <div class="flex justify-end gap-1">
-            <button class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100" on:click={() => {
-              _settings.allergies = Array(allergies.length).fill(true)
-            }}>모두 선택</button>
-            <button class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100" on:click={() => {
-              _settings.allergies = Array(allergies.length).fill(false)
-            }}>모두 선택 해제</button>
+            <button
+              class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
+              on:click={() => {
+                _settings.allergies = Array(allergies.length).fill(true)
+              }}>
+              모두 선택
+            </button>
+            <button
+              class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
+              on:click={() => {
+                _settings.allergies = Array(allergies.length).fill(false)
+              }}
+            >
+              모두 선택 해제
+            </button>
           </div>
         </div>
       {/if}

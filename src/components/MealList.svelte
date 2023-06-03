@@ -24,9 +24,10 @@
   import { getMeal, parseMeal } from '../fetchMeal'
   import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
 
-  $: formattedDate = `${$date.getFullYear()}${String($date.getMonth() + 1).padStart(2, '0')}${String(
-    $date.getDate()
-  ).padStart(2, '0')}`
+  $: formattedDate = `${$date.getFullYear()}${String($date.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}${String($date.getDate()).padStart(2, '0')}`
 
   let ariaHidden: boolean
   modalOpened.subscribe((value) => {
@@ -144,7 +145,7 @@
 <div
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
-> 
+>
   {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince && !loading}
     <button
       class="sr-only"
@@ -202,16 +203,18 @@
             {/await}
           </div>
           {#if findAllergic(menu.allergies).length > 0}
-            <p class="text-red-500 text-sm mb-1">
-              {findAllergic(menu.allergies).map((n) => allergies[n - 1]).join(', ')}
+            <p class="mb-1 text-sm text-red-500">
+              {findAllergic(menu.allergies)
+                .map((n) => allergies[n - 1])
+                .join(', ')}
             </p>
           {/if}
         </li>
       {/each}
     </ul>
   {:else if loading}
-    <div class="flex grow justify-center items-center">
-      <LeafyGreen class="w-7 h-7 animate-spin text-neutral-400" />
+    <div class="flex grow items-center justify-center">
+      <LeafyGreen class="h-7 w-7 animate-spin text-neutral-400" />
     </div>
   {:else if $isNeisUnderMaintaince}
     <div class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50">

@@ -212,7 +212,7 @@
         >
           오늘
         </button>
-        <button on:click={closeDatepicker}> 확인 </button>
+        <button on:click={closeDatepicker}>확인</button>
       </div>
     </div>
   </div>
