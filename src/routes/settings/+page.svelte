@@ -29,7 +29,7 @@
 
   const updateLogs = logs[version]
 
-  let allergySettingOpened = true
+  let allergySettingOpened = false
   let allergies = [
     '난류',
     '우유',
