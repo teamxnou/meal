@@ -137,27 +137,41 @@
         </button>
       </div>
       {#if allergySettingOpened}
-        <ul class="flex flex-wrap gap-3 bg-white pt-2 pb-3 px-3" transition:slide>
-          {#each allergies as name, i}
-            <li>
-              <label
-                class="flex cursor-pointer items-center justify-center rounded-lg hover:bg-neutral-50"
-              >
-                <input type="checkbox" class="hidden peer" bind:checked={_settings.allergies[i]} />
-                <span
-                  class="flex h-10 w-10 items-center justify-center rounded-l-lg bg-neutral-100 text-lg font-semibold peer-checked:bg-green-500 peer-checked:text-white transition duration-150"
+        <div class="bg-white px-3 pt-2 pb-3 flex flex-col gap-2">
+          <ul class="flex flex-wrap gap-3" transition:slide>
+            {#each allergies as name, i}
+              <li>
+                <label
+                  class="flex cursor-pointer items-center justify-center rounded-lg hover:bg-neutral-50"
                 >
-                  {i + 1}
-                </span>
-                <span
-                  class="flex h-10 items-center rounded-r-lg border border-l-0 border-neutral-100 px-3"
-                >
-                  {name}
-                </span>
-              </label>
-            </li>
-          {/each}
-        </ul>
+                  <input
+                    type="checkbox"
+                    class="peer hidden"
+                    bind:checked={_settings.allergies[i]}
+                  />
+                  <span
+                    class="flex h-10 w-10 items-center justify-center rounded-l-lg bg-neutral-100 text-lg font-semibold transition duration-150 peer-checked:bg-green-500 peer-checked:text-white"
+                  >
+                    {i + 1}
+                  </span>
+                  <span
+                    class="flex h-10 items-center rounded-r-lg border border-l-0 border-neutral-100 px-3"
+                  >
+                    {name}
+                  </span>
+                </label>
+              </li>
+            {/each}
+          </ul>
+          <div class="flex justify-end gap-1">
+            <button class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100" on:click={() => {
+              _settings.allergies = Array(allergies.length).fill(true)
+            }}>모두 선택</button>
+            <button class="rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100" on:click={() => {
+              _settings.allergies = Array(allergies.length).fill(false)
+            }}>모두 선택 해제</button>
+          </div>
+        </div>
       {/if}
     </li>
   </ul>
