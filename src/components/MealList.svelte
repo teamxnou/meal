@@ -212,7 +212,11 @@
           </li>
         {/each}
       </ul>
-      <button class="rounded-lg hover:bg-green-50 py-1 text-green-500 active:bg-green-100 px-3">급식 공유하기</button>
+      {#if $settings.shareMeal}
+        <button class="rounded-lg hover:bg-green-50 py-1 text-green-500 active:bg-green-100 px-3">
+          급식 공유하기
+        </button>
+      {/if}
     </div>
   {:else if loading}
     <div class="flex grow justify-center items-center">
