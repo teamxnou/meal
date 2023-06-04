@@ -1,10 +1,12 @@
 <script lang="ts">
   import { slide } from 'svelte/transition'
+
+  import type { School } from '../stores'
   import { modalOpened } from '../a11y'
 
   import { FileType, Link2, X } from 'lucide-svelte'
 
-  export let meal: string[]
+  export let meal: string[], currentSchool: School
 
   let shareOptions = false
   function toggleShareOptions() {
@@ -36,7 +38,7 @@
         <Link2 class="h-6 w-6" />
       </button>
       <button
-        class="rounded-r-lg p-2 ring-inset focus:ring-offset-0 hover:bg-neutral-200 active:bg-neutral-300 bg-neutral-100"
+        class="rounded-r-lg bg-neutral-100 p-2 ring-inset hover:bg-neutral-200 focus:ring-offset-0 active:bg-neutral-300"
         on:click={() => {
           toggleShareOptions()
         }}

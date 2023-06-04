@@ -216,7 +216,7 @@
         {/each}
       </ul>
       {#if $settings.shareMeal}
-        <MealShare meal={rawMeal} />
+        <MealShare meal={rawMeal} currentSchool={currentSchool} />
       {/if}
     </div>
   {:else if loading}
