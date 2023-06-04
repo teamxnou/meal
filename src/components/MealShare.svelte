@@ -4,6 +4,8 @@
 
   import { FileType, Link2, X } from 'lucide-svelte'
 
+  export let meal: string[]
+
   let shareOptions = false
   function toggleShareOptions() {
     shareOptions = !shareOptions

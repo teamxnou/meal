@@ -21,7 +21,7 @@
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
-  import { getMeal, parseMeal } from '../fetchMeal'
+  import { getMeal, parseMeal, removeAllergyInfo } from '../fetchMeal'
   import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
     import MealShare from './MealShare.svelte'
 
@@ -59,6 +59,7 @@
 
   let error: boolean = false
   let errorCode: number = 0
+  let rawMeal: string[] = []
   let meal: Menu[] = []
   let loading = false
   async function updateMeal() {
@@ -69,6 +70,7 @@
     }, 200)
     if ($isNeisUnderMaintaince) return
     let res = await getMeal(currentSchool.city, currentSchool.school, formattedDate)
+    rawMeal = removeAllergyInfo(res.body)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
       const { data } = await getSurveyData(
@@ -214,7 +216,7 @@
         {/each}
       </ul>
       {#if $settings.shareMeal}
-        <MealShare />
+        <MealShare meal={rawMeal} />
       {/if}
     </div>
   {:else if loading}
