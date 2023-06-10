@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from '$app/stores'
 
-  import { AlertCircle, ChevronLeft, ChevronRight } from 'lucide-svelte'
+  import { AlertCircle, ChevronLeft, ChevronRight, Info } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -74,7 +74,14 @@
         </button>
       </div>
       <div class="h-32 rounded-t-lg bg-white p-5">
-        <h1 class="text-2xl font-semibold">{vegetable.name}</h1>
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-semibold">{vegetable.name}</h1>
+          <button
+            class="rounded p-2 text-green-500 hover:bg-green-50 focus:ring-green-500 active:bg-green-100"
+          >
+            <Info class="h-7 w-7" />
+          </button>
+        </div>
         <p>{vegetable.description}</p>
       </div>
     </div>
