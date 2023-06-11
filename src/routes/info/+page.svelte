@@ -128,31 +128,30 @@
         on:keydown={(e) => {
           if (e.key == 'Escape') sourceOpened = false
         }}
+      />
+      <div
+        class="absolute top-1/2 left-1/2 z-50 w-2/3 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-xl bg-white p-5 shadow-lg"
+        transition:fly={{ y: 100 }}
       >
-        <div
-          class="absolute top-1/2 left-1/2 w-2/3 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-xl bg-white p-5 shadow-lg"
-          transition:fly={{ y: 100 }}
-        >
-          <div class="flex items-center justify-between">
-            <h1 class="ml-1 text-[20px] font-semibold">출처</h1>
-            <button
-              class="mr-1 rounded hover:bg-black/5 active:bg-black/10"
-              on:click={() => (sourceOpened = false)}
-            >
-              <X class="h-7 w-7" />
-            </button>
-          </div>
-          <ul class="mt-2 flex flex-col divide-y">
-            {#each vegetable.source as source}
-              <li class="py-2 pl-2 flex gap-3 items-center">
-                <div style="color: {colors[source]}">
-                  <svelte:component this={icons[source]} size="1.3rem" />
-                </div>
-                {source}
-              </li>
-            {/each}
-          </ul>
+        <div class="flex items-center justify-between">
+          <h1 class="ml-1 text-[20px] font-semibold">출처</h1>
+          <button
+            class="mr-1 rounded hover:bg-black/5 active:bg-black/10"
+            on:click={() => (sourceOpened = false)}
+          >
+            <X class="h-7 w-7" />
+          </button>
         </div>
+        <ul class="mt-2 flex flex-col divide-y">
+          {#each vegetable.source as source}
+            <li class="flex items-center gap-3 py-2 pl-2">
+              <div style="color: {colors[source]}">
+                <svelte:component this={icons[source]} size="1.3rem" />
+              </div>
+              {source}
+            </li>
+          {/each}
+        </ul>
       </div>
     {/if}
   {:else}
