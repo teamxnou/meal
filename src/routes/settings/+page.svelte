@@ -82,7 +82,7 @@
         <button
           class="w-full rounded-xl bg-purple-500 py-3 text-xl font-medium text-white hover:bg-purple-600 focus:ring-purple-600"
           on:click={() => {
-            $notifyRelease = false
+            notifyRelease.set(false)
             localStorage.setItem('lastUsedBigRelease', version)
           }}
         >

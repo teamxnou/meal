@@ -23,7 +23,7 @@ const currentSchoolIndex = writable(0)
 const openSchoolToast = writable(false)
 
 const lastBigRelease = import.meta.env.VITE_LAST_BIG_RELEASE
-const notifyRelease = writable(false)
+const notifyRelease: Writable<boolean | null> = writable(null)
 
 const isNeisUnderMaintaince: Writable<undefined | boolean> = writable(undefined)
 
@@ -54,10 +54,6 @@ if (typeof window !== 'undefined') {
   const lastUsedBigRelease = localStorage.getItem('lastUsedBigRelease') || ''
   if (lastUsedBigRelease === '') localStorage.setItem('lastUsedBigRelease', lastBigRelease)
   if (lastBigRelease != lastUsedBigRelease) notifyRelease.set(true)
-  notifyRelease.subscribe((value) => {
-    if (!value) return
-    localStorage.setItem('lastUsedBigRelease', lastBigRelease)
-  })
 
   primarySchool.set(JSON.parse(localStorage.getItem('primarySchool') || '{}') || defaultSchoolObj)
   altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '[]'))
