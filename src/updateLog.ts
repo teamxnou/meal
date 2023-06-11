@@ -1,5 +1,5 @@
 import type { SvelteComponent } from 'svelte'
-import { Accessibility, Wifi, Sparkles, Grab } from 'lucide-svelte'
+import { Accessibility, Wifi, Sparkles, Grab, CopyPlus, EggOff, ServerCrash, Image } from 'lucide-svelte'
 
 interface Feature {
   Icon: typeof SvelteComponent
@@ -30,6 +30,28 @@ export const logs: Record<string, Feature[]> = {
       Icon: Grab,
       title: '쓸어서 날짜 이동',
       description: '급식 화면에서 화면을 가로로 쓸면 이전/다음날로 이동할 수 있어요.'
+    }
+  ],
+  '2.0.0': [
+    {
+      Icon: CopyPlus,
+      title: '여러 학교 선택',
+      description: '여러 학교를 선택해 빠르게 다른 학교의 급식을 확인할 수 있어요. 친구 학교도 등록해보세요!'
+    },
+    {
+      Icon: EggOff,
+      title: '알레르기 알림',
+      description: '알레르기를 설정하고 메뉴에 알레르기가 포함되면 알려드려요.'
+    },
+    {
+      Icon: ServerCrash,
+      title: '급식 서버 점검 알림',
+      description: '급식 서버가 점검 중일 때는 오류를 표시하는 대신 점검 중이라고 알려드려요.'
+    },
+    {
+      Icon: Image,
+      title: '재료 사진 출처',
+      description: '이제 재료 사진의 출처를 볼 수 있어요. 재료 이름 오른쪽 ⓘ를 눌러보세요!'
     }
   ]
 }
