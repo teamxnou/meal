@@ -1,7 +1,8 @@
 <script lang="ts">
+  import { fade, fly } from 'svelte/transition'
   import { page } from '$app/stores'
 
-  import { AlertCircle, ChevronLeft, ChevronRight, Info } from 'lucide-svelte'
+  import { AlertCircle, ChevronLeft, ChevronRight, Info, X } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -29,6 +30,8 @@
       }
     }, 50)
   }
+
+  let sourceOpened = false
 </script>
 
 <div class="flex max-h-screen grow flex-col" class:bg-neutral-300={isIdValid}>
@@ -78,6 +81,7 @@
           <h1 class="text-2xl font-semibold">{vegetable.name}</h1>
           <button
             class="rounded p-2 text-green-500 hover:bg-green-50 focus:ring-green-500 active:bg-green-100"
+            on:click={() => (sourceOpened = !sourceOpened)}
           >
             <Info class="h-7 w-7" />
           </button>
@@ -85,6 +89,38 @@
         <p>{vegetable.description}</p>
       </div>
     </div>
+    {#if sourceOpened}
+      <div
+        class="absolute top-0 left-0 z-50 h-screen w-screen bg-black/30"
+        transition:fade={{ duration: 200 }}
+        on:click={() => (sourceOpened = false)}
+        on:keydown={(e) => {
+          if (e.key == 'Escape') sourceOpened = false
+        }}
+      >
+        <div
+          class="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 max-w-sm -translate-y-1/2 transform rounded-xl bg-white p-5 shadow-lg"
+          transition:fly={{ y: 100 }}
+        >
+          <div class="flex items-center justify-between">
+            <h1 class="ml-1 text-[20px] font-semibold">출처</h1>
+            <button
+              class="mr-1 rounded hover:bg-black/5 active:bg-black/10"
+              on:click={() => (sourceOpened = false)}
+            >
+              <X class="h-7 w-7" />
+            </button>
+          </div>
+          <ul class="mt-2 flex flex-col divide-y">
+            {#each vegetable.source as source}
+              <li class="py-2 pl-2">
+                {source}
+              </li>
+            {/each}
+          </ul>
+        </div>
+      </div>
+    {/if}
   {:else}
     <div class="flex flex-grow flex-col items-center justify-center">
       <SimpleInfo
