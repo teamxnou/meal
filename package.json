@@ -33,6 +33,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@icons-pack/svelte-simple-icons": "^3.0.0",
     "@supabase/supabase-js": "^2.21.0",
     "@vercel/analytics": "^1.0.0",
     "lucide-svelte": "^0.221.0"
