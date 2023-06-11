@@ -147,7 +147,6 @@
     transition:fade={{ duration: 200 }}
     on:click={closeDatepicker}
     on:keypress={(e) => {
-      console.log(e.key)
       if (e.key === 'Escape') {
         closeDatepicker()
       }
