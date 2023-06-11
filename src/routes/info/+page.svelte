@@ -2,7 +2,18 @@
   import { fade, fly } from 'svelte/transition'
   import { page } from '$app/stores'
 
-  import { AlertCircle, ChevronLeft, ChevronRight, Info, X } from 'lucide-svelte'
+  import {
+    AlertCircle,
+    ChevronLeft,
+    ChevronRight,
+    Info,
+    X,
+    School2,
+    HelpCircle,
+    Focus
+  } from 'lucide-svelte'
+  // @ts-expect-error - There is no type definition for this package.
+  import { Wikimediacommons, Unsplash, Pexels } from '@icons-pack/svelte-simple-icons'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
@@ -32,6 +43,26 @@
   }
 
   let sourceOpened = false
+
+  const icons = {
+    '위키미디어 공용': Wikimediacommons,
+    언스플래시: Unsplash,
+    펙셀스: Pexels,
+    '자체 촬영': Focus,
+    국원초등학교: School2,
+    예성초등학교: School2,
+    Freepik: HelpCircle
+  }
+
+  const colors = {
+    '위키미디어 공용': '#006699',
+    언스플래시: '#000000',
+    펙셀스: '#05a081',
+    '자체 촬영': '#9b59b6',
+    국원초등학교: '#e74c3c',
+    예성초등학교: '#e74c3c',
+    Freepik: '#0974ec'
+  }
 </script>
 
 <div class="flex max-h-screen grow flex-col" class:bg-neutral-300={isIdValid}>
@@ -99,7 +130,7 @@
         }}
       >
         <div
-          class="absolute top-1/2 left-1/2 w-2/3 -translate-x-1/2 max-w-sm -translate-y-1/2 transform rounded-xl bg-white p-5 shadow-lg"
+          class="absolute top-1/2 left-1/2 w-2/3 max-w-sm -translate-x-1/2 -translate-y-1/2 transform rounded-xl bg-white p-5 shadow-lg"
           transition:fly={{ y: 100 }}
         >
           <div class="flex items-center justify-between">
@@ -113,7 +144,10 @@
           </div>
           <ul class="mt-2 flex flex-col divide-y">
             {#each vegetable.source as source}
-              <li class="py-2 pl-2">
+              <li class="py-2 pl-2 flex gap-3 items-center">
+                <div style="color: {colors[source]}">
+                  <svelte:component this={icons[source]} size="1.3rem" />
+                </div>
                 {source}
               </li>
             {/each}
