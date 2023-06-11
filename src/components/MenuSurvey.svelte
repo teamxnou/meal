@@ -6,19 +6,10 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { fade, fly } from 'svelte/transition'
-  import { selectedCity, selectedSchool } from '../stores'
+  import { primarySchool } from '../stores'
   import { modalOpened } from '../a11y'
 
   import { getMeal, removeAllergyInfo } from '../fetchMeal'
-
-  let schoolCode: number
-  selectedSchool.subscribe((value) => {
-    schoolCode = value
-  })
-  let cityCode: string
-  selectedCity.subscribe((value) => {
-    cityCode = value
-  })
 
   let yesterday = new Date()
   yesterday.setDate(yesterday.getDate() - 1)
@@ -36,8 +27,8 @@
   let error = false
 
   async function fetchYesterdayMeal() {
-    if (!schoolCode || !cityCode) return
-    let mealResponse = await getMeal(cityCode, schoolCode, formattedDate)
+    if (!$primarySchool.city || !$primarySchool.school) return
+    let mealResponse = await getMeal($primarySchool.city, $primarySchool.school, formattedDate)
     if (mealResponse.error) {
       error = true
       return

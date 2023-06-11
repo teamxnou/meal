@@ -18,7 +18,7 @@ interface Response {
 }
 
 export function parseMeal(rawMeal: string[]): Menu[] {
-  const regex = /(.*) \((.*)\)/
+  const regex = /(.*) *\((.*)\)/
   const meal = rawMeal.map((menu) => {
     const match = menu.match(regex)
     let stringMenuName = match?.[1] || menu
@@ -51,7 +51,7 @@ export function parseMeal(rawMeal: string[]): Menu[] {
 }
 
 export function removeAllergyInfo(meal: string[]) {
-  return meal.map((menu) => menu.replace(/ +\([0-9. ]+\)/g, ''))
+  return meal.map((menu) => menu.replace(/ *\([0-9. ]+\)/g, ''))
 }
 
 export async function getMeal(
@@ -70,9 +70,9 @@ export async function getMeal(
   const json = await res.json()
 
   if (json.mealServiceDietInfo) {
-    meal = removeAllergyInfo(
-      json.mealServiceDietInfo[1].row[0].DDISH_NM.split(/<br\/>|&/g)
-    ).map(cleanMenu).filter(Boolean)
+    meal = json.mealServiceDietInfo[1].row[0].DDISH_NM.split(/<br\/>|&/g)
+      .map(cleanMenu)
+      .filter(Boolean)
     error = false
     errorCode = 0
   } else {
@@ -84,9 +84,10 @@ export async function getMeal(
 }
 
 export function cleanMenu(menu: string): string {
+  const menuWithoutAllergy = removeAllergyInfo([menu])[0]
   // 우유
-  if (menu.match(/^ *(급식|강화|우유)?\(?(우유)?(급식)?\)? *$/g)) return ''
+  if (menuWithoutAllergy.match(/^ *(급식|강화|우유)?\(?(우유)?(급식)?\)? *$/g)) return ''
   // 흰죽 (환아용)
-  if (menu.match(/^ *흰죽 *\(환아용\) *$/g)) return ''
-  return menu.replace(/[^가-힣()]/g, '')
+  if (menuWithoutAllergy.match(/^ *흰죽 *\(환아용\) *$/g)) return ''
+  return menu.replace(/[^가-힣(0-9.)]/g, '')
 }

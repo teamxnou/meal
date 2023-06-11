@@ -3,11 +3,17 @@ import { writable } from 'svelte/store'
 interface Settings {
   parcipiateMenuSurvey: boolean
   viewMenuSurvey: boolean
+  showMealLoading: boolean
+  tomorrowMealAfter7pm: boolean
+  allergies: boolean[]
 }
 
 const defaultSettings: Settings = {
   parcipiateMenuSurvey: true,
-  viewMenuSurvey: true
+  viewMenuSurvey: true,
+  showMealLoading: true,
+  tomorrowMealAfter7pm: true,
+  allergies: []
 }
 const settings = writable<Settings>()
 

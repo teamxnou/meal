@@ -6,32 +6,28 @@
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   import { onMount } from 'svelte'
-  import { selectedCity, selectedSchool } from '../stores'
+  import {
+    primarySchool,
+    primarySchoolSelected,
+    altSchools,
+    currentSchoolIndex,
+    isNeisUnderMaintaince
+  } from '../stores'
   import { modalOpened } from '../a11y'
   import { settings } from '../settings'
+  import { date } from '../stores'
 
-  import { School2, AlertCircle, ClipboardX } from 'lucide-svelte'
+  import { School2, AlertCircle, ClipboardX, LeafyGreen } from 'lucide-svelte'
   import SimpleInfo from './SimpleInfo.svelte'
   import Vegetable from './Vegetable.svelte'
 
   import { getMeal, parseMeal } from '../fetchMeal'
+  import ServerMaintainceAlert from './ServerMaintainceAlert.svelte'
 
-  export let date: Date
-
-  $: formattedDate = `${date.getFullYear()}${String(date.getMonth() + 1).padStart(2, '0')}${String(
-    date.getDate()
-  ).padStart(2, '0')}`
-
-  let schoolCode: number
-  selectedSchool.subscribe((value) => {
-    schoolCode = value
-  })
-  let cityCode: string
-  selectedCity.subscribe((value) => {
-    cityCode = value
-  })
-
-  $: isSchoolSelected = schoolCode && cityCode
+  $: formattedDate = `${$date.getFullYear()}${String($date.getMonth() + 1).padStart(
+    2,
+    '0'
+  )}${String($date.getDate()).padStart(2, '0')}`
 
   let ariaHidden: boolean
   modalOpened.subscribe((value) => {
@@ -58,12 +54,21 @@
     return await supabase.from('menus').select('name, total_survey, total_votes').or(orStatement)
   }
 
+  $: schools = [$primarySchool, ...$altSchools.filter((s) => s.name != $primarySchool.name)]
+  $: currentSchool = schools[$currentSchoolIndex]
+
   let error: boolean = false
   let errorCode: number = 0
   let meal: Menu[] = []
+  let loading = false
   async function updateMeal() {
-    if (!schoolCode || !cityCode) return
-    let res = await getMeal(cityCode, schoolCode, formattedDate)
+    loading = false
+    if (!currentSchool.city || !currentSchool.school) return
+    const loadingDebounce = setTimeout(() => {
+      if ($settings.showMealLoading) loading = true
+    }, 200)
+    if ($isNeisUnderMaintaince) return
+    let res = await getMeal(currentSchool.city, currentSchool.school, formattedDate)
     let parsedMeal = parseMeal(res.body)
     if (!res.error) {
       const { data } = await getSurveyData(
@@ -74,6 +79,37 @@
     meal = parsedMeal
     error = res.error
     errorCode = res.errorCode
+    loading = false
+    clearTimeout(loadingDebounce)
+  }
+
+  let allergies = [
+    '난류',
+    '우유',
+    '메밀',
+    '땅콩',
+    '대두',
+    '밀',
+    '고등어',
+    '게',
+    '새우',
+    '돼지고기',
+    '복숭아',
+    '토마토',
+    '아황산류',
+    '호두',
+    '닭고기',
+    '쇠고기',
+    '오징어',
+    '조개류',
+    '잣'
+  ]
+  function findAllergic(allergies: number[]): number[] {
+    let allergic: number[] = []
+    allergies.forEach((n) => {
+      if ($settings.allergies[n - 1]) allergic.push(n)
+    })
+    return allergic
   }
 
   async function canBeStarred(menu: MenuToken[]): Promise<number> {
@@ -96,7 +132,8 @@
   })
   $: {
     // To update meal when date changes
-    date
+    $date
+    $currentSchoolIndex
     updateMeal()
   }
 
@@ -109,7 +146,7 @@
   class="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 transform px-5 pb-5"
   aria-hidden={ariaHidden}
 >
-  {#if !error && isSchoolSelected && meal.length > 0}
+  {#if !error && $primarySchoolSelected && meal.length > 0 && !$isNeisUnderMaintaince && !loading}
     <button
       class="sr-only"
       on:click={() => {
@@ -134,39 +171,56 @@
     >
     <ul class="flex grow flex-col items-center justify-center text-3xl">
       {#each meal as menu}
-        <li class="flex">
-          {#each menu.name as token}
-            {#if token.infoIndex}
-              <Vegetable
-                infoIndex={token.infoIndex}
-                colors={highlighterColors}
-                tabindex={ariaHidden ? -1 : 0}
-              >
-                {token.string}
-              </Vegetable>
-            {:else}
-              <span>{token.string}</span>
-            {/if}
-          {/each}
-          {#await canBeStarred(menu.name) then canBeStarred}
-            {#if canBeStarred}
-              <span class="ml-2">
-                {#if canBeStarred == 1}
-                  ⭐️
-                {:else if canBeStarred == 2}
-                  🌟
-                {:else if canBeStarred == 3}
-                  💫
-                {:else if canBeStarred == 4}
-                  🌠
-                {/if}
-              </span>
-            {/if}
-          {/await}
+        <li class="flex flex-col items-center">
+          <div class:text-red-500={findAllergic(menu.allergies).length > 0}>
+            {#each menu.name as token}
+              {#if token.infoIndex}
+                <Vegetable
+                  infoIndex={token.infoIndex}
+                  colors={highlighterColors}
+                  tabindex={ariaHidden ? -1 : 0}
+                >
+                  {token.string}
+                </Vegetable>
+              {:else}
+                <span>{token.string}</span>
+              {/if}
+            {/each}
+            {#await canBeStarred(menu.name) then canBeStarred}
+              {#if canBeStarred}
+                <span class="ml-2">
+                  {#if canBeStarred == 1}
+                    ⭐️
+                  {:else if canBeStarred == 2}
+                    🌟
+                  {:else if canBeStarred == 3}
+                    💫
+                  {:else if canBeStarred == 4}
+                    🌠
+                  {/if}
+                </span>
+              {/if}
+            {/await}
+          </div>
+          {#if findAllergic(menu.allergies).length > 0}
+            <p class="mb-1 text-sm text-red-500">
+              {findAllergic(menu.allergies)
+                .map((n) => allergies[n - 1])
+                .join(', ')}
+            </p>
+          {/if}
         </li>
       {/each}
     </ul>
-  {:else if !isSchoolSelected}
+  {:else if loading}
+    <div class="flex grow items-center justify-center">
+      <LeafyGreen class="h-7 w-7 animate-spin text-neutral-400" />
+    </div>
+  {:else if $isNeisUnderMaintaince}
+    <div class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50">
+      <ServerMaintainceAlert />
+    </div>
+  {:else if !$primarySchoolSelected}
     <div class="flex grow flex-col items-center justify-center gap-5">
       <SimpleInfo
         Icon={School2}

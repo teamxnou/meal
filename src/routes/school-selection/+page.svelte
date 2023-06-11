@@ -1,12 +1,21 @@
 <script lang="ts">
-  import { selectedCity, selectedSchool, selectedSchoolName, openSchoolToast } from '../../stores'
-  import { draw, fade } from 'svelte/transition'
-  import { Info, BoxSelect } from 'lucide-svelte'
+  import {
+    primarySchool,
+    primarySchoolSelected,
+    altSchools,
+    openSchoolToast,
+    isNeisUnderMaintaince
+  } from '../../stores'
+  import type { School } from '../../stores'
+  import { draw, fade, slide } from 'svelte/transition'
+  import { Info, BoxSelect, Star } from 'lucide-svelte'
 
   import MenuBar from '../../components/MenuBar.svelte'
   import SimpleInfo from '../../components/SimpleInfo.svelte'
+  import ServerMaintainceAlert from '../../components/ServerMaintainceAlert.svelte'
+  import SchoolCard from '../../components/SchoolCard.svelte'
 
-  interface School {
+  interface SearchedSchool {
     ATPT_OFCDC_SC_CODE: string
     ATPT_OFCDC_SC_NM: string
     SD_SCHUL_CODE: string
@@ -34,13 +43,8 @@
     LOAD_DTM: string
   }
 
-  let currentSchoolName: string
-  selectedSchoolName.subscribe((value) => {
-    currentSchoolName = value
-  })
-
   let searched = false
-  let searchedSchools: School[] = []
+  let searchedSchools: SearchedSchool[] = []
 
   let loadingAnimationReady = false
   setTimeout(() => {
@@ -48,6 +52,7 @@
   }, 0)
 
   let debounceTimer: any
+  let currentQuery: string = ''
   function handleQueryChange(query: string) {
     clearTimeout(debounceTimer)
     debounceTimer = setTimeout(() => {
@@ -64,18 +69,46 @@
           }
           searchedSchools = res.schoolInfo[1].row
           searched = true
+          currentQuery = query
         })
     }, 800)
   }
 
+  function toSchoolType(school: SearchedSchool): School {
+    return {
+      name: school.SCHUL_NM,
+      city: school.ATPT_OFCDC_SC_CODE,
+      school: parseInt(school.SD_SCHUL_CODE),
+      address: school.ORG_RDNMA
+    }
+  }
+
   function selectSchool(school: School) {
-    selectedCity.set(school.ATPT_OFCDC_SC_CODE)
-    selectedSchool.set(parseInt(school.SD_SCHUL_CODE))
-    selectedSchoolName.set(school.SCHUL_NM)
+    primarySchool.set(school)
     openSchoolToast.set(true)
     setTimeout(() => {
       openSchoolToast.set(false)
     }, 2000)
+  }
+
+  function altIncludes(arr: any[], item: any) {
+    let result = false
+    arr.forEach((i) => {
+      if (JSON.stringify(i) == JSON.stringify(item)) {
+        result = true
+      }
+    })
+    return result
+  }
+
+  function handleFavoriteSchool(school: School) {
+    if (altIncludes($altSchools, school)) {
+      altSchools.update((schools) =>
+        schools.filter((s) => JSON.stringify(s) != JSON.stringify(school))
+      )
+    } else {
+      altSchools.update((schools) => [...schools, school])
+    }
   }
 </script>
 
@@ -83,46 +116,54 @@
   title="학교 선택"
   back={true}
   search={true}
-  searchPlaceholder="초등학교 검색"
+  searchDisabled={$isNeisUnderMaintaince}
+  searchPlaceholder={$isNeisUnderMaintaince
+    ? '점검 중에는 학교를 검색할 수 없어요'
+    : '초등학교 검색'}
   queryChange={handleQueryChange}
 />
 <div class="flex h-full grow flex-col gap-3 bg-neutral-100 p-4">
   <div class="flex items-center gap-1 rounded-full bg-white p-2 pl-3">
     <Info class="h-5 w-5" />
-    {#if currentSchoolName}
-      <p>현재 선택된 학교는 <b class="font-semibold">{currentSchoolName}</b>에요.</p>
+    {#if $primarySchoolSelected}
+      <p>현재 선택된 학교는 <b class="font-semibold">{$primarySchool.name}</b>에요.</p>
     {:else}
       <p>현재 선택된 학교가 없어요.</p>
     {/if}
   </div>
   {#if searchedSchools.length}
+    {#if currentQuery == '' && $altSchools.length != 0}
+      <div class="flex flex-col gap-3" transition:slide|local>
+        <span class="text-sm font-medium text-neutral-400">즐겨찾기</span>
+        <ul
+          class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+        >
+          {#each $altSchools as school}
+            <SchoolCard
+              {school}
+              isFavorite={altIncludes($altSchools, school)}
+              {selectSchool}
+              {handleFavoriteSchool}
+            />
+          {/each}
+        </ul>
+        <span class="text-sm font-medium text-neutral-400">모든 학교</span>
+      </div>
+    {/if}
     <ul
       class="flex flex-col items-start gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
     >
       {#each searchedSchools as school}
-        <li class="flex w-full flex-col items-start overflow-clip rounded-lg bg-white">
-          <span class="mx-5 mt-4 text-sm font-medium text-neutral-400" aria-hidden="true">
-            {school.ORG_RDNMA}
-          </span>
-          <h2
-            class="max-w-full truncate px-5 text-2xl font-semibold"
-            aria-label="{school.SCHUL_NM}. 주소: {school.ORG_RDNMA}"
-          >
-            {school.SCHUL_NM}
-          </h2>
-          <div class="grow" />
-          <a
-            href="/"
-            class="mx-2 mt-3 mb-2 rounded py-2 px-3 text-green-500 hover:bg-green-50 active:bg-green-100"
-            on:click={() => selectSchool(school)}
-            aria-label="{school.SCHUL_NM}로 선택"
-            role="button"
-          >
-            이 학교로 선택
-          </a>
-        </li>
+        <SchoolCard
+          school={toSchoolType(school)}
+          isFavorite={altIncludes($altSchools, toSchoolType(school))}
+          {selectSchool}
+          handleFavoriteSchool={() => handleFavoriteSchool(toSchoolType(school))}
+        />
       {/each}
     </ul>
+  {:else if $isNeisUnderMaintaince}
+    <ServerMaintainceAlert />
   {:else if !searched}
     <div class="flex grow items-center justify-center">
       {#if loadingAnimationReady}
