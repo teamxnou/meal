@@ -279,14 +279,14 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '두부',
     images: [
-      'https://vegan.rocks/blog/soybeans/feature_huda2adae895bb956b3ffe7ee6903e93c7_211659_1200x1200_fill_q100_box_smart1.jpg',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Japanese_tofu_001.jpg/640px-Japanese_tofu_001.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/8/8c/Dubu-jorim.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Mapo_Tofu_%288840681150%29.jpg/640px-Mapo_Tofu_%288840681150%29.jpg'
     ],
-    source: ['vegan.rocks', '위키미디어 공용'],
+    source: ['Freepik', '위키미디어 공용'],
     thumbnail: 3,
     description: '단백질이 많아 면역력을 높여준다.'
   },
@@ -541,13 +541,13 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '순두부',
     images: [
-      'https://vegan.rocks/blog/soybeans/feature_huda2adae895bb956b3ffe7ee6903e93c7_211659_1200x1200_fill_q100_box_smart1.jpg',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Sun-dubu_8.jpg/640px-Sun-dubu_8.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Korean_stew-Sundubu_jjigae-05.jpg/640px-Korean_stew-Sundubu_jjigae-05.jpg'
     ],
-    source: ['vegan.rocks', '위키미디어 공용'],
+    source: ['Freepik', '위키미디어 공용'],
     thumbnail: 3,
     description:
       '순두부는 눌러서 굳히지 않은 상태의 두부로, 연두부보다 무르다. 단백질이 많아 면역력을 높여준다. 또한 식감이 부드러워 소화에 좋으며, 변비를 예방해준다.'
@@ -606,12 +606,12 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '연두부',
     images: [
-      'https://vegan.rocks/blog/soybeans/feature_huda2adae895bb956b3ffe7ee6903e93c7_211659_1200x1200_fill_q100_box_smart1.jpg',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Hiyayakko3.jpg/640px-Hiyayakko3.jpg'
     ],
-    source: ['vegan.rocks', '위키미디어 공용'],
+    source: ['Freepik', '위키미디어 공용'],
     thumbnail: 3,
     description:
       '연두부는 물을 어느 정도 남긴 채 틀에 넣고 굳힌 두부이다. 단백질이 많아 면역력을 높여준다. 또한 식감이 부드러워 소화에 좋으며, 변비를 예방해준다.'
@@ -758,12 +758,12 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '콩나물',
     images: [
-      'https://vegan.rocks/blog/soybeans/feature_huda2adae895bb956b3ffe7ee6903e93c7_211659_1200x1200_fill_q100_box_smart1.jpg',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/-2022-01-12_Bean_sprouts%2C_Trimingham%2C_Norfolk.JPG/640px--2022-01-12_Bean_sprouts%2C_Trimingham%2C_Norfolk.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Kongnamul-muchim.jpg/640px-Kongnamul-muchim.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Kongnamul-haejang-guk.jpg/640px-Kongnamul-haejang-guk.jpg'
     ],
-    source: ['vegan.rocks', '위키미디어 공용'],
+    source: ['Freepik', '위키미디어 공용'],
     thumbnail: 1,
     description:
       '콩나물은 그늘에서 콩을 발아시켜 뿌리를 성장시킨 식품으로, 주로 대두를 쓴다. 면역력을 높이며 피부 건강과 변비에 좋다.'
