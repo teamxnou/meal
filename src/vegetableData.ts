@@ -279,7 +279,7 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '두부',
     images: [
-      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Japanese_tofu_001.jpg/640px-Japanese_tofu_001.jpg',
@@ -541,7 +541,7 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '순두부',
     images: [
-      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Sun-dubu_8.jpg/640px-Sun-dubu_8.jpg',
@@ -606,7 +606,7 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '연두부',
     images: [
-      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/5/5a/Sun-dubu_5.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/7/78/Making_tofu.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Hiyayakko3.jpg/640px-Hiyayakko3.jpg'
@@ -758,7 +758,7 @@ const vegetableData: Array<Vegetable> = [
   {
     name: '콩나물',
     images: [
-      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg?w=1480&t=st=1686471029~exp=1686471629~hmac=abca8d3bf0e654262101c1c8780aab98858782b931dab68e81623c6abf4c7eb6',
+      'https://img.freepik.com/free-photo/soybean-sauce-soybean-wooden-floor-soy-sauce-food-nutrition-concept_1150-26321.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/-2022-01-12_Bean_sprouts%2C_Trimingham%2C_Norfolk.JPG/640px--2022-01-12_Bean_sprouts%2C_Trimingham%2C_Norfolk.JPG',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Kongnamul-muchim.jpg/640px-Kongnamul-muchim.jpg',
       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Kongnamul-haejang-guk.jpg/640px-Kongnamul-haejang-guk.jpg'
