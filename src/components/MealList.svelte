@@ -212,13 +212,13 @@
         </li>
       {/each}
     </ul>
-  {:else if loading}
-    <div class="flex grow items-center justify-center">
-      <LeafyGreen class="h-7 w-7 animate-spin text-neutral-400" />
-    </div>
   {:else if $isNeisUnderMaintaince}
     <div class="mx-auto flex max-w-xs grow rounded-xl bg-neutral-50">
       <ServerMaintainceAlert />
+    </div>
+  {:else if loading}
+    <div class="flex grow items-center justify-center">
+      <LeafyGreen class="h-7 w-7 animate-spin text-neutral-400" />
     </div>
   {:else if !$primarySchoolSelected}
     <div class="flex grow flex-col items-center justify-center gap-5">

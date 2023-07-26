@@ -59,18 +59,18 @@ if (typeof window !== 'undefined') {
   altSchools.set(JSON.parse(localStorage.getItem('altSchools') || '[]'))
 
   // Detect whether the NEIS server is under maintaince
-  try {
-    async () => {
+  ;(async () => {
+    try {
       await fetch('https://open.neis.go.kr/hub/mealServiceDietInfo')
-    }
-    isNeisUnderMaintaince.set(false)
-  } catch (error) {
-    if (navigator.onLine) {
-      isNeisUnderMaintaince.set(true)
-    } else {
       isNeisUnderMaintaince.set(false)
+    } catch (error) {
+      if (navigator.onLine) {
+        isNeisUnderMaintaince.set(true)
+      } else {
+        isNeisUnderMaintaince.set(false)
+      }
     }
-  }
+  })()
 }
 
 export {
